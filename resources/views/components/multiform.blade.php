@@ -13,7 +13,7 @@
         'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'> 
 	</script> 
 
-    <link rel="stylesheet" href="{{ asset('css/multi.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/multi.css') }}"> --}}
 
     <style>
         .step-container {
@@ -97,6 +97,52 @@
             $(".progress-bar").css("width", progressPercentage + "%");
             }
         });
+
+        var subjectObject = {
+            "Dhaka": {
+                "Mirpur": ["Mirpur TSO", "Kafrul"],
+                "Paltan": ["New Paltan", "Old Pantan"],
+                "Gulshan": ["Gulshan 1", "Gulshan 2"]    
+            },
+            "Rajshahi": {
+                "Sadar": ["RCC"],
+                "Puthia": ["Puthia"]
+            },
+            "Natore": {
+                "Gurudaspur": ["Hat Gurudaspur", "Sabgari", "Khubjipur"],
+                "Sadar": ["Sadar"]
+            },
+            "Barishal": {
+                "Gouronodi": ["Gouronodi"],
+                "Sadar": ["Sadar"]
+            }
+        }
+        window.onload = function() {
+            var subjectSel = document.getElementById("district");
+            var topicSel = document.getElementById("thana");
+            var chapterSel = document.getElementById("postoffice");
+            for (var x in subjectObject) {
+                subjectSel.options[subjectSel.options.length] = new Option(x, x);
+            }
+            subjectSel.onchange = function() {
+                //empty Chapters- and Topics- dropdowns
+                chapterSel.length = 1;
+                topicSel.length = 1;
+                //display correct values
+                for (var y in subjectObject[this.value]) {
+                topicSel.options[topicSel.options.length] = new Option(y, y);
+                }
+            }
+            topicSel.onchange = function() {
+                //empty Chapters dropdown
+                chapterSel.length = 1;
+                //display correct values
+                var z = subjectObject[subjectSel.value][this.value];
+                for (var i = 0; i < z.length; i++) {
+                chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+                }
+            }
+        }
     </script>
 
 	{{-- <link rel="stylesheet" href="multi.css">  --}}
@@ -123,54 +169,48 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm">
-                            <label for="field1" class="form-label">District</label>
+                            <label for="district" class="form-label">District</label>
             
                             <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
-                                class="form-select form-select-solid form-select-sm border border-secondary">
-                                <option value="">Select a Country Code</option>
-                                <option value="Accounting/Finance" class="text-primary">
-                                Accounting/Finance</option>
-                                <option value="Education/Training" class="text-primary">
-                                    Education/Training</option>
-                                <option value="IT/Telecommunication" class="text-primary">
-                                    IT/Telecommunication</option>
+                                class="form-select form-select-solid form-select-sm border border-secondary" id="district">
+                                <option value="select" selected="selected">Select a District</option>
                             </select>
                         </div>
                         <div class="col-sm">
                             <label for="field1" class="form-label">Thana/Upazila</label>
             
-                            <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
-                                class="form-select form-select-solid form-select-sm border border-secondary">
-                                <option value="">Select a Country Code</option>
-                                <option value="Accounting/Finance" class="text-primary">
-                                Accounting/Finance</option>
-                                <option value="Education/Training" class="text-primary">
-                                    Education/Training</option>
-                                <option value="IT/Telecommunication" class="text-primary">
-                                    IT/Telecommunication</option>
+                            <select name="thana" aria-label="Select thana" data-control="select2" data-placeholder="Select your thana.." 
+                                class="form-select form-select-solid form-select-sm border border-secondary" id="thana">
+                                <option value="select">Select Thana/Upazila</option>
+                                <option value="Gurudaspur" class="text-primary">
+                                    Gurudaspur</option>
+                                <option value="Mirpur" class="text-primary">
+                                    Mirpur</option>
+                                <option value="Khilgaon" class="text-primary">
+                                    Khilgaon</option>
                             </select>
                         </div>
                         <div class="col-sm">
-                            <label for="field1" class="form-label">Post Office</label>
+                            <label for="postoffice" class="form-label">Post Office</label>
             
-                            <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
-                                class="form-select form-select-solid form-select-sm border border-secondary">
-                                <option value="">Select a Country Code</option>
-                                <option value="Accounting/Finance" class="text-primary">
-                                Accounting/Finance</option>
-                                <option value="Education/Training" class="text-primary">
-                                    Education/Training</option>
-                                <option value="IT/Telecommunication" class="text-primary">
-                                    IT/Telecommunication</option>
+                            <select name="postoffice" aria-label="Select post office" data-control="select2" data-placeholder="Select your post office.." 
+                                class="form-select form-select-solid form-select-sm border border-secondary" id="postoffice">
+                                <option value="select">Select Post office</option>
+                                <option value="Sabgari" class="text-primary">
+                                    Sabgari</option>
+                                <option value="Mirpur TSO" class="text-primary">
+                                    Mirpur TSO</option>
+                                <option value="Aftabnagor" class="text-primary">
+                                    Aftabnagor</option>
                             </select>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm">
-                            <label for="field1" class="form-label">House No./Road/Village</label>
+                            <label for="houseno" class="form-label">House No./Road/Village</label>
             
-                            <input type="text" class="form-control" id="field2" name="houseNo" placeholder="House No./Road/Village">
+                            <input type="text" class="form-control" id="houseNo" name="houseno" placeholder="House No./Road/Village">
                         </div>
                     </div>
 
@@ -181,7 +221,7 @@
                             <i class="bi bi-question-circle-fill fw-bold text-dark align-item-end"></i>
                             <br>
                             <br>
-                            <input type="text" class="form-control" id="field2" name="houseNo" placeholder="House No./Road/Village">
+                            <input type="text" class="form-control" id="altphone" name="altphone" placeholder="House No./Road/Village">
                         </div>
                     </div>
                 </div>
@@ -201,41 +241,40 @@
                     <div class="row">
                         <div class="col-4">
                             <h5>Day</h5>
-                            <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
+                            <select name="day" aria-label="Select a day" data-control="select2" data-placeholder="Date" 
                                 class="form-select form-select-solid form-select-lg border border-secondary">
-                                <option value="">Select a Country Code</option>
-                                <option value="Accounting/Finance" class="text-primary">
-                                Accounting/Finance</option>
-                                <option value="Education/Training" class="text-primary">
-                                    Education/Training</option>
-                                <option value="IT/Telecommunication" class="text-primary">
-                                    IT/Telecommunication</option>
+                                <option value="select">Select Date</option>
+                                <option value="1" class="text-primary">
+                                1</option>
+                                <option value="2" class="text-primary">
+                                    2</option>
+                                <option value="3" class="text-primary">
+                                    3</option>
+                                <option value="4" class="text-primary">
+                                    4</option>
                             </select>
                         </div>
                         <div class="col-4">
                             <h5>Month</h5>
-                            <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
+                            <select name="month" aria-label="Select Month" data-control="select2" data-placeholder="Select Month" 
                                 class="form-select form-select-solid form-select-lg border border-secondary">
-                                <option value="">Select a Country Code</option>
-                                <option value="Accounting/Finance" class="text-primary">
-                                Accounting/Finance</option>
-                                <option value="Education/Training" class="text-primary">
-                                    Education/Training</option>
-                                <option value="IT/Telecommunication" class="text-primary">
-                                    IT/Telecommunication</option>
+                                <option value="month">Select Month</option>
+                                <option value="January" class="text-primary">January</option>
+                                <option value="February" class="text-primary">February</option>
+                                <option value="March" class="text-primary">March</option>
                             </select>
                         </div>
                         <div class="col-4">
                             <h5>Year</h5>
-                            <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
+                            <select name="year" aria-label="Select year" data-control="select6" data-placeholder="Select Year.." 
                                 class="form-select form-select-solid form-select-lg border border-secondary">
-                                <option value="">Select a Country Code</option>
-                                <option value="Accounting/Finance" class="text-primary">
-                                Accounting/Finance</option>
-                                <option value="Education/Training" class="text-primary">
-                                    Education/Training</option>
-                                <option value="IT/Telecommunication" class="text-primary">
-                                    IT/Telecommunication</option>
+                                <option value="year">Select year</option>
+                                <option value="2024" class="text-primary">
+                                    2024</option>
+                                <option value="2023" class="text-primary">
+                                    2023</option>
+                                <option value="2025" class="text-primary">
+                                    2025</option>
                             </select>
                         </div>
                     </div>
@@ -256,9 +295,9 @@
                         <div class="col-sm">
                             <label for="field1" class="form-label">Select Job Category</label>
 
-                            <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
+                            <select name="jobcategory" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select Job category.." 
                                 class="form-select form-select-solid form-select-lg border border-secondary">
-                                <option value="">Select a Country Code</option>
+                                <option value="jobcategory">Select a Job Category</option>
                                 <option value="Accounting/Finance" class="text-primary">
                                 Accounting/Finance</option>
                                 <option value="Education/Training" class="text-primary">
@@ -274,28 +313,43 @@
                         <div class="col-sm">
                             <label for="field1" class="form-label">Select Work Type</label>
 
-                            <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
-                                class="form-select form-select-solid form-select-lg border border-secondary">
-                                <option value="">Select a Country Code</option>
-                                <option value="Accounting/Finance" class="text-primary">
-                                Accounting/Finance</option>
-                                <option value="Education/Training" class="text-primary">
-                                    Education/Training</option>
-                                <option value="IT/Telecommunication" class="text-primary">
-                                    IT/Telecommunication</option>
+                            {{-- <select name="worktype" aria-label="Select Work Type" data-control="select2" data-placeholder="Select Work Type.." 
+                                class="form-select form-select-solid form-select-lg border border-secondary" id="worktype">
+                                <option value="">Select Work Type</option>
+                                <option value="C++" class="text-primary">
+                                C++</option>
+                                <option value="Laravel" class="text-primary">
+                                    Laravel</option>
+                                <option value="Spring Boot" class="text-primary">
+                                    Spring Boot</option>
+                            </select> --}}
+                            <div id="selectedValues"></div><br><br>
+                            <select name="worktype" aria-label="Select Work Type" onchange="updateSelectedValues(this)" 
+                                data-control="select2" data-placeholder="Select Work Type.." 
+                                class="form-select form-select-solid form-select-lg border border-secondary" id="worktype">
+                                <option value="">Select Work Type</option>
+                                <option value="C++" class="text-primary">
+                                C++</option>
+                                <option value="Laravel" class="text-primary">
+                                    Laravel</option>
+                                <option value="Spring Boot" class="text-primary">
+                                    Spring Boot</option>
                             </select>
+
+
+
                         </div>                        
                     </div>
                     <br><br>
                     <div class="row">
                         <div class="col-sm">
                             <label for="field1" class="form-label">Do you have any experience?</label><br><br>
-                            <input class="form-check-input" onclick="showInputField()" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                            <input class="form-check-input" onclick="showInputField()" type="radio" name="exp" id="flexRadioDefault1" checked>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Yes
                             </label>
 
-                            <input class="form-check-input" onclick="hideInputField()" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
+                            <input class="form-check-input" onclick="hideInputField()" type="radio" name="exp" id="flexRadioDefault2" >
                             <label class="form-check-label" for="flexRadioDefault2">
                                 No
                             </label>
@@ -304,22 +358,22 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Company Name</label>
-                                        <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                        <input type="text" placeholder="Company Name" name="companyname" autocomplete="off" class="form-control bg-transparent"/>
                                     </div>  
                                     <div class="col-sm">
-                                        <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Designation</label>
-                                        <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                        <label for="designation" class="text-gray-700 fw-semibold fs-20">Latest Designation</label>
+                                        <input type="text" placeholder="designation" name="designation" autocomplete="off" class="form-control bg-transparent"/>
                                     </div>                       
                                 </div>
                                 <br><br>
                                 <div class="row">
                                     <div class="col-sm">
                                         <label for="name" class="text-gray-700 fw-semibold fs-20">Employment Periood</label>
-                                        <input type="date" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                        <input type="date" placeholder="Start Date" name="workstart" autocomplete="off" class="form-control bg-transparent"/>
                                     </div>  
                                     <div class="col-sm">
                                         <label for="name" class="text-gray-700 fw-semibold fs-20"></label>
-                                        <input type="date" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                        <input type="date" placeholder="Last Date" name="workend" autocomplete="off" class="form-control bg-transparent"/>
                                     </div>                       
                                 </div>
                             </div>
@@ -340,37 +394,37 @@
                 <h4>Description of Institutional Education</h4>
                 <div class="row">
                     <div class="col-sm">
-                        <label for="field1" class="form-label">Do you have any experience?</label><br><br>
-                        <input class="form-check-input" onclick="showInputField()" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                        <label class="form-check-label" for="flexRadioDefault1">
+                        <label for="field1" class="form-label">Do you have any Academic Education?</label><br><br>
+                        <input class="form-check-input" onclick="showInputFieldEdu()" type="radio" name="job" id="flexRadioDefaultEdu1" checked>
+                        <label class="form-check-label" for="flexRadioDefaultEdu1">
                             Yes
                         </label>
 
-                        <input class="form-check-input" onclick="hideInputField()" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
-                        <label class="form-check-label" for="flexRadioDefault2">
+                        <input class="form-check-input" onclick="hideInputFieldEdu()" type="radio" name="job" id="flexRadioDefaultEdu2" >
+                        <label class="form-check-label" for="flexRadioDefaultEdu2">
                             No
                         </label>
                         <br><br>
-                        <div id="inputFieldContainer" style="display: block;">
+                        <div id="inputFieldContainerEdu" style="display: block;">
                             <div class="row">
                                 <div class="col-sm">
-                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Company Name</label>
-                                    <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Education</label>
+                                    <input type="text" placeholder="Education" name="education" autocomplete="off" class="form-control bg-transparent"/>
                                 </div>  
                                 <div class="col-sm">
-                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Designation</label>
-                                    <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Institute</label>
+                                    <input type="text" placeholder="Latest Institute" name="institute" autocomplete="off" class="form-control bg-transparent"/>
                                 </div>                       
                             </div>
                             <br><br>
                             <div class="row">
                                 <div class="col-sm">
-                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Employment Periood</label>
-                                    <input type="date" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Educational Periood</label>
+                                    <input type="date" placeholder="Educational Start" name="educationstart" autocomplete="off" class="form-control bg-transparent"/>
                                 </div>  
                                 <div class="col-sm">
                                     <label for="name" class="text-gray-700 fw-semibold fs-20"></label>
-                                    <input type="date" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                    <input type="date" placeholder="Educational End" name="educationend" autocomplete="off" class="form-control bg-transparent"/>
                                 </div>                       
                             </div>
                         </div>
@@ -420,7 +474,7 @@
                 <br>
                 <br>
                 <button type="button" class="btn btn-primary prev-step">Previous</button>
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success" onclick="submitForm()">Submit</button>
             </div>
         </form>
     </div>
@@ -433,8 +487,102 @@
         function hideInputField() {
             document.getElementById('inputFieldContainer').style.display = 'none';
         }
+
+        function showInputFieldEdu() {
+            document.getElementById('inputFieldContainerEdu').style.display = 'block';
+        }
+    
+        function hideInputFieldEdu() {
+            document.getElementById('inputFieldContainerEdu').style.display = 'none';
+        }
+
+        // Array to store selected values
+    var selectedValues = [];
+    var checkboxLabels = ["Self", "Job", "Training", "University", "NTVQF"];
+
+    function updateSelectedValues(dropdown) {
+        // Get the selected value
+        var selectedValue = dropdown.value;
+        
+        // Display the selected value and remove button on a new line
+        var selectedValuesDiv = document.getElementById("selectedValues");
+        var selectedValueContainer = document.createElement("div");
+        selectedValueContainer.className = "selectedValueContainer";
+        var valueDiv = document.createElement("h3");
+        valueDiv.innerHTML = selectedValue;
+
+        // Create checkboxes
+        var checkboxContainer = document.createElement("div");
+        checkboxContainer.className = "form-group d-inline-block";
+        var checkboxes = {};
+        for (var i = 0; i < checkboxLabels.length; i++) {
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className = "form-check-input border border-dark border-2";
+            checkbox.id = "checkbox" + i;
+            checkboxes[checkboxLabels[i].toLowerCase()] = false; // Initialize all checkboxes as false
+            checkbox.addEventListener('change', function() {
+                checkboxes[this.id.replace('checkbox', '').toLowerCase()] = this.checked;
+            });
+            var checkboxLabel = document.createElement("label");
+            checkboxLabel.className = "form-check-label mr-3 text-dark";
+            checkboxLabel.setAttribute("for", "checkbox" + i);
+            checkboxLabel.innerHTML = checkboxLabels[i];
+            var checkboxWrapper = document.createElement("div");
+            checkboxWrapper.className = "form-check form-check-inline";
+            checkboxWrapper.appendChild(checkbox);
+            checkboxWrapper.appendChild(checkboxLabel);
+            checkboxContainer.appendChild(checkboxWrapper);
+        }
+
+        // Create a remove button for the value
+        var removeBtn = document.createElement("button");
+        removeBtn.innerHTML = "Remove";
+        removeBtn.className = "btn btn-danger";
+        removeBtn.onclick = function () {
+            // Remove the value from the array
+            var index = selectedValues.findIndex(obj => obj.value === selectedValue);
+            if (index !== -1) {
+                selectedValues.splice(index, 1);
+            }
+            // Remove the value and the remove button from the displayed values
+            selectedValuesDiv.removeChild(selectedValueContainer);
+        };
+
+        // Append the value, checkboxes, and remove button to the selected values div
+        selectedValueContainer.appendChild(valueDiv);
+        selectedValueContainer.appendChild(checkboxContainer);
+        selectedValueContainer.appendChild(removeBtn);
+        selectedValuesDiv.appendChild(selectedValueContainer);
+
+        // Store the selected value and checkbox states in the array
+        selectedValues.push({
+            value: selectedValue,
+            ...checkboxes
+        });
+
+        // Clear the dropdown
+        dropdown.selectedIndex = 0;
+
+        // Print the selected values array (for demonstration purposes)
+        console.log(selectedValues);
+    }
+
+    function submitForm() {
+        // Serialize the array and store it in a hidden input field
+        var serializedValues = JSON.stringify(selectedValues);
+        var hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'selected_values';
+        hiddenInput.value = serializedValues;
+        document.getElementById('multi-step-form').appendChild(hiddenInput);
+
+        // Submit the form
+        document.getElementById("multi-step-form").submit();
+    }
+        
     </script>
 </body> 
-<script src="{{ asset('js/multi.js') }}"></script> 
+{{-- <script src="{{ asset('js/multi.js') }}"></script>  --}}
 
 </html> 
