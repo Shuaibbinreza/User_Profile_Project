@@ -115,7 +115,8 @@
             <div class="step-circle" onclick="displayStep(5)">5</div>
         </div>
 
-        <form id="multi-step-form">
+        <form id="multi-step-form" action="/submit-form" method="POST">
+            @csrf
             <div class="step step-1">
             <!-- Step 1 form fields here -->
                 <h3>Your Present Address</h3><br>
@@ -247,38 +248,192 @@
 
             <div class="step step-3">
                 <!-- Step 3 form fields here -->
-                <h3>Step 3</h3>
-                <div class="mb-3">
-                <label for="field2" class="form-label">Field 2:</label>
-                <input type="text" class="form-control" id="field2" name="field2">
+                <h3>Select Your Job Type</h3>
+                <br>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <label for="field1" class="form-label">Select Job Category</label>
+
+                            <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
+                                class="form-select form-select-solid form-select-lg border border-secondary">
+                                <option value="">Select a Country Code</option>
+                                <option value="Accounting/Finance" class="text-primary">
+                                Accounting/Finance</option>
+                                <option value="Education/Training" class="text-primary">
+                                    Education/Training</option>
+                                <option value="IT/Telecommunication" class="text-primary">
+                                    IT/Telecommunication</option>
+                            </select>
+                        </div>                        
+                    </div>
+                    <br><br>
+
+                    <div class="row bg-secondary p-5 pb-10">
+                        <div class="col-sm">
+                            <label for="field1" class="form-label">Select Work Type</label>
+
+                            <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
+                                class="form-select form-select-solid form-select-lg border border-secondary">
+                                <option value="">Select a Country Code</option>
+                                <option value="Accounting/Finance" class="text-primary">
+                                Accounting/Finance</option>
+                                <option value="Education/Training" class="text-primary">
+                                    Education/Training</option>
+                                <option value="IT/Telecommunication" class="text-primary">
+                                    IT/Telecommunication</option>
+                            </select>
+                        </div>                        
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label for="field1" class="form-label">Do you have any experience?</label><br><br>
+                            <input class="form-check-input" onclick="showInputField()" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Yes
+                            </label>
+
+                            <input class="form-check-input" onclick="hideInputField()" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                No
+                            </label>
+                            <br><br>
+                            <div id="inputFieldContainer" style="display: block;">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Company Name</label>
+                                        <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                    </div>  
+                                    <div class="col-sm">
+                                        <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Designation</label>
+                                        <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                    </div>                       
+                                </div>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <label for="name" class="text-gray-700 fw-semibold fs-20">Employment Periood</label>
+                                        <input type="date" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                    </div>  
+                                    <div class="col-sm">
+                                        <label for="name" class="text-gray-700 fw-semibold fs-20"></label>
+                                        <input type="date" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                    </div>                       
+                                </div>
+                            </div>
+                            <br><br>
+                            <button type="button" class="btn btn-primary prev-step">Previous</button>
+                            <button type="button" class="btn btn-primary next-step">Next</button>
+                        </div>                        
+                    </div>
+                    <br>
+                    {{-- <x-job_exp_radio/> --}}
                 </div>
-                <button type="button" class="btn btn-primary prev-step">Previous</button>
-                <button type="button" class="btn btn-primary next-step">Next</button>
             </div>
 
             <div class="step step-4">
                 <!-- Step 4 form fields here -->
-                <h3>Step 4</h3>
-                <div class="mb-3">
-                <label for="field2" class="form-label">Field 2:</label>
-                <input type="text" class="form-control" id="field2" name="field2">
+                <h1>Educational Qualifications</h1>
+                <br><br>
+                <h4>Description of Institutional Education</h4>
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="field1" class="form-label">Do you have any experience?</label><br><br>
+                        <input class="form-check-input" onclick="showInputField()" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Yes
+                        </label>
+
+                        <input class="form-check-input" onclick="hideInputField()" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            No
+                        </label>
+                        <br><br>
+                        <div id="inputFieldContainer" style="display: block;">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Company Name</label>
+                                    <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                </div>  
+                                <div class="col-sm">
+                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Designation</label>
+                                    <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                </div>                       
+                            </div>
+                            <br><br>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Employment Periood</label>
+                                    <input type="date" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                </div>  
+                                <div class="col-sm">
+                                    <label for="name" class="text-gray-700 fw-semibold fs-20"></label>
+                                    <input type="date" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+                                </div>                       
+                            </div>
+                        </div>
+                        <br><br>
+                    </div>                        
                 </div>
                 <button type="button" class="btn btn-primary prev-step">Previous</button>
                 <button type="button" class="btn btn-primary next-step">Next</button>
             </div>
 
             <div class="step step-5">
-            <!-- Step 5 form fields here -->
+                <!-- Step 5 form fields here -->
                 <h3>Step 5</h3>
-                <div class="mb-3">
-                    <label for="field3" class="form-label">Field 3:</label>
-                    <input type="text" class="form-control" id="field3" name="field3">
+                <div class="image-input image-input-outline align-item-center" data-kt-image-input="true" style="background-image: url('assets/media/svg/avatars/blank.svg')">
+                    <!--begin::Preview existing avatar-->
+                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/300-1.jpg)"></div>
+                    <!--end::Preview existing avatar-->
+                    <!--begin::Label-->
+                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                        <i class="ki-duotone ki-pencil fs-7">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                        <!--begin::Inputs-->
+                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                        <input type="hidden" name="avatar_remove" />
+                        <!--end::Inputs-->
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Cancel-->
+                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                        <i class="ki-duotone ki-cross fs-2">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </span>
+                    <!--end::Cancel-->
+                    <!--begin::Remove-->
+                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                        <i class="ki-duotone ki-cross fs-2">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </span>
+                    <!--end::Remove-->
                 </div>
+                <br>
+                <br>
                 <button type="button" class="btn btn-primary prev-step">Previous</button>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>
         </form>
     </div>
+
+    <script>
+        function showInputField() {
+            document.getElementById('inputFieldContainer').style.display = 'block';
+        }
+    
+        function hideInputField() {
+            document.getElementById('inputFieldContainer').style.display = 'none';
+        }
+    </script>
 </body> 
 <script src="{{ asset('js/multi.js') }}"></script> 
 

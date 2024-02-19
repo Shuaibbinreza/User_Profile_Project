@@ -99,4 +99,13 @@ class AuthController extends Controller
     public function registerP2(){
         return view('pages.auth.register_phase2');
     }
+
+    public function formSubmit(Request $request){
+        // Retrieve the valuesArray from the request
+        $valuesArray = json_decode($request->input('valuesArray'), true);
+
+        // Dump and die the array
+        // dd($valuesArray);
+        dd($request->all());
+    }
 }
