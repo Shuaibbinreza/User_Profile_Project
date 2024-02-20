@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function($table) {
-            $table->string('expertise')->nullable()->after('address');
-            $table->string('about')->nullable()->after('name');
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -22,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function($table) {
-            $table->dropColumn('expertise');
-        });
+        Schema::dropIfExists('addresses');
     }
 };

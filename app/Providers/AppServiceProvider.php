@@ -15,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('global_string', function () {
+            return 'fffff';
+        });
     }
 
     /**
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
         Builder::defaultStringLength(191);
 
         KTBootstrap::init();
+        // view()->share("time", date("Y-m-d H:i:s"));
     }
 }

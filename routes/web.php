@@ -30,13 +30,15 @@ Route::get('forgot-controller', [PasswordResetLinkController::class,'create'])->
 Route::get('profile-details', [AuthController::class,'profileDetails'])->name('profile-details');
 Route::get('profile-edit', [AuthController::class,'profileEdit'])->name('profile-edit');
 
+Route::post('/submit-form1', [AuthController::class, 'formSubmit1'])->name('submit-form1');
+
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/', [DashboardController::class, 'index']);
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/register-p2', [AuthController::class, 'registerP2'])->name('register-p2');
-    Route::post('/submit-form', [AuthController::class, 'formSubmit'])->name('submit-form');
+    Route::post('/submit-form', [AuthController::class, 'formSubmit'])->name('submit.store');
 
     Route::name('user-management.')->group(function () {
         Route::resource('/user-management/users', UserManagementController::class);

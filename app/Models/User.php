@@ -26,8 +26,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'phone',
-        'address',
-        'image',
+        'phone_country_code',
+        'gender',
+        'user_main_skill',
         'last_login_at',
         'last_login_ip',
     ];
@@ -59,5 +60,13 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         return $this->profile_photo_path;
+    }
+
+    public function address(){
+        return $this->hasOne(Addresses::class);
+    }
+
+    public function profileImg(){
+        return $this->hasOne(ProfileImg::class);
     }
 }

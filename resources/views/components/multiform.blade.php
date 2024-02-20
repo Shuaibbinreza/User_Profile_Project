@@ -161,8 +161,9 @@
             <div class="step-circle" onclick="displayStep(5)">5</div>
         </div>
 
-        <form id="multi-step-form" action="/submit-form" method="POST">
+        <form id="multi-step-form" action={{route('submit.store')}} method="POST" enctype="multipart/form-data">
             @csrf
+            @method('POST')
             <div class="step step-1">
             <!-- Step 1 form fields here -->
                 <h3>Your Present Address</h3><br>
@@ -172,7 +173,7 @@
                             <label for="district" class="form-label">District</label>
             
                             <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
-                                class="form-select form-select-solid form-select-sm border border-secondary" id="district">
+                                class="form-select form-select-solid form-select-sm border border-secondary" id="district" required>
                                 <option value="select" selected="selected">Select a District</option>
                             </select>
                         </div>
@@ -193,7 +194,7 @@
                         <div class="col-sm">
                             <label for="postoffice" class="form-label">Post Office</label>
             
-                            <select name="postoffice" aria-label="Select post office" data-control="select2" data-placeholder="Select your post office.." 
+                            <select name="post_office" aria-label="Select post office" data-control="select2" data-placeholder="Select your post office.." 
                                 class="form-select form-select-solid form-select-sm border border-secondary" id="postoffice">
                                 <option value="select">Select Post office</option>
                                 <option value="Sabgari" class="text-primary">
@@ -210,7 +211,7 @@
                         <div class="col-sm">
                             <label for="houseno" class="form-label">House No./Road/Village</label>
             
-                            <input type="text" class="form-control" id="houseNo" name="houseno" placeholder="House No./Road/Village">
+                            <input type="text" class="form-control" id="houseNo" name="houseno" placeholder="House No./Road/Village" required>
                         </div>
                     </div>
 
@@ -221,7 +222,7 @@
                             <i class="bi bi-question-circle-fill fw-bold text-dark align-item-end"></i>
                             <br>
                             <br>
-                            <input type="text" class="form-control" id="altphone" name="altphone" placeholder="House No./Road/Village">
+                            <input type="text" class="form-control" id="altphone" name="alt_mobile" placeholder="House No./Road/Village">
                         </div>
                     </div>
                 </div>
@@ -437,7 +438,7 @@
 
             <div class="step step-5">
                 <!-- Step 5 form fields here -->
-                <h3>Step 5</h3>
+                <h3>Profile Image</h3>
                 <div class="image-input image-input-outline align-item-center" data-kt-image-input="true" style="background-image: url('assets/media/svg/avatars/blank.svg')">
                     <!--begin::Preview existing avatar-->
                     <div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/300-1.jpg)"></div>
@@ -449,8 +450,8 @@
                             <span class="path2"></span>
                         </i>
                         <!--begin::Inputs-->
-                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                        <input type="hidden" name="avatar_remove" />
+                        <input type="file" name="profile_image" />
+                        {{-- <input type="hidden" name="profile_image_remove" /> --}}
                         <!--end::Inputs-->
                     </label>
                     <!--end::Label-->
@@ -478,6 +479,8 @@
             </div>
         </form>
     </div>
+
+    {{-- <p>{{ config('auth.global_variable') }}</p> --}}
 
     <script>
         function showInputField() {

@@ -1,7 +1,13 @@
 <x-auth-layout>
 
     <!--begin::Form-->
-    <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" data-kt-redirect-url="{{ route('dashboard') }}" action="{{ route('login') }}">
+    <form class="form w-100" 
+        method="POST" 
+        novalidate="novalidate" 
+        id="kt_sign_in_form"
+        data-kt-redirect-url="{{ route('dashboard') }}"
+        action="{{ route('login') }}">
+
         @csrf
         <!--begin::Login options-->
         <div class="row g-3 mb-9">
@@ -72,6 +78,7 @@
         </div>
         <!--end::Sign up-->
     </form>
-    <h1> {{$name}} </h1>
+    {{-- <h1> {{$name}} </h1> --}}
     <!--end::Form-->
 </x-auth-layout>
+

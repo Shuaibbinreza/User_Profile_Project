@@ -12,10 +12,12 @@
                     <!--begin: Pic-->
                     <div class="me-7 mb-4">
                         <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                            <img src="{{ Auth::user()->image}}" alt="image" />
+                            <img src="{{ $image->profile_image}}" alt="image" />
+                            
                             <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
                         </div>
                     </div>
+                    
                     <!--end::Pic-->
                     <!--begin::Info-->
                     <div class="flex-grow-1">
@@ -46,7 +48,7 @@
                                     <i class="ki-duotone ki-geolocation fs-4 me-1">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
-                                    </i>{{ Auth::user()->address}}</a>
+                                    </i>{{$address->district}}</a>
                                     <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                     <i class="ki-duotone ki-sms fs-4">
                                         <span class="path1"></span>

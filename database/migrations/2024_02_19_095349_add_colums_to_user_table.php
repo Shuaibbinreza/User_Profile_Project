@@ -7,13 +7,16 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.Custom
+     * Run the migrations.
      */
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone')->default('01711111111')->after('password');
-            $table->string('address')->nullable()->after('phone');
+            $table->boolean('profile_completed')->default(false);
+            $table->string('gender');
+            $table->string('user_main_skill');
+            $table->string('phone_country_code');
+            $table->string('phone');
         });
     }
 
@@ -23,8 +26,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('profile_completed');
+            $table->dropColumn('gender');
+            $table->dropColumn('user_main_skill');
             $table->dropColumn('phone');
-            $table->dropColumn('address');
+            $table->dropColumn('phone_country_code');
         });
     }
 };

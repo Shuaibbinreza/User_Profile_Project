@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
+use App\Models\Addresses;
+use App\Models\ProfileImg;
+use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Config;
 $abc='';
 class AuthController extends Controller
 {
@@ -69,7 +74,6 @@ class AuthController extends Controller
         if(\Auth::attempt($request->only('email','password'))){
             return redirect('dashboard');
         }
-
         return redirect('register')->withError('Error');
     }
 
@@ -99,13 +103,53 @@ class AuthController extends Controller
     public function registerP2(){
         return view('pages.auth.register_phase2');
     }
-
+    
     public function formSubmit(Request $request){
-        // Retrieve the valuesArray from the request
-        $valuesArray = json_decode($request->input('valuesArray'), true);
+        
+        $this->validate($request,[
+            'district'=>'required',
+            'thana'=> 'required',
+            'post_office'=> 'required',
+            'alt_mobile'=> 'required',
+            'houseno'=> 'required',
+        ]);
+        
+        $address = new Addresses();
+        $address->thana = $request->thana;
+        $address->alt_mobile = $request->alt_mobile;
+        $address->district = $request->district;
+        $address->post_office = $request->post_office;
+        $address->houseno = $request->houseno;
+        $address->user_id = \Auth::user()->id;
+        
+        $image = '';
+        if($request->has('profile_image')){
+            $image = $request->file('profile_image');
+            $extention = $image->getClientOriginalExtension();  
 
-        // Dump and die the array
-        // dd($valuesArray);
+            $filename = time().'.'.$extention;
+
+            $path = 'uploads/user/';
+            $image->move($path, $filename);
+        }
+        
+        $pimage = new ProfileImg();
+        $pimage->profile_image = $path.$filename;
+        $pimage->user_id = \Auth::user()->id;
+        
+        $pimage->save();
+        $address->save();
+
+        $point = User::where('id', \Auth::user()->id)->first();
+        $point->profile_completed = true;
+
+        $point->save();
+
+        dd($request->all());
+    }
+
+    public function formSubmit1(Request $request){
+
         dd($request->all());
     }
 }
