@@ -37,10 +37,10 @@ class AppServiceProvider extends ServiceProvider
         KTBootstrap::init();
         // view()->share("time", date("Y-m-d H:i:s"));
         view()->composer('*', function ($view) {
-            // $view->with('User_Img', Addresses::all()); // Query your data here
-            $uid = \Auth::user()->id;
-            $pi = ProfileImg::where('user_id', \Auth::user()->id)->first();
-            $view->with('ProfileImage', $pi);
+            if (\Auth::check()){
+                $pi = ProfileImg::where('user_id', \Auth::user()->id)->first();
+                $view->with('ProfileImage', $pi);
+            }
         });
     }
 }
