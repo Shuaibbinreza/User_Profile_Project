@@ -16,6 +16,10 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/multi.css') }}"> --}}
 
     <style>
+        .edDiv{
+            display: none;
+            animation: appear 1s ease-in-out forwards;
+        }
         .step-container {
             position: relative;
             text-align: center;
@@ -47,121 +51,144 @@
             z-index: -1;
         }
     
-    #multi-step-form{
-		overflow-x: hidden;
-	}
+        #multi-step-form{
+            overflow-x: hidden;
+        }
+
+
     </style>
 
     <script>
-        // var currentStep = 1;
-        // var updateProgressBar;
-
-        // function displayStep(stepNumber) {
-        //     if (stepNumber >= 1 && stepNumber <= 5) {
-        //         $(".step-" + currentStep).hide();
-        //         $(".step-" + stepNumber).show();
-        //         currentStep = stepNumber;
-        //         updateProgressBar();
-        //     }
-        // }
-
-        // $(document).ready(function() {
-        //     $('#multi-step-form').find('.step').slice(1).hide();
-        
-        //     $(".next-step").click(function() {
-        //     if (currentStep < 5) {
-        //         $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
-        //         currentStep++;
-        //         setTimeout(function() {
-        //         $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
-        //         $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
-        //         updateProgressBar();
-        //         }, 500);
-        //     }
-        //     });
-
-        //     $(".prev-step").click(function() {
-        //     if (currentStep > 1) {
-        //         $(".step-" + currentStep).addClass("animate__animated animate__fadeOutRight");
-        //         currentStep--;
-        //         setTimeout(function() {
-        //         $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
-        //         $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
-        //         updateProgressBar();
-        //         }, 100);
-        //     }
-        //     });
-
-        //     updateProgressBar = function() {
-        //     var progressPercentage = ((currentStep - 1) / 4) * 100;
-        //     $(".progress-bar").css("width", progressPercentage + "%");
-        //     }
-        // });
-
-        
         var currentStep = 1;
+        var updateProgressBar;
+
+        function displayStep(stepNumber) {
+            if (stepNumber >= 1 && stepNumber <= 5) {
+                $(".step-" + currentStep).hide();
+                $(".step-" + stepNumber).show();
+                currentStep = stepNumber;
+                updateProgressBar();
+            }
+        }
 
         $(document).ready(function() {
             $('#multi-step-form').find('.step').slice(1).hide();
-
+        
             $(".next-step").click(function() {
-                var currentStepElement = $(".step-" + currentStep);
-                var errorContainer = $("#step-" + currentStep + "-error");
-                var isValid = true;
-
-                // Perform validation for each step
-                if (currentStep === 1) {
-                    var district = currentStepElement.find("select[name='district']").val();
-                    var thana = currentStepElement.find("select[name='thana']").val();
-                    var postOffice = currentStepElement.find("select[name='post_office']").val();
-                    var houseNo = currentStepElement.find("input[name='houseno']").val();
-                    var alt_mobile = currentStepElement.find("input[name='alt_mobile']").val();
-                    
-                    if (!district || !thana || !postOffice || !houseNo || !alt_mobile) {
-                        if(!district){
-                            errorContainer.text("Please fill out district fields.");
-                            isValid = false;
-                        } else {
-                            errorContainer.text("Please fill out all fields.");
-                            isValid = false;
-                        }
-                    } else {
-                        errorContainer.text("");
-                    }
-                }
-
-                // Add similar validation logic for other steps...
-
-                if (isValid) {
-                    if (currentStep < 5) {
-                        $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
-                        currentStep++;
-                        setTimeout(function() {
-                            $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
-                            $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
-                            updateProgressBar();
-                        }, 500);
-                    }
-                }
+            if (currentStep < 5) {
+                $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
+                currentStep++;
+                setTimeout(function() {
+                $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
+                $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
+                updateProgressBar();
+                }, 500);
+            }
             });
 
             $(".prev-step").click(function() {
-                if (currentStep > 1) {
-                    $(".step-" + currentStep).addClass("animate__animated animate__fadeOutRight");
-                    currentStep--;
-                    setTimeout(function() {
-                        $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
-                        $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
-                        updateProgressBar();
-                    }, 500);
-                }
+            if (currentStep > 1) {
+                $(".step-" + currentStep).addClass("animate__animated animate__fadeOutRight");
+                currentStep--;
+                setTimeout(function() {
+                $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
+                $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
+                updateProgressBar();
+                }, 100);
+            }
             });
 
             updateProgressBar = function() {
-                var progressPercentage = ((currentStep - 1) / 4) * 100;
-                $(".progress-bar").css("width", progressPercentage + "%");
+            var progressPercentage = ((currentStep - 1) / 4) * 100;
+            $(".progress-bar").css("width", progressPercentage + "%");
             }
         });
+
+        
+        // var currentStep = 1;
+
+        // $(document).ready(function() {
+        //     $('#multi-step-form').find('.step').slice(1).hide();
+
+        //     $(".next-step").click(function() {
+        //         var currentStepElement = $(".step-" + currentStep);
+        //         var errorContainer = $("#step-" + currentStep + "-error");
+        //         var isValid = true;
+
+        //         // Perform validation for each step
+        //         if (currentStep === 1) {
+        //             var district = currentStepElement.find("select[name='district']").val();
+        //             var thana = currentStepElement.find("select[name='thana']").val();
+        //             var postOffice = currentStepElement.find("select[name='post_office']").val();
+        //             var houseNo = currentStepElement.find("input[name='houseno']").val();
+        //             var alt_mobile = currentStepElement.find("input[name='alt_mobile']").val();
+                    
+        //             if (!district || !thana || !postOffice || !houseNo || !alt_mobile) {
+        //                 if(!district){
+        //                     errorContainer.text("Please fill out district fields.");
+        //                 } else if(!thana){
+        //                     errorContainer.text("Please fill out thana fields.");
+        //                 }
+        //                 else if(!postOffice){
+        //                     errorContainer.text("Please fill out postOffice fields.");
+        //                 }
+        //                 else if(!houseNo){
+        //                     errorContainer.text("Please fill out houseNo fields.");
+        //                 }
+        //                 else if(!alt_mobile){
+        //                     errorContainer.text("Please fill out alt_mobile fields.");
+        //                 }
+        //                 isValid = true;
+        //             } else {
+        //                 errorContainer.text("");
+        //             }
+        //         }
+
+        //         else if (currentStep === 2) {
+        //             var day = currentStepElement.find("select[name='day']").val();
+        //             var month = currentStepElement.find("select[name='month']").val();
+        //             var year = currentStepElement.find("select[name='year']").val();
+                    
+        //             if (!day || !month || !year) {
+        //                 errorContainer.text("Please fill out all the fields.");
+        //                 isValid = true;
+        //             } else {
+        //                 errorContainer.text("");
+        //             }
+        //         }
+
+        //         // Add similar validation logic for other steps...
+
+        //         if (isValid) {
+        //             if (currentStep < 5) {
+        //                 $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
+        //                 currentStep++;
+        //                 setTimeout(function() {
+        //                     $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
+        //                     $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
+        //                     updateProgressBar();
+        //                 }, 500);
+        //             }
+        //         }
+        //     });
+
+        //     $(".prev-step").click(function() {
+        //         if (currentStep > 1) {
+        //             $(".step-" + currentStep).addClass("animate__animated animate__fadeOutRight");
+        //             currentStep--;
+        //             setTimeout(function() {
+        //                 $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
+        //                 $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
+        //                 updateProgressBar();
+        //             }, 500);
+        //         }
+        //     });
+
+        //     updateProgressBar = function() {
+        //         var progressPercentage = ((currentStep - 1) / 4) * 100;
+        //         $(".progress-bar").css("width", progressPercentage + "%");
+        //     }
+        // });
 
         var subjectObject = {
             "Dhaka": {
@@ -258,7 +285,7 @@
                             </select>
                         </div>
                     </div>
-                    <div id="step-1-error1" class="text-danger"></div>
+                    {{-- <div id="step-1-error1" class="text-danger"></div> --}}
                     <br>
                     <div class="row">
                         <div class="col-sm">
@@ -267,7 +294,7 @@
                             <input type="text" class="form-control" id="houseNo" name="houseno" placeholder="House No./Road/Village" required>
                         </div>
                     </div>
-                    <div id="step-1-error" class="text-danger"></div>
+                    {{-- <div id="step-1-error" class="text-danger"></div> --}}
 
                     <br>
                     <div class="row">
@@ -308,9 +335,9 @@
                             <h5>Day</h5>
                             <select name="day" aria-label="Select a day" data-control="select2" data-placeholder="Date" 
                                 class="form-select form-select-solid form-select-lg border border-secondary">
-                                <option value="select">Select Date</option>
+                                <option value="">Select Date</option>
                                 <option value="1" class="text-primary">
-                                1</option>
+                                    1</option>
                                 <option value="2" class="text-primary">
                                     2</option>
                                 <option value="3" class="text-primary">
@@ -323,7 +350,7 @@
                             <h5>Month</h5>
                             <select name="month" aria-label="Select Month" data-control="select2" data-placeholder="Select Month" 
                                 class="form-select form-select-solid form-select-lg border border-secondary">
-                                <option value="month">Select Month</option>
+                                <option value="">Select Month</option>
                                 <option value="January" class="text-primary">January</option>
                                 <option value="February" class="text-primary">February</option>
                                 <option value="March" class="text-primary">March</option>
@@ -333,7 +360,7 @@
                             <h5>Year</h5>
                             <select name="year" aria-label="Select year" data-control="select6" data-placeholder="Select Year.." 
                                 class="form-select form-select-solid form-select-lg border border-secondary">
-                                <option value="year">Select year</option>
+                                <option value="">Select year</option>
                                 <option value="2024" class="text-primary">
                                     2024</option>
                                 <option value="2023" class="text-primary">
@@ -345,6 +372,7 @@
                     </div>
                     <br>
                     <br>
+                    <div id="step-2-error" class="text-danger"></div>
                     <button type="button" class="btn btn-primary prev-step">Previous</button>
                     <button type="button" class="btn btn-primary next-step">Next</button>
                 </div>
@@ -362,13 +390,7 @@
 
                             <select name="jobcategory" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select Job category.." 
                                 class="form-select form-select-solid form-select-lg border border-secondary">
-                                <option value="jobcategory">Select a Job Category</option>
-                                <option value="Accounting/Finance" class="text-primary">
-                                Accounting/Finance</option>
-                                <option value="Education/Training" class="text-primary">
-                                    Education/Training</option>
-                                <option value="IT/Telecommunication" class="text-primary">
-                                    IT/Telecommunication</option>
+                                <option value="">Select a Job Category</option>
                             </select>
                         </div>                        
                     </div>
@@ -377,32 +399,18 @@
                     <div class="row bg-secondary p-5 pb-10">
                         <div class="col-sm">
                             <label for="field1" class="form-label">Select Work Type</label>
-
-                            {{-- <select name="worktype" aria-label="Select Work Type" data-control="select2" data-placeholder="Select Work Type.." 
-                                class="form-select form-select-solid form-select-lg border border-secondary" id="worktype">
-                                <option value="">Select Work Type</option>
-                                <option value="C++" class="text-primary">
-                                C++</option>
-                                <option value="Laravel" class="text-primary">
-                                    Laravel</option>
-                                <option value="Spring Boot" class="text-primary">
-                                    Spring Boot</option>
-                            </select> --}}
                             <div id="selectedValues"></div><br><br>
                             <select name="worktype" aria-label="Select Work Type" onchange="updateSelectedValues(this)" 
                                 data-control="select2" data-placeholder="Select Work Type.." 
                                 class="form-select form-select-solid form-select-lg border border-secondary" id="worktype">
                                 <option value="">Select Work Type</option>
                                 <option value="C++" class="text-primary">
-                                C++</option>
+                                    C++</option>
                                 <option value="Laravel" class="text-primary">
                                     Laravel</option>
                                 <option value="Spring Boot" class="text-primary">
                                     Spring Boot</option>
                             </select>
-
-
-
                         </div>                        
                     </div>
                     <br><br>
@@ -423,7 +431,7 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Company Name</label>
-                                        <input type="text" placeholder="Company Name" name="companyname" autocomplete="off" class="form-control bg-transparent"/>
+                                        <input type="text" placeholder="Company Name" name="company_name" autocomplete="off" class="form-control bg-transparent"/>
                                     </div>  
                                     <div class="col-sm">
                                         <label for="designation" class="text-gray-700 fw-semibold fs-20">Latest Designation</label>
@@ -434,12 +442,16 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <label for="name" class="text-gray-700 fw-semibold fs-20">Employment Periood</label>
-                                        <input type="date" placeholder="Start Date" name="workstart" autocomplete="off" class="form-control bg-transparent"/>
+                                        <input type="date" placeholder="Start Date" name="job_start" autocomplete="off" class="form-control bg-transparent"/>
                                     </div>  
-                                    <div class="col-sm">
+                                    <div class="col-sm" style="display: block" id="expDiv">
                                         <label for="name" class="text-gray-700 fw-semibold fs-20"></label>
-                                        <input type="date" placeholder="Last Date" name="workend" autocomplete="off" class="form-control bg-transparent"/>
-                                    </div>                       
+                                        <input type="date" placeholder="Last Date" name="job_end" autocomplete="off" class="form-control bg-transparent"/>
+                                    </div>    
+                                    <div class="form-group form-check ms-5 mt-5">
+                                        <input type="checkbox" class="form-check-input" name="experienceCK" id="continueCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Still Working Here</label>
+                                    </div>                   
                                 </div>
                             </div>
                             <br><br>
@@ -487,10 +499,14 @@
                                     <label for="name" class="text-gray-700 fw-semibold fs-20">Educational Periood</label>
                                     <input type="date" placeholder="Educational Start" name="educationstart" autocomplete="off" class="form-control bg-transparent"/>
                                 </div>  
-                                <div class="col-sm">
+                                <div class="col-sm edDiv" id="educationEnd" style="display: block">
                                     <label for="name" class="text-gray-700 fw-semibold fs-20"></label>
-                                    <input type="date" placeholder="Educational End" name="educationend" autocomplete="off" class="form-control bg-transparent"/>
+                                    <input type="date" placeholder="Educational End" id="edEnd" name="educationend" autocomplete="off" class="form-control bg-transparent"  />
                                 </div>                       
+                                <div class="form-group form-check ms-5 mt-5">
+                                    <input type="checkbox" class="form-check-input" id="continueCheck" name="educationCK">
+                                    <label class="form-check-label" for="exampleCheck1">Still Studying Here</label>
+                                </div>
                             </div>
                         </div>
                         <br><br>
@@ -561,95 +577,118 @@
     
         function hideInputFieldEdu() {
             document.getElementById('inputFieldContainerEdu').style.display = 'none';
+            // document.getElementById('edEnd').value = 'Hello, World!';
         }
 
-        // Array to store selected values
-    var selectedValues = [];
-    var checkboxLabels = ["Self", "Job", "Training", "University", "NTVQF"];
-
-    function updateSelectedValues(dropdown) {
-        // Get the selected value
-        var selectedValue = dropdown.value;
-        
-        // Display the selected value and remove button on a new line
-        var selectedValuesDiv = document.getElementById("selectedValues");
-        var selectedValueContainer = document.createElement("div");
-        selectedValueContainer.className = "selectedValueContainer";
-        var valueDiv = document.createElement("h3");
-        valueDiv.innerHTML = selectedValue;
-
-        // Create checkboxes
-        var checkboxContainer = document.createElement("div");
-        checkboxContainer.className = "form-group d-inline-block";
-        var checkboxes = {};
-        for (var i = 0; i < checkboxLabels.length; i++) {
-            var checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.className = "form-check-input border border-dark border-2";
-            checkbox.id = "checkbox" + i;
-            checkboxes[checkboxLabels[i].toLowerCase()] = false; // Initialize all checkboxes as false
-            checkbox.addEventListener('change', function() {
-                checkboxes[this.id.replace('checkbox', '').toLowerCase()] = this.checked;
-            });
-            var checkboxLabel = document.createElement("label");
-            checkboxLabel.className = "form-check-label mr-3 text-dark";
-            checkboxLabel.setAttribute("for", "checkbox" + i);
-            checkboxLabel.innerHTML = checkboxLabels[i];
-            var checkboxWrapper = document.createElement("div");
-            checkboxWrapper.className = "form-check form-check-inline";
-            checkboxWrapper.appendChild(checkbox);
-            checkboxWrapper.appendChild(checkboxLabel);
-            checkboxContainer.appendChild(checkboxWrapper);
-        }
-
-        // Create a remove button for the value
-        var removeBtn = document.createElement("button");
-        removeBtn.innerHTML = "Remove";
-        removeBtn.className = "btn btn-danger";
-        removeBtn.onclick = function () {
-            // Remove the value from the array
-            var index = selectedValues.findIndex(obj => obj.value === selectedValue);
-            if (index !== -1) {
-                selectedValues.splice(index, 1);
+        //Education 
+        const continueCheck = document.getElementById('continueCheck');
+        const educationEndInput = document.getElementById('edEnd');
+        document.getElementById('continueCheck').addEventListener('change', function() {
+            if (this.checked) {
+                // educationEndInput.value = 'checked';
+                document.getElementById('educationEnd').style.display = 'none';
+                // educationEndInput.disabled = true;
+            } else {
+                // educationEndInput.value = '';
+                document.getElementById('educationEnd').style.display = 'block';
+                // educationEndInput.disabled = false;
             }
-            // Remove the value and the remove button from the displayed values
-            selectedValuesDiv.removeChild(selectedValueContainer);
-        };
-
-        // Append the value, checkboxes, and remove button to the selected values div
-        selectedValueContainer.appendChild(valueDiv);
-        selectedValueContainer.appendChild(checkboxContainer);
-        selectedValueContainer.appendChild(removeBtn);
-        selectedValuesDiv.appendChild(selectedValueContainer);
-
-        // Store the selected value and checkbox states in the array
-        selectedValues.push({
-            value: selectedValue,
-            ...checkboxes
         });
 
-        // Clear the dropdown
-        dropdown.selectedIndex = 0;
+        document.getElementById('continueCheck1').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('expDiv').style.display = 'none';
+            } else {
+                document.getElementById('expDiv').style.display = 'block';
+            }
+        });
 
-        // Print the selected values array (for demonstration purposes)
-        console.log(selectedValues);
-    }
+        // Array to store selected values
+        var selectedValues = [];
+        var checkboxLabels = ["Self", "Job", "Training", "University", "NTVQF"];
 
-    function submitForm() {
-        // Serialize the array and store it in a hidden input field
-        var serializedValues = JSON.stringify(selectedValues);
-        var hiddenInput = document.createElement('input');
-        hiddenInput.type = 'hidden';
-        hiddenInput.name = 'selected_values';
-        hiddenInput.value = serializedValues;
-        document.getElementById('multi-step-form').appendChild(hiddenInput);
+        function updateSelectedValues(dropdown) {
+            // Get the selected value
+            var selectedValue = dropdown.value;
+            
+            // Display the selected value and remove button on a new line
+            var selectedValuesDiv = document.getElementById("selectedValues");
+            var selectedValueContainer = document.createElement("div");
+            selectedValueContainer.className = "selectedValueContainer";
+            var valueDiv = document.createElement("h3");
+            valueDiv.innerHTML = selectedValue;
 
-        // Submit the form
-        document.getElementById("multi-step-form").submit();
-    }
+            // Create checkboxes
+            var checkboxContainer = document.createElement("div");
+            checkboxContainer.className = "form-group d-inline-block";
+            var checkboxes = {};
+            for (var i = 0; i < checkboxLabels.length; i++) {
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.className = "form-check-input border border-dark border-2";
+                checkbox.id = "checkbox" + i;
+                checkboxes[checkboxLabels[i].toLowerCase()] = false; // Initialize all checkboxes as false
+                checkbox.addEventListener('change', function() {
+                    checkboxes[this.id.replace('checkbox', '').toLowerCase()] = this.checked;
+                });
+                var checkboxLabel = document.createElement("label");
+                checkboxLabel.className = "form-check-label mr-3 text-dark";
+                checkboxLabel.setAttribute("for", "checkbox" + i);
+                checkboxLabel.innerHTML = checkboxLabels[i];
+                var checkboxWrapper = document.createElement("div");
+                checkboxWrapper.className = "form-check form-check-inline";
+                checkboxWrapper.appendChild(checkbox);
+                checkboxWrapper.appendChild(checkboxLabel);
+                checkboxContainer.appendChild(checkboxWrapper);
+            }
+
+            // Create a remove button for the value
+            var removeBtn = document.createElement("button");
+            removeBtn.innerHTML = "Remove";
+            removeBtn.className = "btn btn-danger";
+            removeBtn.onclick = function () {
+                // Remove the value from the array
+                var index = selectedValues.findIndex(obj => obj.value === selectedValue);
+                if (index !== -1) {
+                    selectedValues.splice(index, 1);
+                }
+                // Remove the value and the remove button from the displayed values
+                selectedValuesDiv.removeChild(selectedValueContainer);
+            };
+
+            // Append the value, checkboxes, and remove button to the selected values div
+            selectedValueContainer.appendChild(valueDiv);
+            selectedValueContainer.appendChild(checkboxContainer);
+            selectedValueContainer.appendChild(removeBtn);
+            selectedValuesDiv.appendChild(selectedValueContainer);
+
+            // Store the selected value and checkbox states in the array
+            selectedValues.push({
+                value: selectedValue,
+                ...checkboxes
+            });
+
+            // Clear the dropdown
+            dropdown.selectedIndex = 0;
+
+            // Print the selected values array (for demonstration purposes)
+            console.log(selectedValues);
+        }
+
+        function submitForm() {
+            // Serialize the array and store it in a hidden input field
+            var serializedValues = JSON.stringify(selectedValues);
+            var hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'selected_values';
+            hiddenInput.value = serializedValues;
+            document.getElementById('multi-step-form').appendChild(hiddenInput);
+
+            // Submit the form
+            document.getElementById("multi-step-form").submit();
+        }
         
     </script>
 </body> 
-{{-- <script src="{{ asset('js/multi.js') }}"></script>  --}}
 
 </html> 

@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    Hello World
+    <h1>Date: {{ $date->format('Y-m-d') }}</h1>
+    {{-- <h1> {{$data->educationend}} </h1> --}}
 </body>
 </html>

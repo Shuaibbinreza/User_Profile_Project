@@ -84,12 +84,6 @@
             <!--end::Email-->
         </div>
 
-        {{-- <div class="fv-row mb-8">
-            <!--begin::Email-->
-            <input type="text" placeholder="Address" name="address" autocomplete="on" class="form-control bg-transparent"/>
-            <!--end::Email-->
-        </div> --}}
-
         <div class="fv-row mb-8">
             <!--begin::Email-->
             <label for="name" class="text-gray-700 fw-semibold fs-20">Mobile Number</label><br>
@@ -108,12 +102,6 @@
             <br>
             <input type="text" placeholder="Phone" name="phone" autocomplete="on" class="form-control bg-transparent"/>
         </div>
-
-        {{-- <div class="fv-row mb-8">
-            <!--begin::Email-->
-            <input type="file" placeholder="Image" name="image" autocomplete="on" class="form-control bg-transparent"/>
-            <!--end::Email-->
-        </div> --}}
 
         <!--begin::Input group-->
         <div class="fv-row mb-8" data-kt-password-meter="true">
