@@ -2,7 +2,7 @@
 <html> 
 
     <head> 
-    <link href="{{ asset('css/multi.css') }}" rel="stylesheet">
+    <link href="multiform.bundle.css" rel="stylesheet">
 	<link href= 
         'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'> 
 
@@ -57,136 +57,182 @@
     </style>
 
     <script>
-        var currentStep = 1;
-        var updateProgressBar;
-
-        function displayStep(stepNumber) {
-            if (stepNumber >= 1 && stepNumber <= 5) {
-                $(".step-" + currentStep).hide();
-                $(".step-" + stepNumber).show();
-                currentStep = stepNumber;
-                updateProgressBar();
-            }
-        }
-
-        $(document).ready(function() {
-            $('#multi-step-form').find('.step').slice(1).hide();
-        
-            $(".next-step").click(function() {
-            if (currentStep < 5) {
-                $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
-                currentStep++;
-                setTimeout(function() {
-                $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
-                $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
-                updateProgressBar();
-                }, 500);
-            }
-            });
-
-            $(".prev-step").click(function() {
-            if (currentStep > 1) {
-                $(".step-" + currentStep).addClass("animate__animated animate__fadeOutRight");
-                currentStep--;
-                setTimeout(function() {
-                $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
-                $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
-                updateProgressBar();
-                }, 100);
-            }
-            });
-
-            updateProgressBar = function() {
-            var progressPercentage = ((currentStep - 1) / 4) * 100;
-            $(".progress-bar").css("width", progressPercentage + "%");
-            }
-        });
-
-        
         // var currentStep = 1;
+        // var updateProgressBar;
+
+        // function displayStep(stepNumber) {
+        //     if (stepNumber >= 1 && stepNumber <= 5) {
+        //         $(".step-" + currentStep).hide();
+        //         $(".step-" + stepNumber).show();
+        //         currentStep = stepNumber;
+        //         updateProgressBar();
+        //     }
+        // }
 
         // $(document).ready(function() {
         //     $('#multi-step-form').find('.step').slice(1).hide();
-
+        
         //     $(".next-step").click(function() {
-        //         var currentStepElement = $(".step-" + currentStep);
-        //         var errorContainer = $("#step-" + currentStep + "-error");
-        //         var isValid = true;
-
-        //         // Perform validation for each step
-        //         if (currentStep === 1) {
-        //             var district = currentStepElement.find("select[name='district']").val();
-        //             var thana = currentStepElement.find("select[name='thana']").val();
-        //             var postOffice = currentStepElement.find("select[name='post_office']").val();
-        //             var houseNo = currentStepElement.find("input[name='houseno']").val();
-        //             var alt_mobile = currentStepElement.find("input[name='alt_mobile']").val();
-                    
-        //             if (!district || !thana || !postOffice || !houseNo || !alt_mobile) {
-        //                 if(!district){
-        //                     errorContainer.text("Please fill out district fields.");
-        //                 } else if(!thana){
-        //                     errorContainer.text("Please fill out thana fields.");
-        //                 }
-        //                 else if(!postOffice){
-        //                     errorContainer.text("Please fill out postOffice fields.");
-        //                 }
-        //                 else if(!houseNo){
-        //                     errorContainer.text("Please fill out houseNo fields.");
-        //                 }
-        //                 else if(!alt_mobile){
-        //                     errorContainer.text("Please fill out alt_mobile fields.");
-        //                 }
-        //                 isValid = true;
-        //             } else {
-        //                 errorContainer.text("");
-        //             }
-        //         }
-
-        //         else if (currentStep === 2) {
-        //             var day = currentStepElement.find("select[name='day']").val();
-        //             var month = currentStepElement.find("select[name='month']").val();
-        //             var year = currentStepElement.find("select[name='year']").val();
-                    
-        //             if (!day || !month || !year) {
-        //                 errorContainer.text("Please fill out all the fields.");
-        //                 isValid = true;
-        //             } else {
-        //                 errorContainer.text("");
-        //             }
-        //         }
-
-        //         // Add similar validation logic for other steps...
-
-        //         if (isValid) {
-        //             if (currentStep < 5) {
-        //                 $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
-        //                 currentStep++;
-        //                 setTimeout(function() {
-        //                     $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
-        //                     $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
-        //                     updateProgressBar();
-        //                 }, 500);
-        //             }
-        //         }
+        //     if (currentStep < 5) {
+        //         $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
+        //         currentStep++;
+        //         setTimeout(function() {
+        //         $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
+        //         $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
+        //         updateProgressBar();
+        //         }, 500);
+        //     }
         //     });
 
         //     $(".prev-step").click(function() {
-        //         if (currentStep > 1) {
-        //             $(".step-" + currentStep).addClass("animate__animated animate__fadeOutRight");
-        //             currentStep--;
-        //             setTimeout(function() {
-        //                 $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
-        //                 $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
-        //                 updateProgressBar();
-        //             }, 500);
-        //         }
+        //     if (currentStep > 1) {
+        //         $(".step-" + currentStep).addClass("animate__animated animate__fadeOutRight");
+        //         currentStep--;
+        //         setTimeout(function() {
+        //         $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
+        //         $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
+        //         updateProgressBar();
+        //         }, 100);
+        //     }
         //     });
 
         //     updateProgressBar = function() {
-        //         var progressPercentage = ((currentStep - 1) / 4) * 100;
-        //         $(".progress-bar").css("width", progressPercentage + "%");
+        //     var progressPercentage = ((currentStep - 1) / 4) * 100;
+        //     $(".progress-bar").css("width", progressPercentage + "%");
         //     }
         // });
+
+        
+        var currentStep = 1;
+
+        $(document).ready(function() {
+            $('#multi-step-form').find('.step').slice(1).hide();
+
+            $(".next-step").click(function() {
+                var currentStepElement = $(".step-" + currentStep);
+                var errorContainer = $("#step-" + currentStep + "-error");
+                var isValid = true;
+
+                // Perform validation for each step
+                if (currentStep === 1) {
+                    var district = currentStepElement.find("select[name='district']").val();
+                    var thana = currentStepElement.find("select[name='thana']").val();
+                    var postOffice = currentStepElement.find("select[name='post_office']").val();
+                    var houseNo = currentStepElement.find("input[name='houseno']").val();
+                    var alt_mobile = currentStepElement.find("input[name='alt_mobile']").val();
+                    
+                    if (!district || !thana || !postOffice || !houseNo || !alt_mobile) {
+                        if(!district){
+                            errorContainer.text("Please fill out district fields.");
+                        } else if(!thana){
+                            errorContainer.text("Please fill out thana fields.");
+                        }
+                        else if(!postOffice){
+                            errorContainer.text("Please fill out postOffice fields.");
+                        }
+                        else if(!houseNo){
+                            errorContainer.text("Please fill out houseNo fields.");
+                        }
+                        else if(!alt_mobile){
+                            errorContainer.text("Please fill out alt_mobile fields.");
+                        }
+                        isValid = true;
+                    } else {
+                        errorContainer.text("");
+                    }
+                }
+
+                else if (currentStep === 2) {
+                    var day = currentStepElement.find("select[name='day']").val();
+                    var month = currentStepElement.find("select[name='month']").val();
+                    var year = currentStepElement.find("select[name='year']").val();
+                    
+                    if (!day || !month || !year) {
+                        errorContainer.text("Please fill out all the fields.");
+                        isValid = true;
+                    } else {
+                        errorContainer.text("");
+                    }
+                }
+                else if (currentStep === 3) {
+                    var prefered_job_type = currentStepElement.find("select[name='prefered_job_type']").val();
+                    var exp_radio = currentStepElement.find("input[name='exp']").val();
+                    var yesRadio = document.getElementById("expradio1");
+                    var noRadio = document.getElementById("expradio2");
+                    var cname = currentStepElement.find("input[name='cname']").val();
+                    var cd = currentStepElement.find("input[name='cd']").val();
+
+                    if (yesRadio.checked) {
+                        console.log("Hello");
+                    } else {
+                        console.log("World");
+                    }
+                    
+                    if (prefered_job_type & noRadio.checked) {
+                        errorContainer.text("");
+                    } else if(!prefered_job_type && yesRadio.checked) {
+                        if(cname && cd){
+                            errorContainer.text("");
+                        }
+                        else{
+                            errorContainer.text("Please fill out all the fields.");
+                            isValid = true;
+                        }
+                    }
+                }
+
+                else if (currentStep === 4) {
+                    // var exp_radio = currentStepElement.find("input[name='edu']").val();
+                    var yesEdu = document.getElementById("yesEdu");
+                    var noEdu = document.getElementById("noEdu");
+                    var title = currentStepElement.find("input[name='edutitle']").val();
+                    var ins = currentStepElement.find("input[name='eduins']").val();
+                    
+                    if (noEdu.checked) {
+                        errorContainer.text("");
+                    } else if(yesEdu.checked) {
+                        if(title && ins){
+                            errorContainer.text("");
+                        }
+                        else{
+                            errorContainer.text("Please fill out all the fields.");
+                            isValid = false;
+                        }
+                    }
+                }
+
+                // Add similar validation logic for other steps...
+
+                if (isValid) {
+                    if (currentStep < 5) {
+                        $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
+                        currentStep++;
+                        setTimeout(function() {
+                            $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
+                            $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
+                            updateProgressBar();
+                        }, 500);
+                    }
+                }
+            });
+
+            $(".prev-step").click(function() {
+                if (currentStep > 1) {
+                    $(".step-" + currentStep).addClass("animate__animated animate__fadeOutRight");
+                    currentStep--;
+                    setTimeout(function() {
+                        $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
+                        $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
+                        updateProgressBar();
+                    }, 500);
+                }
+            });
+
+            updateProgressBar = function() {
+                var progressPercentage = ((currentStep - 1) / 4) * 100;
+                $(".progress-bar").css("width", progressPercentage + "%");
+            }
+        });
 
         var subjectObject = {
             "Dhaka": {
@@ -422,12 +468,12 @@
                     <div class="row">
                         <div class="col-sm">
                             <label for="field1" class="form-label">Do you have any experience?</label><br><br>
-                            <input class="form-check-input" onclick="showInputField()" type="radio" name="exp" id="flexRadioDefault1" checked>
+                            <input class="form-check-input" onclick="showInputField()" type="radio" name="exp" id="expradio1" checked>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Yes
                             </label>
 
-                            <input class="form-check-input" onclick="hideInputField()" type="radio" name="exp" id="flexRadioDefault2" >
+                            <input class="form-check-input" onclick="hideInputField()" type="radio" name="exp" id="expradio2" >
                             <label class="form-check-label" for="flexRadioDefault2">
                                 No
                             </label>
@@ -436,18 +482,18 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Company Name</label>
-                                        <input type="text" placeholder="Company Name" name="company_name" autocomplete="off" class="form-control bg-transparent"/>
+                                        <input type="text" id="cname" placeholder="Company Name" name="company_name" autocomplete="off" class="form-control bg-transparent"/>
                                     </div>  
                                     <div class="col-sm">
                                         <label for="designation" class="text-gray-700 fw-semibold fs-20">Latest Designation</label>
-                                        <input type="text" placeholder="designation" name="designation" autocomplete="off" class="form-control bg-transparent"/>
+                                        <input type="text" id="cd" placeholder="designation" name="designation" autocomplete="off" class="form-control bg-transparent"/>
                                     </div>                       
                                 </div>
                                 <br><br>
                                 <div class="row">
                                     <div class="col-sm">
                                         <label for="name" class="text-gray-700 fw-semibold fs-20">Employment Periood</label>
-                                        <input type="date" placeholder="Start Date" name="job_start" autocomplete="off" class="form-control bg-transparent"/>
+                                        <input type="date" id="job_start" placeholder="Start Date" name="job_start" autocomplete="off" class="form-control bg-transparent"/>
                                     </div>  
                                     <div class="col-sm" style="display: block" id="expDiv">
                                         <label for="name" class="text-gray-700 fw-semibold fs-20"></label>
@@ -477,12 +523,12 @@
                 <div class="row">
                     <div class="col-sm">
                         <label for="field1" class="form-label">Do you have any Academic Education?</label><br><br>
-                        <input class="form-check-input" onclick="showInputFieldEdu()" type="radio" name="job" id="flexRadioDefaultEdu1" checked>
+                        <input class="form-check-input" onclick="showInputFieldEdu()" type="radio" name="edu" id="yesEdu" checked>
                         <label class="form-check-label" for="flexRadioDefaultEdu1">
                             Yes
                         </label>
 
-                        <input class="form-check-input" onclick="hideInputFieldEdu()" type="radio" name="job" id="flexRadioDefaultEdu2" >
+                        <input class="form-check-input" onclick="hideInputFieldEdu()" type="radio" name="edu" id="noEdu" >
                         <label class="form-check-label" for="flexRadioDefaultEdu2">
                             No
                         </label>
@@ -491,11 +537,11 @@
                             <div class="row">
                                 <div class="col-sm">
                                     <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Education</label>
-                                    <input type="text" placeholder="Education" name="education_title" autocomplete="off" class="form-control bg-transparent"/>
+                                    <input type="text" id="edutitle" placeholder="Education" name="education_title" autocomplete="off" class="form-control bg-transparent"/>
                                 </div>  
                                 <div class="col-sm">
                                     <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Institute</label>
-                                    <input type="text" placeholder="Latest Institute" name="education_institute" autocomplete="off" class="form-control bg-transparent"/>
+                                    <input type="text" id="eduins" placeholder="Latest Institute" name="education_institute" autocomplete="off" class="form-control bg-transparent"/>
                                 </div>                       
                             </div>
                             <br><br>
@@ -557,6 +603,7 @@
                     </span>
                     <!--end::Remove-->
                 </div>
+                {{-- <x-step2/> --}}
                 <br>
                 <br>
                 <button type="button" class="btn btn-primary prev-step">Previous</button>

@@ -13,6 +13,7 @@
     <meta property="og:type" content="article"/>
     <meta property="og:title" content=""/>
     <link rel="canonical" href=""/>
+    <link href="{{ asset('css/multi.bundle.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 

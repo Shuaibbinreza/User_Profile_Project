@@ -10,10 +10,12 @@ use App\Models\UserDOB;
 use App\Models\UserDobs;
 use App\Models\UserEducation;
 use App\Models\UserExperience;
+use App\Models\UserWorkType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 $abc='';
 class AuthController extends Controller
 {
@@ -228,15 +230,71 @@ class AuthController extends Controller
         // // }
         // $education->save();
 
+        $user_id = \Auth::user()->id;
+        $workTypes = json_decode($request->input('selected_options'));
 
-        $selectedOptions = json_decode($request->input('selected_options'));
-        
-        // dd($data[0]);
-        // foreach ($data as $object) {
-        //     dd($object);
+        // Start a database transaction
+        DB::beginTransaction();
+
+        try {
+            foreach ($workTypes as $option) {
+                // Check if the option already exists for the user
+                $existingOption = UserWorkType::where('user_id', $user_id)
+                    ->where('title', $option->title)
+                    ->first();
+
+                if (!$existingOption) {
+                    // If the option does not exist, create a new record
+                    $selectedOption = new UserWorkType();
+                    $selectedOption->user_id = $user_id;
+                    $selectedOption->title = $option->title;
+                    $selectedOption->self = $option->self;
+                    $selectedOption->job = $option->job;
+                    $selectedOption->university = $option->university;
+                    $selectedOption->training = $option->training;
+                    $selectedOption->life_death = $option->lifeDeath;
+                    $selectedOption->save();
+                }
+                else{
+                    return view('pages.auth.register_phase2');
+                }
+            }
+            // Commit the transaction if all operations succeed
+            DB::commit();
+            // Optionally, return a response indicating success
+        } catch (\Exception $e) {
+            // Rollback the transaction if an error occurs
+            DB::rollback();
+            // Optionally, handle the error and return a response
+        }
+
+        // foreach ($workTypes as $option) {
+
+        //     $existingOption = UserWorkType::where('user_id', \Auth::user()->id)
+        //     ->where('title', $option->title)
+        //     ->first();
+            
+        //     if($existingOption){
+        //         return view('home')->with('data', $existingOption);
+        //     }
+        //     $workTypes = new UserWorkType();
+        //     $workTypes->user_id = \Auth::user()->id;
+        //     $workTypes->title = $option->title;
+        //     $workTypes->self = $option->self;
+        //     $workTypes->job = $option->job;
+        //     $workTypes->university = $option->university;
+        //     $workTypes->training = $option->training;
+        //     $workTypes->life_death = $option->lifeDeath; // Note the difference in property name
+        //     $workTypes->save();
         // }
-        // dd($request->all());
-        return view('home')->with('data', $selectedOptions);
+        
+        // // dd($data[0]);
+        // // foreach ($data as $object) {
+        // //     dd($object);
+        // // }
+        // // dd($request->all());
+        // $workType = json_decode($request->input('selected_options'));
+        return view('home');
     }
 
     public function formSubmit1(Request $request){

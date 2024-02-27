@@ -11,18 +11,18 @@
     {{-- <h1> {{$data->educationend}} </h1> --}}
     <h1>Selected Options</h1>
     <ul>
-        @foreach($data as $option)
+        {{-- @foreach($data as $option)
         <div>
             <h3>Option Title: {{ $option->title }}</h3>
             <ul>
                 <li>Self: {{ $option->self }}</li>
-                <li>Job: {{ $option->job ? 'Checked' : 'Unchecked' }}</li>
-                <li>University: {{ $option->university ? 'Checked' : 'Unchecked' }}</li>
-                <li>Training: {{ $option->training ? 'Checked' : 'Unchecked' }}</li>
-                <li>Life/Death: {{ $option->lifeDeath ? 'Checked' : 'Unchecked' }}</li>
+                <li>Job: {{ $option->job  }}</li>
+                <li>University: {{ $option->university  }}</li>
+                <li>Training: {{ $option->training  }}</li>
+                <li>Life/Death: {{ $option->lifeDeath  }}</li>
             </ul>
         </div>
-    @endforeach
+    @endforeach --}}
     </ul>
 </body>
 </html>
