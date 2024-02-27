@@ -6,6 +6,9 @@ use App\Models\Address;
 use App\Models\Addresses;
 use App\Models\ProfileImg;
 use App\Models\UserAddress;
+use App\Models\UserDOB;
+use App\Models\UserDobs;
+use App\Models\UserEducation;
 use App\Models\UserExperience;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -172,18 +175,68 @@ class AuthController extends Controller
         // //     dd($request->all());
         // // }
         // $experience->save();
+        
+        //Date of Birth Field
+        // $this->validate($request,[
+        //     'day'=> 'required',
+        //     'month'=> 'required',
+        //     'year'=> 'required',
+        // ]) ;
 
-        $day = $request->input('day');
-        $month = $request->input('month');
-        $year = $request->input('year');
+        // $day = $request->input('day');
+        // $month = $request->input('month');
+        // $year = $request->input('year');
+        // // Construct a date string in the format "Y-m-d"
+        // $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
+        // // Convert the string into a DateTime object
+        // $date = date_create_from_format('Y-m-d', $dateString);
+        
+        // $udob = new UserDobs();
+        // $udob->user_id = \Auth::user()->id;
+        // $udob->day = $request->input('day');
+        // $udob->month = $request->input('month');
+        // $udob->year = $request->input('year');
+        // $udob->user_birthday = $date;
+        // $udob->save();
 
-        // Construct a date string in the format "Y-m-d"
-        $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
+        //Select Job Type Input in registration phase-2
+        // $jobCat = $request->input('prefered_job_type') ;
+        // $jobType = User::where('id', \Auth::user()->id)->first();
+        // $jobType->prefered_job_type = $jobCat;
+        // $jobType->save();
+        
+        //User Education field in registration phase 2
+        // $this->validate($request,[
+        //     'education_title'=> 'required',
+        //     'education_institute'=> 'required',
+        //     'education_start'=> 'required',
+        // ]);
 
-        // Convert the string into a DateTime object
-        $date = date_create_from_format('Y-m-d', $dateString);
+        // $education = new UserEducation();
+        // $education->user_id = \Auth::user()->id;
+        // $education->education_title = $request->education_title;
+        // $education->education_institute = $request->education_institute;
+        // $education->education_start = $request->education_start;
+        // $education->education_end = $request->education_end;
+        
+        // if( $request->educationCK == 'on' ){
+        //     $education->continue = "Continue";
+        //     // return view("home")->with("data",$request);
+        // }
+        // // else{
+        // //     dd($request->all());
+        // // }
+        // $education->save();
 
-        return view('home')->with('date', $date);
+
+        $selectedOptions = json_decode($request->input('selected_options'));
+        
+        // dd($data[0]);
+        // foreach ($data as $object) {
+        //     dd($object);
+        // }
+        // dd($request->all());
+        return view('home')->with('data', $selectedOptions);
     }
 
     public function formSubmit1(Request $request){

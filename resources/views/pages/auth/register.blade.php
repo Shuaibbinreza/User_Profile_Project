@@ -69,7 +69,7 @@
                 class="form-select form-select-solid form-select-lg border border-secondary">
                 <option value="">Select your skill</option>
                 <option value="Accounting/Finance" class="text-primary">
-                Accounting/Finance</option>
+                    Accounting/Finance</option>
                 <option value="Education/Training" class="text-primary">
                     Education/Training</option>
                 <option value="IT/Telecommunication" class="text-primary">
