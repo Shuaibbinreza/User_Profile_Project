@@ -54,6 +54,9 @@
                     var selectedValue = document.getElementById("worktype").value;
                     var selectedValuesContainer = document.getElementById("selectedValues");
 
+                    // Disable selected option in the dropdown
+                    document.getElementById("worktype").querySelector(`[value="${selectedValue}"]`).disabled = true;
+
                     // Create a container div for each selected value and its checkboxes
                     var valueContainer = document.createElement("div");
                     valueContainer.className = "value-container";

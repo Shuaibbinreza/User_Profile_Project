@@ -5,6 +5,9 @@
     <link href="multiform.bundle.css" rel="stylesheet">
 	<link href= 
         'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'> 
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 	<script src= 
         'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'> 
@@ -13,48 +16,7 @@
 	<script src= 
         'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'> 
 	</script> 
-
-
-    <style>
-        .edDiv{
-            display: none;
-            animation: appear 1s ease-in-out forwards;
-        }
-        .step-container {
-            position: relative;
-            text-align: center;
-            transform: translateY(-43%);
-        }
-
-        .step-circle {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #fff;
-            border: 5px solid #007bff;
-            line-height: 30px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            cursor: pointer; /* Added cursor pointer */
-        }
-
-        .step-line {
-            position: absolute;
-            top: 16px;
-            left: 50px;
-            width: calc(100% - 100px);
-            height: 2px;
-            background-color: #007bff;
-            z-index: -1;
-        }
-    
-        #multi-step-form{
-            overflow-x: hidden;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 </head> 
 
@@ -74,13 +36,16 @@
         <form id="multi-step-form" action={{route('submit.store')}} method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
-            <div class="step step-1">
-            <!-- Step 1 form fields here -->
-                <h3>Your Present Address</h3><br>
-                <div class="container">
+            <div class="step step-1 card">
+                <!-- Step 1 form fields here -->
+                <div class="card-header">
+                    <h2 class="m-5">Your Present Address</h2>
+                </div>
+                {{-- <hr> --}}
+                <div class="container card-body p-5">
                     <div class="row">
                         <div class="col-sm">
-                            <label for="district" class="form-label">District</label>
+                            <label for="district" class="form-label required">District</label>
             
                             <select name="district" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
                                 class="form-select form-select-solid form-select-sm border border-secondary" id="district" required>
@@ -89,7 +54,7 @@
                             <div id="district-error" class="text-danger"></div>
                         </div>
                         <div class="col-sm">
-                            <label for="field1" class="form-label">Thana/Upazila</label>
+                            <label for="field1" class="form-label required">Thana/Upazila</label>
             
                             <select name="thana" aria-label="Select thana" data-control="select2" data-placeholder="Select your thana.." 
                                 class="form-select form-select-solid form-select-sm border border-secondary" id="thana">
@@ -99,7 +64,7 @@
                             <div id="thana-error" class="text-danger"></div>
                         </div>
                         <div class="col-sm">
-                            <label for="postoffice" class="form-label">Post Office</label>
+                            <label for="postoffice" class="form-label required">Post Office</label>
             
                             <select name="post_office" aria-label="Select post office" data-control="select2" data-placeholder="Select your post office.." 
                                 class="form-select form-select-solid form-select-sm border border-secondary" id="postoffice">
@@ -112,7 +77,7 @@
                     <br>
                     <div class="row">
                         <div class="col-sm">
-                            <label for="houseno" class="form-label">House No./Road/Village</label>
+                            <label for="houseno" class="form-label required">House No./Road/Village</label>
                             <input type="text" class="form-control form-control-sm" id="houseNo" name="houseno" placeholder="House No./Road/Village" required>
                             <div id="house-error" class="text-danger"></div>
                         </div>
@@ -120,11 +85,10 @@
                     <br>
                     <div class="row">
                         <div class="col-6">
-                            <label for="field1" class="form-label">Alternat Mobile Number</label>
+                            <label for="field1" class="form-label required">Alternat Mobile Number</label>
                             <i class="bi bi-question-circle-fill fw-bold text-dark align-item-end"></i>
                             <br>
-                            <br>
-                            <input type="text" class="form-control form-control-sm" id="altphone" name="alt_mobile" placeholder="House No./Road/Village">
+                            <input type="text" class="form-control form-control-sm" id="altphone" name="alt_mobile" placeholder="Alternate Mobile Number">
                             <div id="phone-error" class="text-danger"></div>
                         </div>
                     </div>
@@ -138,23 +102,26 @@
                     {{-- <h3>Your Present Address</h3> --}}
                     <!-- Other form fields -->
                 <div id="step-error" class="text-danger"></div> <!-- Error message container -->
-                <button type="button" class="btn btn-primary next-step ms-5">Next</button>
                 {{-- </div> --}}
-
+                
                 {{-- <button type="button" class="btn btn-primary next-step ms-5">Next</button> --}}
-
+                
+                <div class="p-5">
+                    <button type="button" class="btn btn-primary next-step ms-5 float-end">Next <i class="fa-solid fa-arrow-right fa-2xl"></i></button>
+                </div>
             </div>
 
             {{-- Age --}}
-            <div class="step step-2">
+            <div class="step step-2 card" style="display: none">
                 <!-- Step 2 form fields here -->
-                <h3>Age</h3>
-                <br>
-                <div class="container align-item-center w-50">
+                <div class="card-header">
+                    <h2 class="p-5">Age</h2>
+                </div>
+                <div class="container align-item-center w-50 card-body">
                     <h3>Date of Birth</h3>
                     <div class="row">
                         <div class="col-4">
-                            <h5>Day</h5>
+                            <h5 class="required">Day</h5>
                             <select name="day" aria-label="Select a day" data-control="select2" data-placeholder="Date" 
                                 class="form-control form-select form-select-solid form-select-lg border border-secondary"
                                 id="day">
@@ -171,7 +138,7 @@
                             <span id="error-day" class="text-danger"></span>
                         </div>
                         <div class="col-4">
-                            <h5>Month</h5>
+                            <h5 class="required">Month</h5>
                             <select name="month" aria-label="Select Month" data-control="select2" data-placeholder="Select Month" 
                                 class="form-select form-select-solid form-select-lg border border-secondary" id="month">
                                 <option value="">Select Month</option>
@@ -182,7 +149,7 @@
                             <span id="error-month" class="text-danger"></span>
                         </div>
                         <div class="col-4">
-                            <h5>Year</h5>
+                            <h5 class="required">Year</h5>
                             <select name="year" aria-label="Select year" data-control="select6" data-placeholder="Select Year.." 
                                 class="form-select form-select-solid form-select-lg border border-secondary" id="year">
                                 <option value="">Select year</option>
@@ -199,16 +166,18 @@
                     <br>
                     <br>
                     <div id="step-error" class="text-danger"></div>
-                    <button type="button" class="btn btn-primary prev-step">Previous</button>
-                    <button type="button" class="btn btn-primary next-step">Next</button>
+                    <button type="button" class="btn btn-info prev-step float-start"><i class="fa-solid fa-arrow-left fa-2xl"></i> Previous</button>
+                    <button type="button" class="btn btn-primary next-step float-end">Next <i class="fa-solid fa-arrow-right fa-2xl"></i></i></button>
                 </div>
             </div>
 
             {{-- Step 3 --}}
-            <div class="step step-3">
+            <div class="step step-3 card" style="display: none" >
                 <!-- Step 3 form fields here -->
-                <h3>Select Your Job Type</h3>
-                <div class="container">
+                <div class="card-header">
+                    <h3 class="p-5">Select Your Job Type</h3>
+                </div>
+                <div class="container card-body">
                     <div class="row">
                         <div class="col-sm">
                             <label for="field1" class="form-label required">Select Job Category</label>
@@ -310,116 +279,136 @@
                                 </div>
                             </div>
                             <br><br>
-                            <button type="button" class="btn btn-primary prev-step">Previous</button>
-                            <button type="button" class="btn btn-primary next-step">Next</button>
                         </div>                        
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-info prev-step float-start"><i class="fa-solid fa-arrow-left fa-2xl"></i> Previous</button>
+                        <button type="button" class="btn btn-primary next-step float-end">Next <i class="fa-solid fa-arrow-right fa-2xl"></i></i></button>
                     </div>
                     <br>
                     {{-- <x-job_exp_radio/> --}}
                 </div>
             </div>
 
-            <div class="step step-4">
+            <div class="step step-4 card" style="display: none" >
                 <!-- Step 4 form fields here -->
-                <h1>Educational Qualifications</h1>
-                <br><br>
-                <h4>Description of Institutional Education</h4>
-                <div class="row">
-                    <div class="col-sm">
-                        <label for="field1" class="form-label">Do you have any Academic Education?</label><br><br>
-                        <input class="form-check-input" onclick="showInputFieldEdu()" type="radio" name="edu" id="yesEdu" checked>
-                        <label class="form-check-label" for="flexRadioDefaultEdu1">
-                            Yes
-                        </label>
-
-                        <input class="form-check-input" onclick="hideInputFieldEdu()" type="radio" name="edu" id="noEdu" >
-                        <label class="form-check-label" for="flexRadioDefaultEdu2">
-                            No
-                        </label>
-                        <br><br>
-                        <div id="inputFieldContainerEdu" style="display: block;">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Education</label>
-                                    <input type="text" id="edutitle" placeholder="Education" name="education_title" autocomplete="off" class="form-control bg-transparent"/>
-                                    <span id="error-edutitle" class="text-danger"></span>
-                                </div>  
-                                <div class="col-sm">
-                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Institute</label>
-                                    <input type="text" id="eduins" placeholder="Latest Institute" name="education_institute" autocomplete="off" class="form-control bg-transparent"/>
-                                    <span id="error-eduins" class="text-danger"></span>                   
-                                </div>    
+                <div class="card-header">
+                    <h1 class="p-5">Educational Qualifications</h1>
+                </div>
+                <div class="container card-body">
+                    <h4>Description of Institutional Education</h4>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label for="field1" class="form-label">Do you have any Academic Education?</label><br><br>
+                            <input class="form-check-input" 
+                                onclick="showInputFieldEdu()" 
+                                type="radio" name="edu" id="yesEdu" checked>
+                            <label class="form-check-label" for="flexRadioDefaultEdu1">
+                                Yes
+                            </label>
+    
+                            <input class="form-check-input" onclick="hideInputFieldEdu()" type="radio" name="edu" id="noEdu" >
+                            <label class="form-check-label" for="flexRadioDefaultEdu2">
+                                No
+                            </label>
+                            <br><br>
+                            <div id="inputFieldContainerEdu" style="display: block;">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <label for="name" class="text-gray-700 fw-semibold fs-20 required">Latest Education</label>
+                                        <input type="text" id="edutitle" 
+                                            placeholder="Education" name="education_title" 
+                                            autocomplete="off" class="form-control form-control-sm bg-transparent"/>
+                                        <span id="error-edutitle" class="text-danger"></span>
+                                    </div>  
+                                    <div class="col-sm">
+                                        <label for="name" class="text-gray-700 fw-semibold fs-20 required">Latest Institute</label>
+                                        <input type="text" id="eduins" 
+                                            placeholder="Latest Institute" 
+                                            name="education_institute" autocomplete="off" 
+                                            class="form-control form-control-sm bg-transparent"/>
+                                        <span id="error-eduins" class="text-danger"></span>                   
+                                    </div>    
+                                </div>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <label for="name" class="text-gray-700 fw-semibold fs-20 required">Educational Periood</label>
+                                        <input type="date" placeholder="Educational Start" 
+                                            name="education_start" 
+                                            autocomplete="off" id="edustart"
+                                            class="form-control form-control-sm bg-transparent"/>
+                                        <span id="error-edustart" class="text-danger"></span> 
+                                    </div>  
+                                    <div class="col-sm edDiv" id="educationEnd" style="display: block">
+                                        <label for="name" class="text-gray-700 fw-semibold fs-20"></label>
+                                        <input type="date" 
+                                            placeholder="Educational End" 
+                                            id="edEnd" name="education_end" 
+                                            autocomplete="off" 
+                                            class="form-control form-control-sm bg-transparent"  />
+                                    </div>                       
+                                    <div class="form-group form-check ms-5 mt-5">
+                                        <input type="checkbox" class="form-check-input" 
+                                            id="continueCheck" name="educationCK">
+                                        <label class="form-check-label" for="exampleCheck1">Still Studying Here</label>
+                                    </div>
+                                    <span id="error-edEnd" class="text-danger"></span> 
+                                </div>
                             </div>
                             <br><br>
-                            <div class="row">
-                                <div class="col-sm">
-                                    <label for="name" class="text-gray-700 fw-semibold fs-20">Educational Periood</label>
-                                    <input type="date" placeholder="Educational Start" 
-                                        name="education_start" 
-                                        autocomplete="off" id="edustart"
-                                        class="form-control bg-transparent"/>
-                                    <span id="error-edustart" class="text-danger"></span> 
-                                </div>  
-                                <div class="col-sm edDiv" id="educationEnd" style="display: block">
-                                    <label for="name" class="text-gray-700 fw-semibold fs-20"></label>
-                                    <input type="date" placeholder="Educational End" id="edEnd" name="education_end" autocomplete="off" class="form-control bg-transparent"  />
-                                </div>                       
-                                <div class="form-group form-check ms-5 mt-5">
-                                    <input type="checkbox" class="form-check-input" 
-                                        id="continueCheck" name="educationCK">
-                                    <label class="form-check-label" for="exampleCheck1">Still Studying Here</label>
-                                </div>
-                                <span id="error-edEnd" class="text-danger"></span> 
-                            </div>
-                        </div>
-                        <br><br>
-                    </div>                        
+                        </div>                        
+                    </div>
+                    <button type="button" class="btn btn-info prev-step float-start"><i class="fa-solid fa-arrow-left fa-2xl"></i> Previous</button>
+                    <button type="button" class="btn btn-primary next-step float-end">Next <i class="fa-solid fa-arrow-right fa-2xl"></i></i></button>
                 </div>
-                <button type="button" class="btn btn-primary prev-step">Previous</button>
-                <button type="button" class="btn btn-primary next-step">Next</button>
             </div>
 
-            <div class="step step-5">
+            <div class="step step-5 card" style="display: none">
                 <!-- Step 5 form fields here -->
-                <h3>Profile Image</h3>
-                <div class="image-input image-input-outline align-item-center" data-kt-image-input="true" style="background-image: url('assets/media/svg/avatars/blank.svg')">
-                    <!--begin::Preview existing avatar-->
-                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/300-1.jpg)"></div>
-                    <!--end::Preview existing avatar-->
-                    <!--begin::Label-->
-                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-                        <i class="ki-duotone ki-pencil fs-7">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                        <!--begin::Inputs-->
-                        <input type="file" name="profile_image" />
-                        {{-- <input type="hidden" name="profile_image_remove" /> --}}
-                        <!--end::Inputs-->
-                    </label>
-                    <!--end::Label-->
-                    <!--begin::Cancel-->
-                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
-                        <i class="ki-duotone ki-cross fs-2">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                    </span>
-                    <!--end::Cancel-->
-                    <!--begin::Remove-->
-                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
-                        <i class="ki-duotone ki-cross fs-2">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                    </span>
-                    <!--end::Remove-->
+                <div class="card-header">
+                    <h3 class="p-5">Profile Image</h3>
+                </div>
+                <div class="container align-item-center card-body">
+                    <div class="image-input image-input-outline align-item-center" data-kt-image-input="true" style="background-image: url('assets/media/svg/avatars/blank.svg')">
+                        <!--begin::Preview existing avatar-->
+                        <div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/300-1.jpg)"></div>
+                        <!--end::Preview existing avatar-->
+                        <!--begin::Label-->
+                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                            <i class="ki-duotone ki-pencil fs-7">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                            <!--begin::Inputs-->
+                            <input type="file" name="profile_image" />
+                            {{-- <input type="hidden" name="profile_image_remove" /> --}}
+                            <!--end::Inputs-->
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Cancel-->
+                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                            <i class="ki-duotone ki-cross fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
+                        <!--end::Cancel-->
+                        <!--begin::Remove-->
+                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                            <i class="ki-duotone ki-cross fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
+                        <!--end::Remove-->
+                    </div>
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-info prev-step"><i class="fa-solid fa-arrow-left fa-2xl"></i> Previous</button>
+                    <button type="submit" class="btn btn-success" onclick="submitForm()">Submit</button>
                 </div>
                 {{-- <x-step2/> --}}
-                <br>
-                <br>
-                <button type="button" class="btn btn-primary prev-step">Previous</button>
-                <button type="submit" class="btn btn-success" onclick="submitForm()">Submit</button>
             </div>
         </form>
     </div>
@@ -427,157 +416,7 @@
     {{-- <p>{{ config('auth.global_variable') }}</p> --}}
 
     <script>
-        function showInputField() {
-            document.getElementById('inputFieldContainer').style.display = 'block';
-        }
-    
-        function hideInputField() {
-            document.getElementById('inputFieldContainer').style.display = 'none';
-        }
-
-        function showInputFieldEdu() {
-            document.getElementById('inputFieldContainerEdu').style.display = 'block';
-        }
-    
-        function hideInputFieldEdu() {
-            document.getElementById('inputFieldContainerEdu').style.display = 'none';
-            // document.getElementById('edEnd').value = 'Hello, World!';
-        }
-
-        //Education 
-        const continueCheck = document.getElementById('continueCheck');
-        const educationEndInput = document.getElementById('edEnd');
-        document.getElementById('continueCheck').addEventListener('change', function() {
-            if (this.checked) {
-                // educationEndInput.value = 'checked';
-                document.getElementById('educationEnd').style.display = 'none';
-                // educationEndInput.disabled = true;
-            } else {
-                // educationEndInput.value = '';
-                document.getElementById('educationEnd').style.display = 'block';
-                // educationEndInput.disabled = false;
-            }
-        });
-
-        document.getElementById('jobCheck').addEventListener('change', function() {
-            if (this.checked) {
-                $("#jobend").val("");
-                document.getElementById('expDiv').style.display = 'none';
-            } else {
-                document.getElementById('expDiv').style.display = 'block';
-            }
-        });
-
-        // Array to store selected values
-        // Work type field modify
-        var selectedOptions = []; // Array to store selected options
-                
-        function showCheckboxes() {
-            var selectedValue = document.getElementById("worktype").value;
-            var selectedValuesContainer = document.getElementById("selectedValues");
-
-            // Create a container div for each selected value and its checkboxes
-            var valueContainer = document.createElement("div");
-            valueContainer.className = "value-container";
-
-            // Create an object for the selected option
-            var optionObject = {
-                title: selectedValue,
-                self: false, // Default value for self checkbox
-                job: false, // Default value for job checkbox
-                university: false, // Default value for university checkbox
-                training: false, // Default value for training checkbox
-                lifeDeath: false // Default value for life/death checkbox
-            };
-
-            // Create div for selected value
-            var selectedValueDiv = document.createElement("div");
-            selectedValueDiv.className = "selected-value";
-
-            // Add selected value
-            selectedValueDiv.innerHTML = "<h5>Selected Work Type: " + selectedValue + "</h5>";
-
-            // Create remove button
-            var removeButton = document.createElement("button");
-            removeButton.innerHTML = "Remove";
-            removeButton.className = "btn btn-danger btn-sm float-end me-5"; // Move the button to the right
-            removeButton.onclick = function () {
-                selectedValuesContainer.removeChild(valueContainer);
-                // Remove selected option from array
-                var index = selectedOptions.findIndex(obj => obj.title === selectedValue);
-                if (index > -1) {
-                    selectedOptions.splice(index, 1);
-                }
-            };
-
-            // Append remove button to selected value div
-            selectedValueDiv.appendChild(removeButton);
-
-            // Append selected value div to container
-            valueContainer.appendChild(selectedValueDiv);
-
-            // Add checkboxes below the selected value
-            var checkboxesDiv = document.createElement("div");
-            checkboxesDiv.className = "checkboxes";
-            checkboxesDiv.innerHTML = `
-                <br> <!-- Add line break -->
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input border border-primary" type="checkbox" id="${selectedValue}_self" name="${selectedValue}_self" value="self" onchange="updateCheckbox('${selectedValue}', 'self', this.checked)">
-                    <label class="form-check-label text-dark" for="${selectedValue}_self">Self</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input border border-primary" type="checkbox" id="${selectedValue}_job" name="${selectedValue}_job" value="job" onchange="updateCheckbox('${selectedValue}', 'job', this.checked)">
-                    <label class="form-check-label text-dark" for="${selectedValue}_job">Job</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input border border-primary" type="checkbox" id="${selectedValue}_university" name="${selectedValue}_university" value="university" onchange="updateCheckbox('${selectedValue}', 'university', this.checked)">
-                    <label class="form-check-label text-dark" for="${selectedValue}_university">University</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input border border-primary" type="checkbox" id="${selectedValue}_training" name="${selectedValue}_training" value="training" onchange="updateCheckbox('${selectedValue}', 'training', this.checked)">
-                    <label class="form-check-label text-dark" for="${selectedValue}_training">Training</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input border border-primary" type="checkbox" id="${selectedValue}_lifeDeath" name="${selectedValue}_lifeDeath" value="lifeDeath" onchange="updateCheckbox('${selectedValue}', 'lifeDeath', this.checked)">
-                    <label class="form-check-label text-dark" for="${selectedValue}_lifeDeath">Life/Death</label>
-                </div>
-                <!-- Add more checkboxes as needed -->
-            `;
-            valueContainer.appendChild(checkboxesDiv);
-
-            // Append value container to selected values container
-            selectedValuesContainer.appendChild(valueContainer);
-
-            // Add the object to the array if not already added
-            if (!selectedOptions.some(obj => obj.title === selectedValue)) {
-                selectedOptions.push(optionObject);
-            }
-        }
-
-        // Function to update checkbox value in the object
-        function updateCheckbox(title, checkbox, checked) {
-            var optionIndex = selectedOptions.findIndex(obj => obj.title === title);
-            if (optionIndex > -1) {
-                selectedOptions[optionIndex][checkbox] = checked;
-            }
-        }
-
-        // Function to submit form and display selected options
-        function submitForm() {
-            // Print selected options array
-            console.log(selectedOptions);
-            
-            // Serialize the array and store it in a hidden input field
-            var serializedOptions = JSON.stringify(selectedOptions);
-            var hiddenInput = document.createElement('input');
-            hiddenInput.type = 'hidden';
-            hiddenInput.name = 'selected_options';
-            hiddenInput.value = serializedOptions;
-            document.getElementById('multi-step-form').appendChild(hiddenInput);
-
-            // Submit the form
-            document.getElementById("multi-step-form").submit();
-        }
+        
         
     </script>
 </body> 

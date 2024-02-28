@@ -104,7 +104,7 @@ class AuthController extends Controller
     }
 
     public function profileDetails(){
-        return view('pages.dashboards.profileDetails');
+        return view('pages.details.user-info');
     }
 
     public function registerP2(){
