@@ -108,6 +108,7 @@ class AuthController extends Controller
     }
 
     public function registerP2(){
+        addJavascriptFile('assets/js/multi.js');
         return view('pages.auth.register_phase2');
     }
     
@@ -178,28 +179,28 @@ class AuthController extends Controller
         // // }
         // $experience->save();
         
-        //Date of Birth Field
-        // $this->validate($request,[
-        //     'day'=> 'required',
-        //     'month'=> 'required',
-        //     'year'=> 'required',
-        // ]) ;
+        // Date of Birth Field
+        $this->validate($request,[
+            'day'=> ['required', 'string'],
+            'month'=> 'required',
+            'year'=> 'required',
+        ]);
 
-        // $day = $request->input('day');
-        // $month = $request->input('month');
-        // $year = $request->input('year');
-        // // Construct a date string in the format "Y-m-d"
-        // $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
-        // // Convert the string into a DateTime object
-        // $date = date_create_from_format('Y-m-d', $dateString);
+        $day = $request->input('day');
+        $month = $request->input('month');
+        $year = $request->input('year');
+        // Construct a date string in the format "Y-m-d"
+        $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
+        // Convert the string into a DateTime object
+        $date = date_create_from_format('Y-m-d', $dateString);
         
-        // $udob = new UserDobs();
-        // $udob->user_id = \Auth::user()->id;
-        // $udob->day = $request->input('day');
-        // $udob->month = $request->input('month');
-        // $udob->year = $request->input('year');
-        // $udob->user_birthday = $date;
-        // $udob->save();
+        $udob = new UserDobs();
+        $udob->user_id = \Auth::user()->id;
+        $udob->day = $request->input('day');
+        $udob->month = $request->input('month');
+        $udob->year = $request->input('year');
+        $udob->user_birthday = $date;
+        $udob->save();
 
         //Select Job Type Input in registration phase-2
         // $jobCat = $request->input('prefered_job_type') ;
@@ -229,44 +230,45 @@ class AuthController extends Controller
         // //     dd($request->all());
         // // }
         // $education->save();
+        
+        //Work Type List upload
+        // $user_id = \Auth::user()->id;
+        // $workTypes = json_decode($request->input('selected_options'));
 
-        $user_id = \Auth::user()->id;
-        $workTypes = json_decode($request->input('selected_options'));
+        // // Start a database transaction
+        // DB::beginTransaction();
 
-        // Start a database transaction
-        DB::beginTransaction();
+        // try {
+        //     foreach ($workTypes as $option) {
+        //         // Check if the option already exists for the user
+        //         $existingOption = UserWorkType::where('user_id', $user_id)
+        //             ->where('title', $option->title)
+        //             ->first();
 
-        try {
-            foreach ($workTypes as $option) {
-                // Check if the option already exists for the user
-                $existingOption = UserWorkType::where('user_id', $user_id)
-                    ->where('title', $option->title)
-                    ->first();
-
-                if (!$existingOption) {
-                    // If the option does not exist, create a new record
-                    $selectedOption = new UserWorkType();
-                    $selectedOption->user_id = $user_id;
-                    $selectedOption->title = $option->title;
-                    $selectedOption->self = $option->self;
-                    $selectedOption->job = $option->job;
-                    $selectedOption->university = $option->university;
-                    $selectedOption->training = $option->training;
-                    $selectedOption->life_death = $option->lifeDeath;
-                    $selectedOption->save();
-                }
-                else{
-                    return view('pages.auth.register_phase2');
-                }
-            }
-            // Commit the transaction if all operations succeed
-            DB::commit();
-            // Optionally, return a response indicating success
-        } catch (\Exception $e) {
-            // Rollback the transaction if an error occurs
-            DB::rollback();
-            // Optionally, handle the error and return a response
-        }
+        //         if (!$existingOption) {
+        //             // If the option does not exist, create a new record
+        //             $selectedOption = new UserWorkType();
+        //             $selectedOption->user_id = $user_id;
+        //             $selectedOption->title = $option->title;
+        //             $selectedOption->self = $option->self;
+        //             $selectedOption->job = $option->job;
+        //             $selectedOption->university = $option->university;
+        //             $selectedOption->training = $option->training;
+        //             $selectedOption->life_death = $option->lifeDeath;
+        //             $selectedOption->save();
+        //         }
+        //         else{
+        //             return view('pages.auth.register_phase2');
+        //         }
+        //     }
+        //     // Commit the transaction if all operations succeed
+        //     DB::commit();
+        //     // Optionally, return a response indicating success
+        // } catch (\Exception $e) {
+        //     // Rollback the transaction if an error occurs
+        //     DB::rollback();
+        //     // Optionally, handle the error and return a response
+        // }
 
         // foreach ($workTypes as $option) {
 

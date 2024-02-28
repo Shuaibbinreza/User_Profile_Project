@@ -65,7 +65,7 @@
             <!--begin::Label-->
             <label class="text-gray-700 fw-semibold fs-20">Select your skill from following list
             </label><br>
-            <select name="user_main_skill" aria-label="Select skill" data-control="select2" data-placeholder="Select a skill.." 
+            <select name="userskill" aria-label="Select skill" data-control="select2" data-placeholder="Select a skill.." 
                 class="form-select form-select-solid form-select-lg border border-secondary">
                 <option value="">Select your skill</option>
                 <option value="Accounting/Finance" class="text-primary">

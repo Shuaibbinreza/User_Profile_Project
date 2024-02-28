@@ -38,6 +38,8 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string','max:15'],
+            'userskill' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -59,7 +61,7 @@ class RegisteredUserController extends Controller
             'phone'=> $request->phone,
             'phone_country_code'=> $request->phone_country_code,
             'gender'=> $request->gender,
-            'user_main_skill'=> $request->user_main_skill,
+            'user_main_skill'=> $request->userskill,
             // 'image'=> $path.$filename, 
             'password' => Hash::make($request->password),
             'last_login_at' => \Illuminate\Support\Carbon::now()->toDateTimeString(),

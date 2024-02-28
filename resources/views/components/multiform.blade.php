@@ -56,231 +56,6 @@
         }
     </style>
 
-    <script>
-        // var currentStep = 1;
-        // var updateProgressBar;
-
-        // function displayStep(stepNumber) {
-        //     if (stepNumber >= 1 && stepNumber <= 5) {
-        //         $(".step-" + currentStep).hide();
-        //         $(".step-" + stepNumber).show();
-        //         currentStep = stepNumber;
-        //         updateProgressBar();
-        //     }
-        // }
-
-        // $(document).ready(function() {
-        //     $('#multi-step-form').find('.step').slice(1).hide();
-        
-        //     $(".next-step").click(function() {
-        //     if (currentStep < 5) {
-        //         $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
-        //         currentStep++;
-        //         setTimeout(function() {
-        //         $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
-        //         $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
-        //         updateProgressBar();
-        //         }, 500);
-        //     }
-        //     });
-
-        //     $(".prev-step").click(function() {
-        //     if (currentStep > 1) {
-        //         $(".step-" + currentStep).addClass("animate__animated animate__fadeOutRight");
-        //         currentStep--;
-        //         setTimeout(function() {
-        //         $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
-        //         $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
-        //         updateProgressBar();
-        //         }, 100);
-        //     }
-        //     });
-
-        //     updateProgressBar = function() {
-        //     var progressPercentage = ((currentStep - 1) / 4) * 100;
-        //     $(".progress-bar").css("width", progressPercentage + "%");
-        //     }
-        // });
-
-        
-        var currentStep = 1;
-
-        $(document).ready(function() {
-            $('#multi-step-form').find('.step').slice(1).hide();
-
-            $(".next-step").click(function() {
-                var currentStepElement = $(".step-" + currentStep);
-                var errorContainer = $("#step-" + currentStep + "-error");
-                var isValid = true;
-
-                // Perform validation for each step
-                if (currentStep === 1) {
-                    var district = currentStepElement.find("select[name='district']").val();
-                    var thana = currentStepElement.find("select[name='thana']").val();
-                    var postOffice = currentStepElement.find("select[name='post_office']").val();
-                    var houseNo = currentStepElement.find("input[name='houseno']").val();
-                    var alt_mobile = currentStepElement.find("input[name='alt_mobile']").val();
-                    
-                    if (!district || !thana || !postOffice || !houseNo || !alt_mobile) {
-                        if(!district){
-                            errorContainer.text("Please fill out district fields.");
-                        } else if(!thana){
-                            errorContainer.text("Please fill out thana fields.");
-                        }
-                        else if(!postOffice){
-                            errorContainer.text("Please fill out postOffice fields.");
-                        }
-                        else if(!houseNo){
-                            errorContainer.text("Please fill out houseNo fields.");
-                        }
-                        else if(!alt_mobile){
-                            errorContainer.text("Please fill out alt_mobile fields.");
-                        }
-                        isValid = true;
-                    } else {
-                        errorContainer.text("");
-                    }
-                }
-
-                else if (currentStep === 2) {
-                    var day = currentStepElement.find("select[name='day']").val();
-                    var month = currentStepElement.find("select[name='month']").val();
-                    var year = currentStepElement.find("select[name='year']").val();
-                    
-                    if (!day || !month || !year) {
-                        errorContainer.text("Please fill out all the fields.");
-                        isValid = true;
-                    } else {
-                        errorContainer.text("");
-                    }
-                }
-                else if (currentStep === 3) {
-                    var prefered_job_type = currentStepElement.find("select[name='prefered_job_type']").val();
-                    var exp_radio = currentStepElement.find("input[name='exp']").val();
-                    var yesRadio = document.getElementById("expradio1");
-                    var noRadio = document.getElementById("expradio2");
-                    var cname = currentStepElement.find("input[name='cname']").val();
-                    var cd = currentStepElement.find("input[name='cd']").val();
-
-                    if (yesRadio.checked) {
-                        console.log("Hello");
-                    } else {
-                        console.log("World");
-                    }
-                    
-                    if (prefered_job_type & noRadio.checked) {
-                        errorContainer.text("");
-                    } else if(!prefered_job_type && yesRadio.checked) {
-                        if(cname && cd){
-                            errorContainer.text("");
-                        }
-                        else{
-                            errorContainer.text("Please fill out all the fields.");
-                            isValid = true;
-                        }
-                    }
-                }
-
-                else if (currentStep === 4) {
-                    // var exp_radio = currentStepElement.find("input[name='edu']").val();
-                    var yesEdu = document.getElementById("yesEdu");
-                    var noEdu = document.getElementById("noEdu");
-                    var title = currentStepElement.find("input[name='edutitle']").val();
-                    var ins = currentStepElement.find("input[name='eduins']").val();
-                    
-                    if (noEdu.checked) {
-                        errorContainer.text("");
-                    } else if(yesEdu.checked) {
-                        if(title && ins){
-                            errorContainer.text("");
-                        }
-                        else{
-                            errorContainer.text("Please fill out all the fields.");
-                            isValid = false;
-                        }
-                    }
-                }
-
-                // Add similar validation logic for other steps...
-
-                if (isValid) {
-                    if (currentStep < 5) {
-                        $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
-                        currentStep++;
-                        setTimeout(function() {
-                            $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
-                            $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
-                            updateProgressBar();
-                        }, 500);
-                    }
-                }
-            });
-
-            $(".prev-step").click(function() {
-                if (currentStep > 1) {
-                    $(".step-" + currentStep).addClass("animate__animated animate__fadeOutRight");
-                    currentStep--;
-                    setTimeout(function() {
-                        $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
-                        $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
-                        updateProgressBar();
-                    }, 500);
-                }
-            });
-
-            updateProgressBar = function() {
-                var progressPercentage = ((currentStep - 1) / 4) * 100;
-                $(".progress-bar").css("width", progressPercentage + "%");
-            }
-        });
-
-        var subjectObject = {
-            "Dhaka": {
-                "Mirpur": ["Mirpur TSO", "Kafrul"],
-                "Paltan": ["New Paltan", "Old Pantan"],
-                "Gulshan": ["Gulshan 1", "Gulshan 2"]    
-            },
-            "Rajshahi": {
-                "Sadar": ["RCC"],
-                "Puthia": ["Puthia"]
-            },
-            "Natore": {
-                "Gurudaspur": ["Hat Gurudaspur", "Sabgari", "Khubjipur"],
-                "Sadar": ["Sadar"]
-            },
-            "Barishal": {
-                "Gouronodi": ["Gouronodi"],
-                "Sadar": ["Sadar"]
-            }
-        }
-        window.onload = function() {
-            var subjectSel = document.getElementById("district");
-            var topicSel = document.getElementById("thana");
-            var chapterSel = document.getElementById("postoffice");
-            for (var x in subjectObject) {
-                subjectSel.options[subjectSel.options.length] = new Option(x, x);
-            }
-            subjectSel.onchange = function() {
-                //empty Chapters- and Topics- dropdowns
-                chapterSel.length = 1;
-                topicSel.length = 1;
-                //display correct values
-                for (var y in subjectObject[this.value]) {
-                topicSel.options[topicSel.options.length] = new Option(y, y);
-                }
-            }
-            topicSel.onchange = function() {
-                //empty Chapters dropdown
-                chapterSel.length = 1;
-                //display correct values
-                var z = subjectObject[subjectSel.value][this.value];
-                for (var i = 0; i < z.length; i++) {
-                chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
-                }
-            }
-        }
-    </script>
-
 </head> 
 
 <body> 
@@ -311,6 +86,7 @@
                                 class="form-select form-select-solid form-select-sm border border-secondary" id="district" required>
                                 <option value="" selected="selected">Select a District</option>
                             </select>
+                            <div id="district-error" class="text-danger"></div>
                         </div>
                         <div class="col-sm">
                             <label for="field1" class="form-label">Thana/Upazila</label>
@@ -319,6 +95,8 @@
                                 class="form-select form-select-solid form-select-sm border border-secondary" id="thana">
                                 <option value="">Select Thana/Upazila</option>
                             </select>
+
+                            <div id="thana-error" class="text-danger"></div>
                         </div>
                         <div class="col-sm">
                             <label for="postoffice" class="form-label">Post Office</label>
@@ -327,6 +105,7 @@
                                 class="form-select form-select-solid form-select-sm border border-secondary" id="postoffice">
                                 <option value="">Select Post office</option>
                             </select>
+                            <div id="po-error" class="text-danger"></div>
                         </div>
                     </div>
                     {{-- <div id="step-1-error1" class="text-danger"></div> --}}
@@ -334,12 +113,10 @@
                     <div class="row">
                         <div class="col-sm">
                             <label for="houseno" class="form-label">House No./Road/Village</label>
-            
-                            <input type="text" class="form-control" id="houseNo" name="houseno" placeholder="House No./Road/Village" required>
+                            <input type="text" class="form-control form-control-sm" id="houseNo" name="houseno" placeholder="House No./Road/Village" required>
+                            <div id="house-error" class="text-danger"></div>
                         </div>
                     </div>
-                    {{-- <div id="step-1-error" class="text-danger"></div> --}}
-
                     <br>
                     <div class="row">
                         <div class="col-6">
@@ -347,7 +124,8 @@
                             <i class="bi bi-question-circle-fill fw-bold text-dark align-item-end"></i>
                             <br>
                             <br>
-                            <input type="text" class="form-control" id="altphone" name="alt_mobile" placeholder="House No./Road/Village">
+                            <input type="text" class="form-control form-control-sm" id="altphone" name="alt_mobile" placeholder="House No./Road/Village">
+                            <div id="phone-error" class="text-danger"></div>
                         </div>
                     </div>
                 </div>
@@ -359,7 +137,7 @@
                     <!-- Step 1 form fields here -->
                     {{-- <h3>Your Present Address</h3> --}}
                     <!-- Other form fields -->
-                <div id="step-1-error" class="text-danger"></div> <!-- Error message container -->
+                <div id="step-error" class="text-danger"></div> <!-- Error message container -->
                 <button type="button" class="btn btn-primary next-step ms-5">Next</button>
                 {{-- </div> --}}
 
@@ -378,7 +156,8 @@
                         <div class="col-4">
                             <h5>Day</h5>
                             <select name="day" aria-label="Select a day" data-control="select2" data-placeholder="Date" 
-                                class="form-select form-select-solid form-select-lg border border-secondary">
+                                class="form-control form-select form-select-solid form-select-lg border border-secondary"
+                                id="day">
                                 <option value="">Select Date</option>
                                 <option value="1" class="text-primary">
                                     1</option>
@@ -389,21 +168,23 @@
                                 <option value="4" class="text-primary">
                                     4</option>
                             </select>
+                            <span id="error-day" class="text-danger"></span>
                         </div>
                         <div class="col-4">
                             <h5>Month</h5>
                             <select name="month" aria-label="Select Month" data-control="select2" data-placeholder="Select Month" 
-                                class="form-select form-select-solid form-select-lg border border-secondary">
+                                class="form-select form-select-solid form-select-lg border border-secondary" id="month">
                                 <option value="">Select Month</option>
                                 <option value="January" class="text-primary">January</option>
                                 <option value="February" class="text-primary">February</option>
                                 <option value="March" class="text-primary">March</option>
                             </select>
+                            <span id="error-month" class="text-danger"></span>
                         </div>
                         <div class="col-4">
                             <h5>Year</h5>
                             <select name="year" aria-label="Select year" data-control="select6" data-placeholder="Select Year.." 
-                                class="form-select form-select-solid form-select-lg border border-secondary">
+                                class="form-select form-select-solid form-select-lg border border-secondary" id="year">
                                 <option value="">Select year</option>
                                 <option value="2024" class="text-primary">
                                     2024</option>
@@ -412,28 +193,30 @@
                                 <option value="2025" class="text-primary">
                                     2025</option>
                             </select>
+                            <span id="error-year" class="text-danger"></span>
                         </div>
                     </div>
                     <br>
                     <br>
-                    <div id="step-2-error" class="text-danger"></div>
+                    <div id="step-error" class="text-danger"></div>
                     <button type="button" class="btn btn-primary prev-step">Previous</button>
                     <button type="button" class="btn btn-primary next-step">Next</button>
                 </div>
             </div>
 
+            {{-- Step 3 --}}
             <div class="step step-3">
                 <!-- Step 3 form fields here -->
                 <h3>Select Your Job Type</h3>
-                <br>
-                <br>
                 <div class="container">
                     <div class="row">
                         <div class="col-sm">
-                            <label for="field1" class="form-label">Select Job Category</label>
+                            <label for="field1" class="form-label required">Select Job Category</label>
 
-                            <select name="prefered_job_type" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select Job category.." 
-                                class="form-select form-select-solid form-select-lg border border-secondary">
+                            <select name="prefered_job_type" aria-label="Select a Country Codde" 
+                                data-control="select2" data-placeholder="Select Job category.." 
+                                class="form-select form-select-solid form-select-sm border border-secondary"
+                                id="job-cat">
                                 <option value="">Select a Job Category</option>
                                 <option value="Accounting/Finance" class="text-primary">
                                     Accounting/Finance</option>
@@ -442,17 +225,19 @@
                                 <option value="IT/Telecommunication" class="text-primary">
                                     IT/Telecommunication</option>
                             </select>
+                            <span id="error-cat" class="text-danger"></span>
                         </div>                        
                     </div>
                     <br><br>
-
+                    <h3 class="required">Select Work Type</h3>
                     <div class="row bg-secondary p-5 pb-10">
                         <div class="col-sm">
-                            <label for="field1" class="form-label">Select Work Type</label>
+                            {{-- <label for="field1" class="form-label">Select Work Type</label> --}}
                             <div id="selectedValues"></div><br><br>
                             <select name="worktype" aria-label="Select Work Type" onchange="showCheckboxes()" 
                                 data-control="select2" data-placeholder="Select Work Type.." 
-                                class="form-select form-control form-select-solid form-select-lg border border-secondary" id="worktype">
+                                class="form-select form-control form-select-solid form-select-lg border border-secondary" 
+                                id="worktype">
                                 <option value="">Select Work Type</option>
                                 <option value="C++" class="text-primary">
                                     C++</option>
@@ -461,19 +246,21 @@
                                 <option value="Spring Boot" class="text-primary">
                                     Spring Boot</option>
                             </select>
+                            <span id="error-worktype" class="text-danger"></span>
                         </div> 
                         
                     </div>
                     <br><br>
                     <div class="row">
                         <div class="col-sm">
-                            <label for="field1" class="form-label">Do you have any experience?</label><br><br>
-                            <input class="form-check-input" onclick="showInputField()" type="radio" name="exp" id="expradio1" checked>
+                            <h4 for="field1" class="form-label">Do you have any experience?</h4><br><br>
+                            <input class="form-check-input" onclick="showInputField()" 
+                                type="radio" name="exp" id="expradio1" checked>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Yes
                             </label>
-
-                            <input class="form-check-input" onclick="hideInputField()" type="radio" name="exp" id="expradio2" >
+                            <input class="form-check-input" onclick="hideInputField()" 
+                                type="radio" name="exp" id="expradio2" >
                             <label class="form-check-label" for="flexRadioDefault2">
                                 No
                             </label>
@@ -481,28 +268,45 @@
                             <div id="inputFieldContainer" style="display: block;">
                                 <div class="row">
                                     <div class="col-sm">
-                                        <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Company Name</label>
-                                        <input type="text" id="cname" placeholder="Company Name" name="company_name" autocomplete="off" class="form-control bg-transparent"/>
+                                        <label for="name" class="text-gray-700 fw-semibold fs-20 required">Latest Company Name</label>
+                                        <input type="text" id="cname" 
+                                            placeholder="Company Name" 
+                                            name="company_name" autocomplete="off" 
+                                            class="form-control form-control-sm bg-transparent"/>
+                                        <span id="error-cname" class="text-danger"></span>
                                     </div>  
                                     <div class="col-sm">
-                                        <label for="designation" class="text-gray-700 fw-semibold fs-20">Latest Designation</label>
-                                        <input type="text" id="cd" placeholder="designation" name="designation" autocomplete="off" class="form-control bg-transparent"/>
+                                        <label for="designation" class="text-gray-700 fw-semibold fs-20 required">Latest Designation</label>
+                                        <input type="text" id="cdes" 
+                                            placeholder="designation" 
+                                            name="designation" autocomplete="off" 
+                                            class="form-control form-control-sm bg-transparent"/>
+                                        <span id="error-cdes" class="text-danger"></span>
                                     </div>                       
                                 </div>
                                 <br><br>
                                 <div class="row">
                                     <div class="col-sm">
-                                        <label for="name" class="text-gray-700 fw-semibold fs-20">Employment Periood</label>
-                                        <input type="date" id="job_start" placeholder="Start Date" name="job_start" autocomplete="off" class="form-control bg-transparent"/>
+                                        <label for="name" class="text-gray-700 fw-semibold fs-20 required">Employment Periood</label>
+                                        <input type="date" id="jobstart" 
+                                            placeholder="Start Date" name="job_start" 
+                                            autocomplete="off" class="form-control form-control-sm bg-transparent"/>
+                                        <span id="error-jobstart" class="text-danger"></span>
                                     </div>  
                                     <div class="col-sm" style="display: block" id="expDiv">
                                         <label for="name" class="text-gray-700 fw-semibold fs-20"></label>
-                                        <input type="date" placeholder="Last Date" name="job_end" autocomplete="off" class="form-control bg-transparent"/>
+                                        <input type="date" placeholder="Last Date" 
+                                            name="job_end" autocomplete="off" 
+                                            class="form-control form-control-sm bg-transparent"
+                                            id="jobend"/>
                                     </div>    
                                     <div class="form-group form-check ms-5 mt-5">
-                                        <input type="checkbox" class="form-check-input" name="experienceCK" id="continueCheck1">
+                                        <input type="checkbox" class="form-check-input" 
+                                            name="experienceCK" id="jobCheck">
                                         <label class="form-check-label" for="exampleCheck1">Still Working Here</label>
                                     </div>                   
+                                    <span id="error-jobend" class="text-danger"></span>                                
+                                    <br>
                                 </div>
                             </div>
                             <br><br>
@@ -538,26 +342,34 @@
                                 <div class="col-sm">
                                     <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Education</label>
                                     <input type="text" id="edutitle" placeholder="Education" name="education_title" autocomplete="off" class="form-control bg-transparent"/>
+                                    <span id="error-edutitle" class="text-danger"></span>
                                 </div>  
                                 <div class="col-sm">
                                     <label for="name" class="text-gray-700 fw-semibold fs-20">Latest Institute</label>
                                     <input type="text" id="eduins" placeholder="Latest Institute" name="education_institute" autocomplete="off" class="form-control bg-transparent"/>
-                                </div>                       
+                                    <span id="error-eduins" class="text-danger"></span>                   
+                                </div>    
                             </div>
                             <br><br>
                             <div class="row">
                                 <div class="col-sm">
                                     <label for="name" class="text-gray-700 fw-semibold fs-20">Educational Periood</label>
-                                    <input type="date" placeholder="Educational Start" name="education_start" autocomplete="off" class="form-control bg-transparent"/>
+                                    <input type="date" placeholder="Educational Start" 
+                                        name="education_start" 
+                                        autocomplete="off" id="edustart"
+                                        class="form-control bg-transparent"/>
+                                    <span id="error-edustart" class="text-danger"></span> 
                                 </div>  
                                 <div class="col-sm edDiv" id="educationEnd" style="display: block">
                                     <label for="name" class="text-gray-700 fw-semibold fs-20"></label>
                                     <input type="date" placeholder="Educational End" id="edEnd" name="education_end" autocomplete="off" class="form-control bg-transparent"  />
                                 </div>                       
                                 <div class="form-group form-check ms-5 mt-5">
-                                    <input type="checkbox" class="form-check-input" id="continueCheck" name="educationCK">
+                                    <input type="checkbox" class="form-check-input" 
+                                        id="continueCheck" name="educationCK">
                                     <label class="form-check-label" for="exampleCheck1">Still Studying Here</label>
                                 </div>
+                                <span id="error-edEnd" class="text-danger"></span> 
                             </div>
                         </div>
                         <br><br>
@@ -647,8 +459,9 @@
             }
         });
 
-        document.getElementById('continueCheck1').addEventListener('change', function() {
+        document.getElementById('jobCheck').addEventListener('change', function() {
             if (this.checked) {
+                $("#jobend").val("");
                 document.getElementById('expDiv').style.display = 'none';
             } else {
                 document.getElementById('expDiv').style.display = 'block';
@@ -682,12 +495,12 @@
             selectedValueDiv.className = "selected-value";
 
             // Add selected value
-            selectedValueDiv.innerHTML = "<h3>Selected Work Type: " + selectedValue + "</h3>";
+            selectedValueDiv.innerHTML = "<h5>Selected Work Type: " + selectedValue + "</h5>";
 
             // Create remove button
             var removeButton = document.createElement("button");
             removeButton.innerHTML = "Remove";
-            removeButton.className = "btn btn-danger btn-sm float-right"; // Move the button to the right
+            removeButton.className = "btn btn-danger btn-sm float-end me-5"; // Move the button to the right
             removeButton.onclick = function () {
                 selectedValuesContainer.removeChild(valueContainer);
                 // Remove selected option from array
@@ -709,24 +522,24 @@
             checkboxesDiv.innerHTML = `
                 <br> <!-- Add line break -->
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="${selectedValue}_self" name="${selectedValue}_self" value="self" onchange="updateCheckbox('${selectedValue}', 'self', this.checked)">
-                    <label class="form-check-label" for="${selectedValue}_self">Self</label>
+                    <input class="form-check-input border border-primary" type="checkbox" id="${selectedValue}_self" name="${selectedValue}_self" value="self" onchange="updateCheckbox('${selectedValue}', 'self', this.checked)">
+                    <label class="form-check-label text-dark" for="${selectedValue}_self">Self</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="${selectedValue}_job" name="${selectedValue}_job" value="job" onchange="updateCheckbox('${selectedValue}', 'job', this.checked)">
-                    <label class="form-check-label" for="${selectedValue}_job">Job</label>
+                    <input class="form-check-input border border-primary" type="checkbox" id="${selectedValue}_job" name="${selectedValue}_job" value="job" onchange="updateCheckbox('${selectedValue}', 'job', this.checked)">
+                    <label class="form-check-label text-dark" for="${selectedValue}_job">Job</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="${selectedValue}_university" name="${selectedValue}_university" value="university" onchange="updateCheckbox('${selectedValue}', 'university', this.checked)">
-                    <label class="form-check-label" for="${selectedValue}_university">University</label>
+                    <input class="form-check-input border border-primary" type="checkbox" id="${selectedValue}_university" name="${selectedValue}_university" value="university" onchange="updateCheckbox('${selectedValue}', 'university', this.checked)">
+                    <label class="form-check-label text-dark" for="${selectedValue}_university">University</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="${selectedValue}_training" name="${selectedValue}_training" value="training" onchange="updateCheckbox('${selectedValue}', 'training', this.checked)">
-                    <label class="form-check-label" for="${selectedValue}_training">Training</label>
+                    <input class="form-check-input border border-primary" type="checkbox" id="${selectedValue}_training" name="${selectedValue}_training" value="training" onchange="updateCheckbox('${selectedValue}', 'training', this.checked)">
+                    <label class="form-check-label text-dark" for="${selectedValue}_training">Training</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="${selectedValue}_lifeDeath" name="${selectedValue}_lifeDeath" value="lifeDeath" onchange="updateCheckbox('${selectedValue}', 'lifeDeath', this.checked)">
-                    <label class="form-check-label" for="${selectedValue}_lifeDeath">Life/Death</label>
+                    <input class="form-check-input border border-primary" type="checkbox" id="${selectedValue}_lifeDeath" name="${selectedValue}_lifeDeath" value="lifeDeath" onchange="updateCheckbox('${selectedValue}', 'lifeDeath', this.checked)">
+                    <label class="form-check-label text-dark" for="${selectedValue}_lifeDeath">Life/Death</label>
                 </div>
                 <!-- Add more checkboxes as needed -->
             `;
