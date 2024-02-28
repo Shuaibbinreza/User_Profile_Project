@@ -4,5 +4,5 @@
         Details
     @endsection
 
-    <x-user-details/>
+    
 </x-default-layout>
