@@ -114,190 +114,190 @@ class AuthController extends Controller
     
     public function formSubmit(Request $request){
         
-        // $this->validate($request,[
-        //     'district'=>'required',
-        //     'thana'=> 'required',
-        //     'post_office'=> 'required',
-        //     'alt_mobile'=> 'required',
-        //     'houseno'=> 'required',
-        // ]);
+        $this->validate($request,[
+            'district'=>'required',
+            'thana'=> 'required',
+            'post_office'=> 'required',
+            'alt_mobile'=> 'required',
+            'houseno'=> 'required',
+        ]);
         
-        // $address = new Addresses();
-        // $address->thana = $request->thana;
-        // $address->alt_mobile = $request->alt_mobile;
-        // $address->district = $request->district;
-        // $address->post_office = $request->post_office;
-        // $address->houseno = $request->houseno;
-        // $address->user_id = \Auth::user()->id;
+        $address = new Addresses();
+        $address->thana = $request->thana;
+        $address->alt_mobile = $request->alt_mobile;
+        $address->district = $request->district;
+        $address->post_office = $request->post_office;
+        $address->houseno = $request->houseno;
+        $address->user_id = \Auth::user()->id;
         
-        // $image = '';
-        // if($request->has('profile_image')){
-        //     $image = $request->file('profile_image');
-        //     $extention = $image->getClientOriginalExtension();  
+        $image = '';
+        if($request->has('profile_image')){
+            $image = $request->file('profile_image');
+            $extention = $image->getClientOriginalExtension();  
 
-        //     $filename = time().'.'.$extention;
+            $filename = time().'.'.$extention;
 
-        //     $path = 'uploads/user/';
-        //     $image->move($path, $filename);
+            $path = 'uploads/user/';
+            $image->move($path, $filename);
+        }
+        
+        $pimage = new ProfileImg();
+        $pimage->profile_image = $path.$filename;
+        $pimage->user_id = \Auth::user()->id;
+        
+        $pimage->save();
+        $address->save();
+
+        $point = User::where('id', \Auth::user()->id)->first();
+        $point->profile_completed = true;
+
+        $point->save();
+
+        $this->validate($request,[
+            'company_name'=> 'required',
+            'designation'=> 'required',
+            'job_start'=> 'required',
+        ]);
+
+        $experience = new UserExperience();
+        $experience->user_id = \Auth::user()->id;
+        $experience->company_name = $request->company_name;
+        $experience->designation = $request->designation;
+        $experience->job_start = $request->job_start;
+        $experience->job_end = $request->job_end;
+        
+        if( $request->educationCK == 'on' ){
+            // $experience->continue = "Continue";
+            // return view("home")->with("data",$request);
+        }
+        if( $request->experienceCK == "on"){
+            $experience->continue = "Continue";
+            // return view("home")->with("data",$request);
+        }
+        // else{
+        //     dd($request->all());
         // }
-        
-        // $pimage = new ProfileImg();
-        // $pimage->profile_image = $path.$filename;
-        // $pimage->user_id = \Auth::user()->id;
-        
-        // $pimage->save();
-        // $address->save();
-
-        // $point = User::where('id', \Auth::user()->id)->first();
-        // $point->profile_completed = true;
-
-        // $point->save();
-
-        // $this->validate($request,[
-        //     'company_name'=> 'required',
-        //     'designation'=> 'required',
-        //     'job_start'=> 'required',
-        // ]);
-
-        // $experience = new UserExperience();
-        // $experience->user_id = \Auth::user()->id;
-        // $experience->company_name = $request->company_name;
-        // $experience->designation = $request->designation;
-        // $experience->job_start = $request->job_start;
-        // $experience->job_end = $request->job_end;
-        
-        // if( $request->educationCK == 'on' ){
-        //     // $experience->continue = "Continue";
-        //     // return view("home")->with("data",$request);
-        // }
-        // if( $request->experienceCK == "on"){
-        //     $experience->continue = "Continue";
-        //     // return view("home")->with("data",$request);
-        // }
-        // // else{
-        // //     dd($request->all());
-        // // }
-        // $experience->save();
+        $experience->save();
         
         // Date of Birth Field
-        // $this->validate($request,[
-        //     'day'=> ['required', 'string'],
-        //     'month'=> 'required',
-        //     'year'=> 'required',
-        // ]);
+        $this->validate($request,[
+            'day'=> ['required', 'string'],
+            'month'=> 'required',
+            'year'=> 'required',
+        ]);
 
-        // $day = $request->input('day');
-        // $month = $request->input('month');
-        // $year = $request->input('year');
-        // // Construct a date string in the format "Y-m-d"
-        // $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
-        // // Convert the string into a DateTime object
-        // $date = date_create_from_format('Y-m-d', $dateString);
+        $day = $request->input('day');
+        $month = $request->input('month');
+        $year = $request->input('year');
+        // Construct a date string in the format "Y-m-d"
+        $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
+        // Convert the string into a DateTime object
+        $date = date_create_from_format('Y-m-d', $dateString);
         
-        // $udob = new UserDobs();
-        // $udob->user_id = \Auth::user()->id;
-        // $udob->day = $request->input('day');
-        // $udob->month = $request->input('month');
-        // $udob->year = $request->input('year');
-        // $udob->user_birthday = $date;
-        // $udob->save();
+        $udob = new UserDobs();
+        $udob->user_id = \Auth::user()->id;
+        $udob->day = $request->input('day');
+        $udob->month = $request->input('month');
+        $udob->year = $request->input('year');
+        $udob->user_birthday = $date;
+        $udob->save();
 
-        //Select Job Type Input in registration phase-2
-        // $jobCat = $request->input('prefered_job_type') ;
-        // $jobType = User::where('id', \Auth::user()->id)->first();
-        // $jobType->prefered_job_type = $jobCat;
-        // $jobType->save();
+        // Select Job Type Input in registration phase-2
+        $jobCat = $request->input('prefered_job_type') ;
+        $jobType = User::where('id', \Auth::user()->id)->first();
+        $jobType->prefered_job_type = $jobCat;
+        $jobType->save();
         
-        //User Education field in registration phase 2
-        // $this->validate($request,[
-        //     'education_title'=> 'required',
-        //     'education_institute'=> 'required',
-        //     'education_start'=> 'required',
-        // ]);
+        // User Education field in registration phase 2
+        $this->validate($request,[
+            'education_title'=> 'required',
+            'education_institute'=> 'required',
+            'education_start'=> 'required',
+        ]);
 
-        // $education = new UserEducation();
-        // $education->user_id = \Auth::user()->id;
-        // $education->education_title = $request->education_title;
-        // $education->education_institute = $request->education_institute;
-        // $education->education_start = $request->education_start;
-        // $education->education_end = $request->education_end;
+        $education = new UserEducation();
+        $education->user_id = \Auth::user()->id;
+        $education->education_title = $request->education_title;
+        $education->education_institute = $request->education_institute;
+        $education->education_start = $request->education_start;
+        $education->education_end = $request->education_end;
         
-        // if( $request->educationCK == 'on' ){
-        //     $education->continue = "Continue";
-        //     // return view("home")->with("data",$request);
+        if( $request->educationCK == 'on' ){
+            $education->continue = "Continue";
+            // return view("home")->with("data",$request);
+        }
+        // else{
+        //     dd($request->all());
         // }
-        // // else{
-        // //     dd($request->all());
-        // // }
-        // $education->save();
+        $education->save();
         
-        //Work Type List upload
-        // $user_id = \Auth::user()->id;
-        // $workTypes = json_decode($request->input('selected_options'));
+        // Work Type List upload
+        $user_id = \Auth::user()->id;
+        $workTypes = json_decode($request->input('selected_options'));
 
-        // // Start a database transaction
-        // DB::beginTransaction();
+        // Start a database transaction
+        DB::beginTransaction();
 
-        // try {
-        //     foreach ($workTypes as $option) {
-        //         // Check if the option already exists for the user
-        //         $existingOption = UserWorkType::where('user_id', $user_id)
-        //             ->where('title', $option->title)
-        //             ->first();
+        try {
+            foreach ($workTypes as $option) {
+                // Check if the option already exists for the user
+                $existingOption = UserWorkType::where('user_id', $user_id)
+                    ->where('title', $option->title)
+                    ->first();
 
-        //         if (!$existingOption) {
-        //             // If the option does not exist, create a new record
-        //             $selectedOption = new UserWorkType();
-        //             $selectedOption->user_id = $user_id;
-        //             $selectedOption->title = $option->title;
-        //             $selectedOption->self = $option->self;
-        //             $selectedOption->job = $option->job;
-        //             $selectedOption->university = $option->university;
-        //             $selectedOption->training = $option->training;
-        //             $selectedOption->life_death = $option->lifeDeath;
-        //             $selectedOption->save();
-        //         }
-        //         else{
-        //             return view('pages.auth.register_phase2');
-        //         }
-        //     }
-        //     // Commit the transaction if all operations succeed
-        //     DB::commit();
-        //     // Optionally, return a response indicating success
-        // } catch (\Exception $e) {
-        //     // Rollback the transaction if an error occurs
-        //     DB::rollback();
-        //     // Optionally, handle the error and return a response
-        // }
+                if (!$existingOption) {
+                    // If the option does not exist, create a new record
+                    $selectedOption = new UserWorkType();
+                    $selectedOption->user_id = $user_id;
+                    $selectedOption->title = $option->title;
+                    $selectedOption->self = $option->self;
+                    $selectedOption->job = $option->job;
+                    $selectedOption->university = $option->university;
+                    $selectedOption->training = $option->training;
+                    $selectedOption->life_death = $option->lifeDeath;
+                    $selectedOption->save();
+                }
+                else{
+                    return view('pages.auth.register_phase2');
+                }
+            }
+            // Commit the transaction if all operations succeed
+            DB::commit();
+            // Optionally, return a response indicating success
+        } catch (\Exception $e) {
+            // Rollback the transaction if an error occurs
+            DB::rollback();
+            // Optionally, handle the error and return a response
+        }
 
-        // foreach ($workTypes as $option) {
+        foreach ($workTypes as $option) {
 
-        //     $existingOption = UserWorkType::where('user_id', \Auth::user()->id)
-        //     ->where('title', $option->title)
-        //     ->first();
+            $existingOption = UserWorkType::where('user_id', \Auth::user()->id)
+            ->where('title', $option->title)
+            ->first();
             
-        //     if($existingOption){
-        //         return view('home')->with('data', $existingOption);
-        //     }
-        //     $workTypes = new UserWorkType();
-        //     $workTypes->user_id = \Auth::user()->id;
-        //     $workTypes->title = $option->title;
-        //     $workTypes->self = $option->self;
-        //     $workTypes->job = $option->job;
-        //     $workTypes->university = $option->university;
-        //     $workTypes->training = $option->training;
-        //     $workTypes->life_death = $option->lifeDeath; // Note the difference in property name
-        //     $workTypes->save();
-        // }
+            if($existingOption){
+                return view('home')->with('data', $existingOption);
+            }
+            $workTypes = new UserWorkType();
+            $workTypes->user_id = \Auth::user()->id;
+            $workTypes->title = $option->title;
+            $workTypes->self = $option->self;
+            $workTypes->job = $option->job;
+            $workTypes->university = $option->university;
+            $workTypes->training = $option->training;
+            $workTypes->life_death = $option->lifeDeath; // Note the difference in property name
+            $workTypes->save();
+        }
         
-        // // dd($data[0]);
-        // // foreach ($data as $object) {
-        // //     dd($object);
-        // // }
-        // // dd($request->all());
-        // $workType = json_decode($request->input('selected_options'));
-        dd($request->all());
-        // return view('home');
+        // dd($data[0]);
+        // foreach ($data as $object) {
+        //     dd($object);
+        // }
+        // dd($request->all());
+        $workType = json_decode($request->input('selected_options'));
+        // dd($request->all());
+        return view('home');
     }
 
     public function formSubmit1(Request $request){
