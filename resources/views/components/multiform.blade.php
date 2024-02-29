@@ -224,12 +224,12 @@
                         <div class="col-sm">
                             <h4 for="field1" class="form-label">Do you have any experience?</h4><br><br>
                             <input class="form-check-input" onclick="showInputField()" 
-                                type="radio" name="exp" id="expradio1" checked>
+                                type="radio" name="exp" id="expradio1" value="yes" checked>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Yes
                             </label>
                             <input class="form-check-input" onclick="hideInputField()" 
-                                type="radio" name="exp" id="expradio2" >
+                                type="radio" name="exp" value="no" id="expradio2" >
                             <label class="form-check-label" for="flexRadioDefault2">
                                 No
                             </label>
@@ -302,12 +302,13 @@
                             <label for="field1" class="form-label">Do you have any Academic Education?</label><br><br>
                             <input class="form-check-input" 
                                 onclick="showInputFieldEdu()" 
-                                type="radio" name="edu" id="yesEdu" checked>
+                                type="radio" name="edu" value="yes" id="yesEdu" checked>
                             <label class="form-check-label" for="flexRadioDefaultEdu1">
                                 Yes
                             </label>
     
-                            <input class="form-check-input" onclick="hideInputFieldEdu()" type="radio" name="edu" id="noEdu" >
+                            <input class="form-check-input" onclick="hideInputFieldEdu()" 
+                                type="radio" name="edu" id="noEdu" value="no" >
                             <label class="form-check-label" for="flexRadioDefaultEdu2">
                                 No
                             </label>

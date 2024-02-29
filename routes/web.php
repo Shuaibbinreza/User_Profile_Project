@@ -30,7 +30,7 @@ Route::get('forgot-controller', [PasswordResetLinkController::class,'create'])->
 Route::get('profile-details', [AuthController::class,'profileDetails'])->name('profile-details');
 Route::get('profile-edit', [AuthController::class,'profileEdit'])->name('profile-edit');
 
-Route::post('/submit-form1', [AuthController::class, 'formSubmit1'])->name('submit-form1');
+// Route::post('/submit-form1', [AuthController::class, 'formSubmit1'])->name('submit-form1');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 

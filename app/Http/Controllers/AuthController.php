@@ -153,31 +153,27 @@ class AuthController extends Controller
 
         $point->save();
 
-        $this->validate($request,[
-            'company_name'=> 'required',
-            'designation'=> 'required',
-            'job_start'=> 'required',
-        ]);
-
-        $experience = new UserExperience();
-        $experience->user_id = \Auth::user()->id;
-        $experience->company_name = $request->company_name;
-        $experience->designation = $request->designation;
-        $experience->job_start = $request->job_start;
-        $experience->job_end = $request->job_end;
-        
-        if( $request->educationCK == 'on' ){
-            // $experience->continue = "Continue";
-            // return view("home")->with("data",$request);
+        //User Experience
+        if($request->exp == 'yes'){
+            $this->validate($request,[
+                'company_name'=> 'required',
+                'designation'=> 'required',
+                'job_start'=> 'required',
+            ]);
+    
+            $experience = new UserExperience();
+            $experience->user_id = \Auth::user()->id;
+            $experience->company_name = $request->company_name;
+            $experience->designation = $request->designation;
+            $experience->job_start = $request->job_start;
+            $experience->job_end = $request->job_end;
+            
+            if( $request->experienceCK == "on"){
+                $experience->continue = "Continue";
+                // return view("home")->with("data",$request);
+            }
+            $experience->save();
         }
-        if( $request->experienceCK == "on"){
-            $experience->continue = "Continue";
-            // return view("home")->with("data",$request);
-        }
-        // else{
-        //     dd($request->all());
-        // }
-        $experience->save();
         
         // Date of Birth Field
         $this->validate($request,[
@@ -209,27 +205,30 @@ class AuthController extends Controller
         $jobType->save();
         
         // User Education field in registration phase 2
-        $this->validate($request,[
-            'education_title'=> 'required',
-            'education_institute'=> 'required',
-            'education_start'=> 'required',
-        ]);
-
-        $education = new UserEducation();
-        $education->user_id = \Auth::user()->id;
-        $education->education_title = $request->education_title;
-        $education->education_institute = $request->education_institute;
-        $education->education_start = $request->education_start;
-        $education->education_end = $request->education_end;
-        
-        if( $request->educationCK == 'on' ){
-            $education->continue = "Continue";
-            // return view("home")->with("data",$request);
+        if($request->edu == 'yes'){
+            $this->validate($request,[
+                'education_title'=> 'required',
+                'education_institute'=> 'required',
+                'education_start'=> 'required',
+            ]);
+    
+            $education = new UserEducation();
+            $education->user_id = \Auth::user()->id;
+            $education->education_title = $request->education_title;
+            $education->education_institute = $request->education_institute;
+            $education->education_start = $request->education_start;
+            $education->education_end = $request->education_end;
+            
+            if( $request->educationCK == 'on' ){
+                $education->continue = "Continue";
+                // return view("home")->with("data",$request);
+            }
+            // else{
+            //     dd($request->all());
+            // }
+            $education->save();
         }
-        // else{
-        //     dd($request->all());
-        // }
-        $education->save();
+
         
         // Work Type List upload
         $user_id = \Auth::user()->id;
@@ -270,25 +269,23 @@ class AuthController extends Controller
             // Optionally, handle the error and return a response
         }
 
-        foreach ($workTypes as $option) {
-
-            $existingOption = UserWorkType::where('user_id', \Auth::user()->id)
-            ->where('title', $option->title)
-            ->first();
+        // foreach ($workTypes as $option) {
+        //     $existingOption = UserWorkType::where('user_id', \Auth::user()->id)
+        //     ->where('title', $option->title)->first();
             
-            if($existingOption){
-                return view('home')->with('data', $existingOption);
-            }
-            $workTypes = new UserWorkType();
-            $workTypes->user_id = \Auth::user()->id;
-            $workTypes->title = $option->title;
-            $workTypes->self = $option->self;
-            $workTypes->job = $option->job;
-            $workTypes->university = $option->university;
-            $workTypes->training = $option->training;
-            $workTypes->life_death = $option->lifeDeath; // Note the difference in property name
-            $workTypes->save();
-        }
+        //     if($existingOption){
+        //         return view('home')->with('data', $existingOption);
+        //     }
+        //     $workTypes = new UserWorkType();
+        //     $workTypes->user_id = \Auth::user()->id;
+        //     $workTypes->title = $option->title;
+        //     $workTypes->self = $option->self;
+        //     $workTypes->job = $option->job;
+        //     $workTypes->university = $option->university;
+        //     $workTypes->training = $option->training;
+        //     $workTypes->life_death = $option->lifeDeath; // Note the difference in property name
+        //     $workTypes->save();
+        // }
         
         // dd($data[0]);
         // foreach ($data as $object) {
@@ -301,7 +298,26 @@ class AuthController extends Controller
     }
 
     public function formSubmit1(Request $request){
-
+        if($request->exp == 'yes'){
+            $this->validate($request,[
+                'company_name'=> 'required',
+                'designation'=> 'required',
+                'job_start'=> 'required',
+            ]);
+    
+            $experience = new UserExperience();
+            $experience->user_id = \Auth::user()->id;
+            $experience->company_name = $request->company_name;
+            $experience->designation = $request->designation;
+            $experience->job_start = $request->job_start;
+            $experience->job_end = $request->job_end;
+            
+            if( $request->experienceCK == "on"){
+                $experience->continue = "Continue";
+                // return view("home")->with("data",$request);
+            }
+            $experience->save();
+        }
         dd($request->all());
     }
 }
