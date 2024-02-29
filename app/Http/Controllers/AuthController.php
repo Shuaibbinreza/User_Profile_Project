@@ -180,27 +180,27 @@ class AuthController extends Controller
         // $experience->save();
         
         // Date of Birth Field
-        $this->validate($request,[
-            'day'=> ['required', 'string'],
-            'month'=> 'required',
-            'year'=> 'required',
-        ]);
+        // $this->validate($request,[
+        //     'day'=> ['required', 'string'],
+        //     'month'=> 'required',
+        //     'year'=> 'required',
+        // ]);
 
-        $day = $request->input('day');
-        $month = $request->input('month');
-        $year = $request->input('year');
-        // Construct a date string in the format "Y-m-d"
-        $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
-        // Convert the string into a DateTime object
-        $date = date_create_from_format('Y-m-d', $dateString);
+        // $day = $request->input('day');
+        // $month = $request->input('month');
+        // $year = $request->input('year');
+        // // Construct a date string in the format "Y-m-d"
+        // $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
+        // // Convert the string into a DateTime object
+        // $date = date_create_from_format('Y-m-d', $dateString);
         
-        $udob = new UserDobs();
-        $udob->user_id = \Auth::user()->id;
-        $udob->day = $request->input('day');
-        $udob->month = $request->input('month');
-        $udob->year = $request->input('year');
-        $udob->user_birthday = $date;
-        $udob->save();
+        // $udob = new UserDobs();
+        // $udob->user_id = \Auth::user()->id;
+        // $udob->day = $request->input('day');
+        // $udob->month = $request->input('month');
+        // $udob->year = $request->input('year');
+        // $udob->user_birthday = $date;
+        // $udob->save();
 
         //Select Job Type Input in registration phase-2
         // $jobCat = $request->input('prefered_job_type') ;
@@ -296,7 +296,8 @@ class AuthController extends Controller
         // // }
         // // dd($request->all());
         // $workType = json_decode($request->input('selected_options'));
-        return view('home');
+        dd($request->all());
+        // return view('home');
     }
 
     public function formSubmit1(Request $request){

@@ -19,7 +19,8 @@
         <form id="multi-step-form" action={{route('submit.store')}} method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
-            <div class="step step-1 card">
+            <x-step2/>
+            {{-- <div class="step step-1 card">
                 <!-- Step 1 form fields here -->
                 <div class="card-header">
                     <h2 class="m-5">Your Present Address</h2>
@@ -92,7 +93,7 @@
                 <div class="p-5">
                     <button type="button" class="btn btn-primary next-step ms-5 float-end">Next <i class="fa-solid fa-arrow-right fa-2xl"></i></button>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Age --}}
             <div class="step step-2 card" style="display: none">
