@@ -32,14 +32,6 @@
                     <option value="Spring Boot" class="text-primary">
                         Spring Boot</option>
                 </select>
-                {{-- <select class="form-control" id="dropdown" onchange="showCheckboxes()">
-                    <option value="">Select...</option>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
-
-                    <!-- Add more options as needed -->
-                </select> --}}
             </div>
 
             <!-- Bootstrap JS and jQuery -->
@@ -54,8 +46,8 @@
                     var selectedValue = document.getElementById("worktype").value;
                     var selectedValuesContainer = document.getElementById("selectedValues");
 
-                    // Disable selected option in the dropdown
-                    document.getElementById("worktype").querySelector(`[value="${selectedValue}"]`).disabled = true;
+                    // Reset dropdown to default value
+                    document.getElementById("worktype").selectedIndex = 0;
 
                     // Create a container div for each selected value and its checkboxes
                     var valueContainer = document.createElement("div");

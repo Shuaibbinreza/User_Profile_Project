@@ -25,5 +25,5 @@
     </div> --}}
     <!--end::Row-->
     {{-- <x-multiform/> --}}
-    <x-test/>
+    {{-- <x-test/> --}}
 </x-default-layout>
