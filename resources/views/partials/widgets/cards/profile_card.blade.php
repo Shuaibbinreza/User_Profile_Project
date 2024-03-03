@@ -1,4 +1,3 @@
-
 <div id="kt_app_content" class="app-content flex-column-fluid">
     <!--begin::Content container-->
     <div id="kt_app_content_container" class="app-container container-xxl">
@@ -179,7 +178,7 @@
                                         <!--end::Number-->
                                         <!--begin::Label-->
                                         <div class="fw-semibold fs-5 text-gray-700">
-                                            @if ($education->education_institute)                                                
+                                            @if ($education)                                                
                                                 <p><b>Degree:</b> {{ $education->education_title }}</p>
                                                 <p><b>Institute:</b> {{ $education->education_institute }}</p>
                                             @else
@@ -197,7 +196,7 @@
                                         <!--end::Number-->
                                         <!--begin::Label-->
                                         <div class="fw-semibold fs-6 text-gray-700">
-                                            @if ($jobexp->company_name)                                                
+                                            @if ($jobexp)                                                
                                                 <p><b>Company:</b> {{ $jobexp->company_name}}</p>
                                                 <p><b>Designation:</b> {{ $jobexp->designation}}</p>
                                             @else
