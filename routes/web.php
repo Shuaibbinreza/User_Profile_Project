@@ -40,6 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/register-p2', [AuthController::class, 'registerP2'])->name('register-p2');
     Route::post('/submit-form', [AuthController::class, 'formSubmit'])->name('submit.store');
     Route::put('/submit-form/{id}/update', [AuthController::class, 'personal_update'])->name('submit.update');
+    Route::get('profile-details', [AuthController::class,'profileDetails'])->name('profile.details');
+
 
     Route::name('user-management.')->group(function () {
         Route::resource('/user-management/users', UserManagementController::class);

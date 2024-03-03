@@ -312,6 +312,12 @@ class AuthController extends Controller
         $pi->weight = $request->weight;
         // $pi->weight = $request->weight;
         $pi->save();
+
+        $point = User::where('id', \Auth::user()->id)->first();
+        $point->name = $request->first_name;
+        $point->gender = $request->gender;
+        $point->save();
+
         dd($request->all());
     }
 

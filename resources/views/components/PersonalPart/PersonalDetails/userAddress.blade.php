@@ -13,7 +13,14 @@
                                         <div class="col-4">
                                             <div>
                                                 <h6>Present Address</h6>
-                                                <p>Basundhora Bolck C, Kuril, Dhaka</p>
+                                                <hev class="row">
+                                                    <div class="col-sm">
+                                                        <p>Basundhora Bolck C, Kuril, Dhaka</p>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <p>Basundhora Bolck C, Kuril, Dhaka</p>
+                                                    </div>
+                                                </hev>
                                             </div>
                                             <div>
                                                 <h6> Permanent Address</h6>
