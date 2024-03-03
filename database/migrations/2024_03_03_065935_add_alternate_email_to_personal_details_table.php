@@ -10,9 +10,9 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    { 
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('prefered_job_type')->nullable()->after('user_main_skill');
+    {
+        Schema::table('personal_details', function (Blueprint $table) {
+            $table->string('alternate_email')->nullable()->after('emergency_contact');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('prefered_job_type');
+        Schema::table('personal_details', function (Blueprint $table) {
+            //
         });
     }
 };

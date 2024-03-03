@@ -24,6 +24,14 @@ return new class extends Migration
             $table->string('primary_mobile');
             $table->string('secondary_mobile'); 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('nationality')->nullable();
+            $table->string('national_id')->nullable();
+            $table->string('passport_number')->nullable();
+            $table->date('passport_issue_date')->nullable();
+            $table->string('emergency_contact')->nullable();
+            $table->string('blood_group')->nullable();
+            $table->string('height')->nullable();
+            $table->string('weight')->nullable();
             $table->timestamps();
         });
     }

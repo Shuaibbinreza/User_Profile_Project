@@ -151,7 +151,6 @@ class AuthController extends Controller
 
         $point = User::where('id', \Auth::user()->id)->first();
         $point->profile_completed = true;
-
         $point->save();
 
         //User Experience
@@ -271,7 +270,6 @@ class AuthController extends Controller
         }
 
         // Personal Details
-
         $personal = new PersonalDetails();
         $personal->gender = \Auth::user()->gender;
         $personal->first_name = \Auth::user()->name;
@@ -280,7 +278,6 @@ class AuthController extends Controller
         $personal->dob = $date;
         $personal->user_id = \Auth::user()->id;
         $personal->save();
-
 
         // dd($data[0]);
         // foreach ($data as $object) {
@@ -295,6 +292,25 @@ class AuthController extends Controller
     public function personal_update(Request $request, $id){
         $pi = PersonalDetails::where('id', $id)->first();
         $pi->first_name = $request->first_name;
+        $pi->last_name = $request->last_name;
+        $pi->father_name = $request->father_name;
+        $pi->mother_name = $request->mother_name;
+        $pi->dob = $request->dob;
+        $pi->gender = $request->gender;
+        $pi->religion = $request->religion;
+        $pi->maritial_status = $request->maritial_status;
+        $pi->primary_mobile = $request->primary_mobile;
+        $pi->secondary_mobile = $request->secondary_mobile;
+        $pi->nationality = $request->nationality;
+        $pi->national_id = $request->national_id;
+        $pi->passport_issue_date = $request->passport_issue_date;
+        $pi->passport_number = $request->passport_number;
+        $pi->emergency_contact = $request->emergency_contact;
+        $pi->alternate_email = $request->alternate_email;
+        $pi->blood_group = $request->blood_group;
+        $pi->height = $request->height;
+        $pi->weight = $request->weight;
+        // $pi->weight = $request->weight;
         $pi->save();
         dd($request->all());
     }

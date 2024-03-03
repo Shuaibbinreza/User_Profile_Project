@@ -21,7 +21,7 @@
                                             </div>
                                             <div>
                                                 <h6> Father's Name</h6>
-                                                <p>MD.Kamal Hossen</p>
+                                                <p>{{$personal->father_name}}</p>
                                             </div>
                                             <div>
                                                 <h6>Date of Birth</h6>
@@ -29,21 +29,45 @@
                                             </div>
                                             <div>
                                                 <h6>Religion</h6>
-                                                <p>{{$dob->user_birthday}}</p>
+                                                <p>{{$personal->religion}}</p>
+                                            </div>
+                                            <div>
+                                                <h6>Nationality</h6>
+                                                <p>{{$personal->nationality}}</p>
+                                            </div>
+                                            <div>
+                                                <h6>Passport Number</h6>
+                                                <p>{{$personal->passport_number}}</p>
                                             </div>
                                             <div>
                                                 <h6>Primary Mobile</h6>
                                                 <p>{{$personal->primary_mobile}}</p>
                                             </div>
+
+                                            <div>
+                                                <h6>Emergency Contact</h6>
+                                                <p>{{$personal->primary_mobile}}</p>
+                                            </div>
+
+                                            <div>
+                                                <h6>Alternate Email</h6>
+                                                <p>{{$personal->alternate_email}}</p>
+                                            </div>
+
+                                            <div>
+                                                <h6>Height (Meter)</h6>
+                                                <p>{{$personal->primary_mobile}}</p>
+                                            </div>
                                         </div>
+                                        
                                         <div class="col-3">
                                             <div>
                                                 <h6>Last Name</h6>
-                                                <p>Hasan</p>
+                                                <p> {{$personal->last_name}} </p>
                                             </div>
                                             <div>
                                                 <h6>Mother's Name</h6>
-                                                <p>Shamima Akter</p>
+                                                <p>{{$personal->mother_name}}</p>
                                             </div>
                                             <div>
                                                 <h6>Gender</h6>
@@ -51,11 +75,37 @@
                                             </div>
                                             <div>
                                                 <h6>Marital Status</h6>
+                                                <p> {{$personal->maritial_status}} </p>
+                                            </div>
+
+                                            <div>
+                                                <h6>National ID</h6>
+                                                <p> {{$personal->national_id}} </p>
+                                            </div>
+
+                                            <div>
+                                                <h6>Passport Issue Date</h6>
                                                 <p>Single</p>
                                             </div>
+
                                             <div>
                                                 <h6>Secondary Mobile</h6>
                                                 <p> {{$personal->secondary_mobile}} </p>
+                                            </div>
+
+                                            <div>
+                                                <h6>Primary Email</h6>
+                                                <p> {{Auth::user()->email}} </p>
+                                            </div>
+
+                                            <div>
+                                                <h6>Blood Group</h6>
+                                                <p> {{$personal->blood_group}} </p>
+                                            </div>
+
+                                            <div>
+                                                <h6>Weight</h6>
+                                                <p> {{$personal->weight}} </p>
                                             </div>
                                         </div>
                                         <div class="col-1 ">
@@ -92,32 +142,31 @@
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Last Name:</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                        <input type="text" class="form-control" value="{{old('last_name', $personal->last_name)}}"
+                                                                            id="recipient-name" name="last_name">
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex gap-4">
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
-                                                                            class="col-form-label">Father's
-                                                                            Name:</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                            class="col-form-label">Father's Name:</label>
+                                                                        <input type="text" class="form-control" value="{{old('father_name', $personal->father_name)}}"
+                                                                            id="recipient-name" name="father_name">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Mother's
                                                                             Name:</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                            <input type="text" class="form-control" value="{{old('mother_name', $personal->mother_name)}}"
+                                                                            id="recipient-name" name="mother_name">
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex gap-4">
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Date of Birth</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name" value="{{old('first_name', $personal->dob)}}"
+                                                                        <input type="date" class="form-control"
+                                                                            id="recipient-name" value="{{old('dob', $personal->dob)}}"
                                                                             name="dob">
                                                                     </div>
                                                                     <div class="mb-3">
@@ -125,7 +174,7 @@
                                                                             class="col-form-label">Gender</label>
                                                                         <input type="text" class="form-control"
                                                                             id="recipient-name" name="gender" 
-                                                                            value="{{old('first_name', $personal->gender)}}">
+                                                                            value="{{old('gender', $personal->gender)}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex gap-4">
@@ -134,28 +183,28 @@
                                                                             class="col-form-label">Religion</label>
                                                                         <input type="text" class="form-control"
                                                                             id="recipient-name" name="religion" 
-                                                                            value="{{old('first_name', $personal->religion)}}">
+                                                                            value="{{old('religion', $personal->religion)}}">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Marital
                                                                             Status</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                        <input type="text" class="form-control" value="{{old('maritial_status', $personal->maritial_status)}}"
+                                                                            id="recipient-name" name="maritial_status">
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex gap-4">
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Nationality</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                        <input type="text" class="form-control" value="{{old('nationality', $personal->nationality)}}"
+                                                                            id="recipient-name" name="nationality">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">National Id</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                        <input type="text" class="form-control" value="{{old('national_id', $personal->national_id)}}"
+                                                                            id="recipient-name" name="national_id">
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex gap-4">
@@ -163,15 +212,17 @@
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Passport
                                                                             Number</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                        <input type="text" class="form-control" 
+                                                                            value="{{old('passport_number', $personal->passport_number)}}"
+                                                                            id="recipient-name" name="passport_number">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Passport Issue
                                                                             Date</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                        <input type="date" class="form-control"
+                                                                            value="{{old('passport_issue_date', $personal->passport_issue_date)}}"
+                                                                            id="recipient-name" name="passport_issue_date">
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex gap-4">
@@ -180,15 +231,15 @@
                                                                             class="col-form-label">Primary
                                                                             Mobile</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="recipient-name" value="{{old('first_name', $personal->primary_mobile)}}"
-                                                                            name="primary_mobile">
+                                                                            id="recipient-name" value="{{old('primary_mobile', $personal->primary_mobile)}}"
+                                                                            name="primary_mobile" >
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Secondary
                                                                             Mobile</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="recipient-name" value="{{old('first_name', $personal->secondary_mobile)}}"
+                                                                            id="recipient-name" value="{{old('secondary_mobile', $personal->secondary_mobile)}}"
                                                                             name="secondary_mobile">
                                                                     </div>
                                                                 </div>
@@ -198,14 +249,16 @@
                                                                             class="col-form-label">Emergency
                                                                             Contact</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                            id="recipient-name" name="emergency_contact"
+                                                                            value="{{old('erergency_contact', $personal->emergency_contact)}}">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Primary Email
                                                                         </label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                        <input type="email" class="form-control"
+                                                                            value="{{old('email', Auth::user()->email)}}"
+                                                                            id="recipient-name" name="email" readonly>
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex gap-4">
@@ -213,14 +266,16 @@
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Alternate
                                                                             Email</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                        <input type="email" class="form-control"
+                                                                            value="{{old('alternate_email', $personal->alternate_email)}}"
+                                                                            id="recipient-name" name="alternate_email">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Blood Group</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                            value="{{old('blood_group', $personal->blood_group)}}"
+                                                                            id="recipient-name" name="blood_group">
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex gap-4">
@@ -229,13 +284,15 @@
                                                                             class="col-form-label">Height
                                                                             (meters)</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                            value="{{old('height', $personal->height)}}"
+                                                                            id="recipient-name" name="height">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Weight (kg)</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                            value="{{old('weight', $personal->Weight)}}"
+                                                                            id="recipient-name" name="weight">
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer d-flex justify-content-start gap-3">
