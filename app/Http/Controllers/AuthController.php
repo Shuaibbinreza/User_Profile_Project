@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Addresses;
+use App\Models\PersonalDetails;
 use App\Models\ProfileImg;
 use App\Models\UserAddress;
 use App\Models\UserDOB;
@@ -269,24 +270,18 @@ class AuthController extends Controller
             // Optionally, handle the error and return a response
         }
 
-        // foreach ($workTypes as $option) {
-        //     $existingOption = UserWorkType::where('user_id', \Auth::user()->id)
-        //     ->where('title', $option->title)->first();
-            
-        //     if($existingOption){
-        //         return view('home')->with('data', $existingOption);
-        //     }
-        //     $workTypes = new UserWorkType();
-        //     $workTypes->user_id = \Auth::user()->id;
-        //     $workTypes->title = $option->title;
-        //     $workTypes->self = $option->self;
-        //     $workTypes->job = $option->job;
-        //     $workTypes->university = $option->university;
-        //     $workTypes->training = $option->training;
-        //     $workTypes->life_death = $option->lifeDeath; // Note the difference in property name
-        //     $workTypes->save();
-        // }
-        
+        // Personal Details
+
+        $personal = new PersonalDetails();
+        $personal->gender = \Auth::user()->gender;
+        $personal->first_name = \Auth::user()->name;
+        $personal->primary_mobile = \Auth::user()->phone;
+        $personal->secondary_mobile = $request->alt_mobile;
+        $personal->dob = $date;
+        $personal->user_id = \Auth::user()->id;
+        $personal->save();
+
+
         // dd($data[0]);
         // foreach ($data as $object) {
         //     dd($object);
@@ -295,6 +290,13 @@ class AuthController extends Controller
         $workType = json_decode($request->input('selected_options'));
         // dd($request->all());
         return view('home');
+    }
+
+    public function personal_update(Request $request, $id){
+        $pi = PersonalDetails::where('id', $id)->first();
+        $pi->first_name = $request->first_name;
+        $pi->save();
+        dd($request->all());
     }
 
     public function formSubmit1(Request $request){

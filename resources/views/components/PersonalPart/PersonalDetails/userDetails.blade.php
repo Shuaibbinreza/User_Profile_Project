@@ -17,7 +17,7 @@
                                         <div class="col-4">
                                             <div>
                                                 <h6>First Name</h6>
-                                                <p>{{Auth::user()->name}}</p>
+                                                <p>{{$personal->first_name}}</p>
                                             </div>
                                             <div>
                                                 <h6> Father's Name</h6>
@@ -29,11 +29,11 @@
                                             </div>
                                             <div>
                                                 <h6>Religion</h6>
-                                                <p>Islam</p>
+                                                <p>{{$dob->user_birthday}}</p>
                                             </div>
                                             <div>
                                                 <h6>Primary Mobile</h6>
-                                                <p>{{Auth::user()->phone}}</p>
+                                                <p>{{$personal->primary_mobile}}</p>
                                             </div>
                                         </div>
                                         <div class="col-3">
@@ -47,7 +47,7 @@
                                             </div>
                                             <div>
                                                 <h6>Gender</h6>
-                                                <p>Male</p>
+                                                <p> {{$personal->gender}} </p>
                                             </div>
                                             <div>
                                                 <h6>Marital Status</h6>
@@ -55,7 +55,7 @@
                                             </div>
                                             <div>
                                                 <h6>Secondary Mobile</h6>
-                                                <p> {{$address->alt_mobile}} </p>
+                                                <p> {{$personal->secondary_mobile}} </p>
                                             </div>
                                         </div>
                                         <div class="col-1 ">
@@ -78,13 +78,16 @@
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form>
+                                                            <form action="/submit-form/{{$personal->id}}/update" method="POST">
+                                                                @csrf
+                                                                @method('PUT')
                                                                 <div class="d-flex gap-4">
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">First Name:</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                        <input type="text" class="form-control" name="first_name"
+                                                                            id="recipient-name" placeholder="{{$personal->first_name}}"
+                                                                            value="{{old('first_name', $personal->first_name)}}">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
@@ -114,13 +117,15 @@
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Date of Birth</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                            id="recipient-name" value="{{old('first_name', $personal->dob)}}"
+                                                                            name="dob">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Gender</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                            id="recipient-name" name="gender" 
+                                                                            value="{{old('first_name', $personal->gender)}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex gap-4">
@@ -128,7 +133,8 @@
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Religion</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                            id="recipient-name" name="religion" 
+                                                                            value="{{old('first_name', $personal->religion)}}">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
@@ -174,14 +180,16 @@
                                                                             class="col-form-label">Primary
                                                                             Mobile</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                            id="recipient-name" value="{{old('first_name', $personal->primary_mobile)}}"
+                                                                            name="primary_mobile">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="recipient-name"
                                                                             class="col-form-label">Secondary
                                                                             Mobile</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="recipient-name">
+                                                                            id="recipient-name" value="{{old('first_name', $personal->secondary_mobile)}}"
+                                                                            name="secondary_mobile">
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex gap-4">
@@ -230,13 +238,13 @@
                                                                             id="recipient-name">
                                                                     </div>
                                                                 </div>
+                                                                <div class="modal-footer d-flex justify-content-start gap-3">
+                                                                    <button class="btn btn-success"
+                                                                        data-bs-dismiss="modal" type="submit">Save</button>
+                                                                    <button type="button"
+                                                                        class="btn btn-secondary">Close</button>
+                                                                </div>
                                                             </form>
-                                                        </div>
-                                                        <div class="modal-footer d-flex justify-content-start gap-3">
-                                                            <button type="button" class="btn btn-success"
-                                                                data-bs-dismiss="modal">Save</button>
-                                                            <button type="button"
-                                                                class="btn btn-secondary">Close</button>
                                                         </div>
                                                     </div>
                                                 </div>

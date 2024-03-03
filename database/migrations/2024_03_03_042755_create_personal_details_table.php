@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('personal_details', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('father_name');
-            $table->string('mother_name');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('father_name')->nullable();
+            $table->string('mother_name')->nullable();
             $table->date('dob');
             $table->string('gender');
-            $table->string('religion');
-            $table->string('maritial_status');
+            $table->string('religion')->nullable();
+            $table->string('maritial_status')->nullable();
             $table->string('primary_mobile');
             $table->string('secondary_mobile'); 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Core\KTBootstrap;
 use App\Models\Addresses;
+use App\Models\PersonalDetails;
 use App\Models\ProfileImg;
 use App\Models\UserDobs;
 use App\Models\UserEducation;
@@ -71,6 +72,13 @@ class AppServiceProvider extends ServiceProvider
             if (\Auth::check()){
                 $address = Addresses::where('user_id', \Auth::user()->id)->first();
                 $view->with('address', $address);
+            }
+        });
+
+        view()->composer('*', function ($view) {
+            if (\Auth::check()){
+                $personal = PersonalDetails::where('user_id', \Auth::user()->id)->first();
+                $view->with('personal', $personal);
             }
         });
     }
