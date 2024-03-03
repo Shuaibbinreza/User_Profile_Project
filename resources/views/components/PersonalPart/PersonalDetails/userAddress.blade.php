@@ -10,23 +10,32 @@
                             <div class="accordion-body">
                                 <div class="container">
                                     <div class="row justify-content-lg-between">
-                                        <div class="col-4">
+                                        {{-- <div class="col-4"> --}}
                                             <div>
                                                 <h6>Present Address</h6>
-                                                <hev class="row">
+                                                <div class="row">
                                                     <div class="col-sm">
-                                                        <p>Basundhora Bolck C, Kuril, Dhaka</p>
+                                                        <p> <b>House No:</b> {{$address->houseno}} </p>
                                                     </div>
                                                     <div class="col-sm">
-                                                        <p>Basundhora Bolck C, Kuril, Dhaka</p>
+                                                        <p><b>Post Office:</b> {{$address->post_office}}</p>
                                                     </div>
-                                                </hev>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <p> <b>Thana/Upazila:</b> {{$address->thana}} </p>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <p><b>District:</b> {{$address->district}}</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div>
                                                 <h6> Permanent Address</h6>
                                                 <p>Same as Present Address</p>
                                             </div>
-                                        </div>
+                                        {{-- </div> --}}
                                         <div class="col-4">
 
                                         </div>
