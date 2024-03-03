@@ -32,6 +32,7 @@
         <div class="fv-row mb-8">
             <!--begin::Name-->
             <input type="text" placeholder="Name" name="name" autocomplete="off" class="form-control bg-transparent"/>
+            
             <!--end::Name-->
         </div>
 
@@ -81,6 +82,12 @@
         <div class="fv-row mb-8">
             <!--begin::Email-->
             <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent"/>
+            {{-- @if ($errors->has('email'))
+                <p class="text-danger">{{ $errors->first('email') }}</p>
+            @endif --}}
+            @error('email')
+                {{$message}}
+            @enderror
             <!--end::Email-->
         </div>
 

@@ -40,7 +40,6 @@
 
             @include('components.EducationTraining.eduTrain')
 
-
             <!-- Employment part -->
             
             @include('components.EmploymentPart.employment')

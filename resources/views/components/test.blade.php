@@ -34,6 +34,11 @@
                 </select>
             </div>
 
+            <input type="email" name="email" id="email">
+            @error('email')
+                {{$message}}
+            @enderror
+
             <!-- Bootstrap JS and jQuery -->
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -154,7 +159,7 @@
             </script>
 
             <!-- Submit button -->
-            <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+            <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
         </form>
     </div>
 </body>

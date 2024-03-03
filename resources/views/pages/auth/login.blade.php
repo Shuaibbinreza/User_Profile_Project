@@ -37,14 +37,21 @@
         <div class="fv-row mb-8">
             <!--begin::Email-->
             <input type="text" placeholder="Email" name="email" class="form-control bg-transparent" />
+            @if ($errors->has('email'))
+                <p class="text-danger">{{ $errors->first('email') }}</p>
+            @endif
             <!--end::Email-->
         </div>
 
         <!--end::Input group--->
         <div class="fv-row mb-3">
             <!--begin::Password-->
-            <input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control bg-transparent"/>
+            <input type="password" 
+                placeholder="Password" 
+                name="password" autocomplete="off" 
+                class="form-control bg-transparent"/>
             <!--end::Password-->
+            
         </div>
         <!--end::Input group--->
 

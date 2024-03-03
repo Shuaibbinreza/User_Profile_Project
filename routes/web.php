@@ -38,7 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/register-p2', [AuthController::class, 'registerP2'])->name('register-p2');
-    Route::post('/submit-form', [AuthController::class, 'formSubmit'])->name('submit.store');
+    Route::post('/submit-form', [AuthController::class, 'formSubmit1'])->name('submit.store');
 
     Route::name('user-management.')->group(function () {
         Route::resource('/user-management/users', UserManagementController::class);

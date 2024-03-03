@@ -9,7 +9,7 @@
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="mb-5">
-                                    <img src="https://cdn6.f-cdn.com/files/download/38546484/28140e.jpg" alt="" class="img-w">
+                                    <img src="{{$ProfileImage->profile_image}}" alt="" class="img-w">
                                     <h5 class="text-white py-2 bg-primary col-2  text-center">Change Photo</h5>
                                 </div>
                                 <div class="">
@@ -17,7 +17,7 @@
                                         <div class="col-4">
                                             <div>
                                                 <h6>First Name</h6>
-                                                <p>Kamrul</p>
+                                                <p>{{Auth::user()->name}}</p>
                                             </div>
                                             <div>
                                                 <h6> Father's Name</h6>
@@ -25,7 +25,7 @@
                                             </div>
                                             <div>
                                                 <h6>Date of Birth</h6>
-                                                <p>06/09/2000</p>
+                                                <p>{{$dob->user_birthday}}</p>
                                             </div>
                                             <div>
                                                 <h6>Religion</h6>
@@ -33,7 +33,7 @@
                                             </div>
                                             <div>
                                                 <h6>Primary Mobile</h6>
-                                                <p>01798135862</p>
+                                                <p>{{Auth::user()->phone}}</p>
                                             </div>
                                         </div>
                                         <div class="col-3">
@@ -55,7 +55,7 @@
                                             </div>
                                             <div>
                                                 <h6>Secondary Mobile</h6>
-                                                <p></p>
+                                                <p> {{$address->alt_mobile}} </p>
                                             </div>
                                         </div>
                                         <div class="col-1 ">
@@ -66,6 +66,7 @@
                                                 data-bs-whatever="@mdo"> <i class="fa-solid fa-pen-to-square"
                                                     style="color: #376ac3;"></i> Edit
                                             </button>
+                                            {{-- Modal for Editing --}}
                                             <div class="modal fade " id="personalEdit" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog ">

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Core\KTBootstrap;
 use App\Models\Addresses;
 use App\Models\ProfileImg;
+use App\Models\UserDobs;
 use App\Models\UserEducation;
 use App\Models\UserExperience;
 use Illuminate\Database\Schema\Builder;
@@ -56,6 +57,20 @@ class AppServiceProvider extends ServiceProvider
             if (\Auth::check()){
                 $education = UserEducation::where('user_id', \Auth::user()->id)->first();
                 $view->with('education', $education);
+            }
+        });
+
+        view()->composer('*', function ($view) {
+            if (\Auth::check()){
+                $dob = UserDobs::where('user_id', \Auth::user()->id)->first();
+                $view->with('dob', $dob);
+            }
+        });
+
+        view()->composer('*', function ($view) {
+            if (\Auth::check()){
+                $address = Addresses::where('user_id', \Auth::user()->id)->first();
+                $view->with('address', $address);
             }
         });
     }

@@ -298,26 +298,9 @@ class AuthController extends Controller
     }
 
     public function formSubmit1(Request $request){
-        if($request->exp == 'yes'){
-            $this->validate($request,[
-                'company_name'=> 'required',
-                'designation'=> 'required',
-                'job_start'=> 'required',
-            ]);
-    
-            $experience = new UserExperience();
-            $experience->user_id = \Auth::user()->id;
-            $experience->company_name = $request->company_name;
-            $experience->designation = $request->designation;
-            $experience->job_start = $request->job_start;
-            $experience->job_end = $request->job_end;
-            
-            if( $request->experienceCK == "on"){
-                $experience->continue = "Continue";
-                // return view("home")->with("data",$request);
-            }
-            $experience->save();
-        }
+        $this->validate($request,[
+            'email'=> 'email',
+        ]);
         dd($request->all());
     }
 }
