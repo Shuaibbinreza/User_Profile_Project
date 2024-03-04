@@ -47,7 +47,11 @@
                                     <i class="ki-duotone ki-geolocation fs-4 me-1">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
-                                    </i>{{$address->district}}</a>
+                                    </i>
+                                        @if ($address)
+                                            {{$address->district}}
+                                        @endif
+                                    </a>
                                     <a href="#" class="d-flex align-items-center text-gray-700 text-hover-primary mb-2">
                                     <i class="ki-duotone ki-sms fs-4">
                                         <span class="path1"></span>

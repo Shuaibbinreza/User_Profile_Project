@@ -1,25 +1,23 @@
 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
                 tabindex="0">
-                <div class="accordion" id="accordionExample">
+    <div class="accordion" id="accordionExample">
 
 
-                    <!-- Academic -->
-                    
+        <!-- Academic -->
 
-                    @include('components.EducationTraining.ETSummary.academic')
+        @include('components.EducationTraining.ETSummary.academic1')
 
-                   
+        <!-- Training -->
+        
 
-                    <!-- Training -->
-                    
-
-                    @include('components.EducationTraining.ETSummary.training')
+        {{-- @include('components.EducationTraining.ETSummary.training') --}}
 
 
-                    <!-- Professional Certificate -->
-                    
+        <!-- Professional Certificate -->
+        
 
-                    @include('components.EducationTraining.ETSummary.professionalCertificate')
-                    
-                </div>
-            </div>
+        {{-- @include('components.EducationTraining.ETSummary.professionalCertificate') --}}
+        
+    </div>
+</div>
+            

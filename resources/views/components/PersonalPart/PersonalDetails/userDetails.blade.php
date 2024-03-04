@@ -14,7 +14,9 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
         data-bs-parent="#accordionExample">
         <div class="accordion-body">
             <div class="mb-5">
-                <img src="{{$ProfileImage->profile_image}}" alt="" class="img-w">
+                @if ($ProfileImage)
+                    <img src="{{$ProfileImage->profile_image}}" alt="" class="img-w">
+                @endif
                 <h5 class="text-white py-2 bg-primary col-2  text-center">Change Photo</h5>
             </div>
             <div class="">

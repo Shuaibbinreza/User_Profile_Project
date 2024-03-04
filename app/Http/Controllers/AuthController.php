@@ -105,11 +105,12 @@ class AuthController extends Controller
     }
 
     public function profileDetails(){
+        addJavascriptFile('JS/eduform.js');
         return view('pages.details.user-info');
     }
 
     public function registerP2(){
-        addJavascriptFile('assets/js/multi.js');
+        addJavascriptFile('JS/multi.js');
         return view('pages.auth.register_phase2');
     }
     
