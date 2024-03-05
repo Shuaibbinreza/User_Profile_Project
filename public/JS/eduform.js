@@ -89,3 +89,26 @@ window.onload = function() {
         }
     });
 }
+
+function toggleToDateField() {
+    // Check if the "Currently Working" checkbox is checked
+    var currentlyWorking = document.getElementById("currentlyWorking").checked;
+
+    // Get the "toDate" field
+    var toDateField = document.getElementById("toDate");
+
+    if (currentlyWorking) {
+        // If the user is currently working, set "To Date" to "Continuing" and disable the field
+        //toDateField.value = "Continuing";
+        //toDateField.disabled = true; // Optional: You can disable the field to prevent user input
+        document.getElementById("toDateText").style.display = "block";
+        document.getElementById("toDateText").value = "Continuing";
+        toDateField.style.display = "none";
+
+    } else {
+        // If the user is not currently working, clear the "To Date" field and enable it for user input
+        toDateField.style.display = "block";
+        document.getElementById("toDateText").style.display = "none";
+        document.getElementById("toDateText").value = "";
+    }
+}

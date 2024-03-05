@@ -17,7 +17,6 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
                 @if ($ProfileImage)
                     <img src="{{$ProfileImage->profile_image}}" alt="" class="img-w">
                 @endif
-                <h5 class="text-white py-2 bg-primary col-2  text-center">Change Photo</h5>
             </div>
             <div class="">
                 <div class="row justify-content-lg-between">
@@ -32,7 +31,7 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
                         </div>
                         <div>
                             <h6>Date of Birth</h6>
-                            <p>{{$dob->user_birthday}}</p>
+                            <p>{{$personal->dob}}</p>
                         </div>
                         <div>
                             <h6>Religion</h6>
@@ -53,7 +52,7 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
 
                         <div>
                             <h6>Emergency Contact</h6>
-                            <p>{{$personal->primary_mobile}}</p>
+                            <p>{{$personal->emergency_contact}}</p>
                         </div>
 
                         <div>
@@ -63,7 +62,7 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
 
                         <div>
                             <h6>Height (Meter)</h6>
-                            <p>{{$personal->primary_mobile}}</p>
+                            <p>{{$personal->height}}</p>
                         </div>
                     </div>
                     
@@ -135,16 +134,18 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
                                             data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="/submit-form/{{$personal->id}}/update" method="POST">
+                                        <form action="/submit-form/{{$personal->id}}/update" method="POST" id="myForm">
                                             @csrf
                                             @method('PUT')
                                             <div class="d-flex gap-4">
                                                 <div class="mb-3">
-                                                    <label for="recipient-name"
+                                                    <label for="first_name"
                                                         class="col-form-label">First Name:</label>
                                                     <input type="text" class="form-control" name="first_name"
-                                                        id="recipient-name" placeholder="{{$personal->first_name}}"
+                                                        id="first_name" placeholder="{{$personal->first_name}}"
                                                         value="{{old('first_name', $personal->first_name)}}">
+
+                                                    <span id="first-name-error" style="color: red; display: none;"></span>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="recipient-name"
@@ -170,11 +171,13 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
                                             </div>
                                             <div class="d-flex gap-4" style="width: 100%;">
                                                 <div class="mb-3" style="flex-grow: 1;">
-                                                    <label for="recipient-name"
+                                                    <label for="dob"
                                                         class="col-form-label">Date of Birth</label>
                                                     <input type="date" class="form-control"
-                                                        id="recipient-name" value="{{old('dob', $personal->dob)}}"
+                                                        id="dob" value="{{old('dob', $personal->dob)}}"
                                                         name="dob">
+
+                                                    <span id="date-of-birth-error" style="color: red; display: none;"></span>
                                                 </div>
                                                 <div class="mb-3" style="flex-grow: 1;">
                                                     <label for="gender" class="col-form-label">Gender</label>
@@ -184,6 +187,8 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
                                                         <option value="Female" {{ old('gender', $personal->gender) == 'Female' ? 'selected' : '' }}>Female</option>
                                                         <option value="Other" {{ old('gender', $personal->gender) == 'Other' ? 'selected' : '' }}>Other</option>
                                                     </select>
+                                                    <span id="gender-error" style="color: red; display: none;"></span>
+
                                                 </div>
                                             </div>
                                             <div class="d-flex gap-4" style="width: 100%;">
@@ -221,6 +226,7 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
                                                             <option value="{{ $nationality }}" {{ old('nationality', $personal->nationality) == $nationality ? 'selected' : '' }}>{{ $nationality }}</option>
                                                         @endforeach
                                                     </select>
+                                                    <span id="nationality-error" style="color: red; display: none;"></span>
                                                 </div>
                                                 <div class="mb-3" style="flex-grow: 1;">
                                                     <label for="recipient-name"
@@ -249,12 +255,13 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
                                             </div>
                                             <div class="d-flex gap-4">
                                                 <div class="mb-3">
-                                                    <label for="recipient-name"
+                                                    <label for="p-mobile"
                                                         class="col-form-label">Primary
                                                         Mobile</label>
                                                     <input type="text" class="form-control"
-                                                        id="recipient-name" value="{{old('primary_mobile', $personal->primary_mobile)}}"
+                                                        id="p-mobile" value="{{old('primary_mobile', $personal->primary_mobile)}}"
                                                         name="primary_mobile" >
+                                                    <span id="p-mobile-error" style="color: red; display: none;"></span>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="recipient-name"
@@ -267,20 +274,21 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
                                             </div>
                                             <div class="d-flex gap-4">
                                                 <div class="mb-3">
-                                                    <label for="recipient-name"
+                                                    <label for="emergency-contact"
                                                         class="col-form-label">Emergency
                                                         Contact</label>
                                                     <input type="text" class="form-control"
-                                                        id="recipient-name" name="emergency_contact"
+                                                        id="emergency-contact" name="emergency_contact"
                                                         value="{{old('erergency_contact', $personal->emergency_contact)}}">
+                                                    <span id="emergency-contact-error" style="color: red; display: none;"></span>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="recipient-name"
+                                                    <label for="email"
                                                         class="col-form-label">Primary Email
                                                     </label>
                                                     <input type="email" class="form-control"
                                                         value="{{old('email', Auth::user()->email)}}"
-                                                        id="recipient-name" name="email" readonly>
+                                                        id="email" name="email" readonly>
                                                 </div>
                                             </div>
                                             <div class="d-flex gap-4">
@@ -326,7 +334,7 @@ $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 
                                             </div>
                                             <div class="modal-footer d-flex justify-content-start gap-3">
                                                 <button class="btn btn-success"
-                                                    data-bs-dismiss="modal" type="submit">Save</button>
+                                                    type="submit">Save</button>
                                                 <button type="button"
                                                     class="btn btn-secondary">Close</button>
                                             </div>
