@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\Addresses;
 use App\Models\ProfileImg;
+use App\Models\UserDobs;
+use App\Models\UserEducation;
+use App\Models\UserExperience;
+use App\Models\UserWorkType;
+use App\Models\UserWT;
 
 class DashboardController extends Controller
 {
@@ -12,6 +17,9 @@ class DashboardController extends Controller
         addJavascriptFile('JS/multi.js');
         $uid = Addresses::where('user_id', \Auth::user()->id)->first();
         $pi = ProfileImg::where('user_id', \Auth::user()->id)->first();
-        return view('pages.dashboards.index', ['address'=> $uid, 'image'=> $pi]);
+        // $pi2 = UserWorkType::where('user_id', \Auth::user()->id);
+        $posts = UserEducation::all();
+        // dd($posts);
+        return view('pages.dashboards.index', ['eee'=> $uid, 'pi2'=> $posts]);
     }
 }

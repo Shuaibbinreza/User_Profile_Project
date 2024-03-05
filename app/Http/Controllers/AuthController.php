@@ -12,6 +12,7 @@ use App\Models\UserDobs;
 use App\Models\UserEducation;
 use App\Models\UserExperience;
 use App\Models\UserWorkType;
+use App\Models\UserWT;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -116,8 +117,11 @@ class AuthController extends Controller
     public function profileDetails()
     {
         addJavascriptFile('JS/eduForm.js');
-        $posts = UserEducation::where('user_id', \Auth::id())->get();
-        return view('pages.details.user-info')->with(['posts' => $posts]);
+        $posts = UserEducation::all();
+        $educationAll = auth()->user()->user_education()->get();
+        // dd($posts);
+        // return view('pages.details.user-info', ['pi2'=> $posts]);
+        return view('pages.details.user-info');
     }
 
     public function registerP2()
@@ -254,13 +258,13 @@ class AuthController extends Controller
         try {
             foreach ($workTypes as $option) {
                 // Check if the option already exists for the user
-                $existingOption = UserWorkType::where('user_id', $user_id)
+                $existingOption = UserWT::where('user_id', $user_id)
                     ->where('title', $option->title)
                     ->first();
 
                 if (!$existingOption) {
                     // If the option does not exist, create a new record
-                    $selectedOption = new UserWorkType();
+                    $selectedOption = new UserWT();
                     $selectedOption->user_id = $user_id;
                     $selectedOption->title = $option->title;
                     $selectedOption->self = $option->self;

@@ -39,17 +39,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/register-p2', [AuthController::class, 'registerP2'])->name('register-p2');
     Route::post('/submit-form', [AuthController::class, 'formSubmit'])->name('submit-form');
+    Route::post('/submit-multi-form', [AuthController::class, 'formSubmit'])->name('submit-multi-form');
     Route::post('/submit-form', [AuthController::class, 'formSubmit1'])->name('submit.test');
     Route::put('/submit-form/{id}/update', [AuthController::class, 'personal_update'])->name('submit.update');
-    Route::get('profile-details', [AuthController::class,'profileDetails'])->name('profile.details');
+    Route::get('/profile-details', [AuthController::class,'profileDetails'])->name('profile.details');
     Route::post('/education-added', [AuthController::class,'education_create'])->name('education.create');
 
-
-    Route::name('user-management.')->group(function () {
-        Route::resource('/user-management/users', UserManagementController::class);
-        Route::resource('/user-management/roles', RoleManagementController::class);
-        Route::resource('/user-management/permissions', PermissionManagementController::class);
-    });
+    // Route::name('user-management.')->group(function () {
+    //     Route::resource('/user-management/users', UserManagementController::class);
+    //     Route::resource('/user-management/roles', RoleManagementController::class);
+    //     Route::resource('/user-management/permissions', PermissionManagementController::class);
+    // });
 
 });
 

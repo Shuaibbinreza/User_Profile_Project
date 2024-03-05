@@ -576,15 +576,14 @@
                 (If Required)
             </div>
         </div>
+
+        @if ($educationAll)    
+            @foreach ($educationAll as $post)
+                {{-- <div>{{ $post->company_name }}</div> --}}
+                {{-- <h1>Hello</h1> --}}
+                <h1>{{ $post->education_title }}</h1>
+            @endforeach
+        @endif
     </div>
 </div>
-
-@if ($posts->isEmpty())
-    <p>No posts found.</p>
-@else
-    <ul>
-        @foreach ($posts as $post)
-            <li>{{ $post->education_title }}</li>
-        @endforeach
-    </ul>
-@endif
+{{-- <h1> {{$eduAll->education_title}} </h1> --}}

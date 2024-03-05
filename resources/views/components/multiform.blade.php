@@ -33,7 +33,11 @@
             <div class="step-circle" onclick="displayStep(5)">5</div>
         </div>
 
-        <form id="multi-step-form" action="/submit-form" method="POST" enctype="multipart/form-data">
+        <form id="multi-step-form" 
+                action="/submit-multi-form"
+                {{-- action="{{route(submit-multi-form)}}" --}}
+                method="POST" 
+                enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="step step-1 card">
