@@ -9,8 +9,9 @@
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
         data-bs-parent="#accordionExample">
         <div class="accordion-body">
-            <form id="educationForm">
+            <form id="educationForm" action="{{ route('submit.test') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('POST')
                 <div class="p-2 ">
                     <h6 class="fw-bolder">Academic </h6>
                 </div>
@@ -18,9 +19,12 @@
                     <div class="col-md-6">
                         <label for="levelOfEducation" class="form-label">Level of Education</label>
                         <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
-                        <select name="education_level" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
-                            class="form-select border border-secondary" id="education_level" required>
-                            <option value="" selected="selected">Select a Level</option>
+                        <select name="education_level" 
+                                {{-- data-control="select2"  --}}
+                                data-placeholder="Degree Level.." 
+                                class="form-select border border-secondary" 
+                                id="education_level" required>
+                            <option value="" selected>Select a Level</option>
                         </select>
 
                     </div>
@@ -41,9 +45,9 @@
                             class="form-label">Concentration/Major/Group</label>
                         <input type="text" class="form-control" id="concentration">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" id="boardDiv">
                         <label for="board" class="form-label">Board</label>
-                        <select name="education_level" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Discrict.." 
+                        <select name="board" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Board.." 
                             class="form-select border border-secondary" id="board">
                             <option value="" selected="selected">Select Your Board</option>
                             <option value="Dhaka">Dhaka</option>
@@ -65,7 +69,7 @@
                         <label for="instituteName" class="form-label">Institute Name</label>
                         <input type="text" class="form-control" id="instituteName">
                         <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" id="foreignInstitute">
+                            <input class="form-check-input" type="checkbox" id="foreignInstitute" name="foreigninstitute">
                             <label class="form-check-label" for="foreignInstitute">This is a foreign
                                 institute</label>
                         </div>
@@ -78,13 +82,13 @@
                         <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
                         <select class="form-select" id="resulttype" name="resulttype">
                             <option value="">Select</option>
-                            <option value="block">Grade</option>
-                            <option value="none">First Division</option>
-                            {{-- <option value="Appeared">Appeared</option>
+                            <option value="Grade">Grade</option>
+                            <option value="FirstDiv">First Division</option>
+                            <option value="Appeared">Appeared</option>
                             <option value="Enrolled">Enrolled</option>
                             <option value="Pass">Pass</option>
                             <option value="Awarded">Awarded</option>
-                            <option value="Do not mention">Do not mention</option> --}}
+                            <option value="Do not mention">Do not mention</option>
                         </select>
 
                         
@@ -93,28 +97,28 @@
                     <div class="col-md-6">
                         <label for="yearOFpassing" class="form-label">Year of Passing</label>
                         <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
-                        <select class="form-select" id="yearOFpassing">
+                        <select class="form-select" id="yearOFpassing" data-control="select2">
                             <option selected>Select</option>
-                            <option value="1">Board 1</option>
-                            <option value="2">Board 2</option>
-                            <option value="3">Board 3</option>
                         </select>
                     </div>                    
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-sm">
-                        <label for="result" class="form-label">CGPA</label>
-                        <div id="myDiv" style="display: block;">
-                            <input type="text" class="form-control" id="marks" name="marks" placeholder="Marks">
+                        <div id="marksDiv" style="display: none;">
+                            <label for="result" class="form-label">Marks %</label>
+                            <input type="text" class="form-control" id="marks" name="marks" placeholder="Marks %">
                         </div>
-                        <input type="text" class="form-control" id="cgpa" name="cgpa" placeholder="CGPA">
+                        <div id="cgpaDiv">
+                            <label for="result" class="form-label">CGPA</label>
+                            <input type="text" class="form-control" id="cgpa" name="cgpa" placeholder="CGPA">
+                        </div>
                     </div>
                     
-                    <div class="col-sm">
-                        <label for="yearOFpassing" class="form-label">Scale</label>
+                    <div class="col-sm" id="resscale" aria-disabled="true">
+                        <label for="scale" class="form-label">Scale</label>
                         <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
-                        <select class="form-select" id="yearOFpassing" name="scale">
+                        <select class="form-select" id="scale" name="scale">
                             <option selected>Select</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
@@ -141,11 +145,6 @@
                     <button type="submit" class="btn btn-success">Save</button>
                     <button type="button" class="btn btn-secondary"
                         id="cancelEducationBtn">Cancel</button>
-                </div>
-
-                <div class="col-sm" style="display: none" id="marksfield">
-                    <label for="result" class="form-label">Marks %</label>
-                    {{-- <input type="text" class="form-control" id="marks" name="marks" placeholder="Marks"> --}}
                 </div>
             </form>
             <div class="border border-3 border-success px-2 py-2 mb-1 w-25 zoom-on-hover  text-success"

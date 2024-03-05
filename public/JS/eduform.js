@@ -10,10 +10,14 @@ var subjectObject = {
 }
 window.onload = function() {
     var subjectSel = document.getElementById("education_level");
-    var techSel = document.getElementById("education_title");
-    var resultType = document.getElementById("resulttype");
-    var marksField = document.getElementById("marksfield");
-    
+    var techSel = document.getElementById("education_title");    
+    var years = document.getElementById("yearOFpassing");    
+    const currentYear = new Date().getFullYear();
+
+    for (let i = currentYear; i > 2000; i--) {
+        years.options[years.options.length] = new Option(i, i);
+    }
+
     // Populate subjects dropdown
     for (var x in subjectObject) {
         subjectSel.options[subjectSel.options.length] = new Option(x, x);
@@ -31,20 +35,43 @@ window.onload = function() {
         }
     }
 
-    // Add event listener for resulttype dropdown
-    // document.getElementById("grades").addEventListener("change", function() {
-    //     var selectedValue = this.value; // Get the selected value from the dropdown
-    //     var divElement = document.getElementById("myDiv"); // Get the div element
-        
-    //     // Update the display style based on the selected value
-    //     divElement.style.display = selectedValue;
-    // });
-
     document.getElementById("resulttype").addEventListener("change", function() {
         var selectedValue = this.value; // Get the selected value from the dropdown
-        var divElement = document.getElementById("myDiv"); // Get the div element
+        var marks = document.getElementById("marksDiv"); // Get the div element
+        var cgpa = document.getElementById("cgpaDiv"); // Get the div element
         
         // Update the display style based on the selected value
-        divElement.style.display = selectedValue;
+        if(selectedValue === 'FirstDiv'){
+            marks.style.display = 'block';
+            cgpa.style.display = 'none';
+            // disableFormElementsInDiv('resscale');
+            document.getElementById("resscale").style.display = 'none';
+        }
+        else if(selectedValue === 'Grade'){
+            marks.style.display = 'none';
+            cgpa.style.display = 'block';
+            document.getElementById("resscale").style.display = 'block';
+        }
+        else{
+            marks.style.display = 'none';
+            cgpa.style.display = 'none';
+            document.getElementById("resscale").style.display = 'none';
+        }
+    });
+    
+    // Degree Relation
+    document.getElementById("education_level").addEventListener("change", function() {
+        var selectedValue = this.value; // Get the selected value from the dropdown
+        var marks1 = document.getElementById("boardDiv"); // Get the div element
+        
+        // Update the display style based on the selected value
+        if(selectedValue === 'PhD (Doctor of Philosophy)' ||
+            selectedValue === 'Masters' ||
+            selectedValue === 'Bacchelor/Honours'){
+            marks1.style.display = 'none';
+        }
+        else{
+            marks1.style.display = 'block';
+        }
     });
 }

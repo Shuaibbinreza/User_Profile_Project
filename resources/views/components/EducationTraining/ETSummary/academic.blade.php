@@ -304,14 +304,14 @@
             <!-- Academic 3 -->
             
 
-            <form id="educationForm" style="display: none;">
+            <!-- <form id="educationForm" style="display: none;">
                 <div class="p-2 ">
                     <h6 class="fw-bolder">Academic </h6>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="levelOfEducation" class="form-label">Level of Education</label>
-                        <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
+                        
                         <select class="form-select" id="levelOfEducation">
                             <option selected>Select</option>
                             <option value="1">Board 1</option>
@@ -322,7 +322,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="examTitle" class="form-label">Exam/Degree Title</label>
-                        <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
+                        
                         <select class="form-select" id="examTitle">
                             <option selected>Select</option>
                             <option value="1">Board 1</option>
@@ -365,7 +365,6 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="result" class="form-label">Result</label>
-                        <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
                         <select class="form-select" id="result">
                             <option selected>Select</option>
                             <option value="1">Board 1</option>
@@ -376,7 +375,6 @@
                     </div>
                     <div class="col-md-6">
                         <label for="yearOFpassing" class="form-label">Year of Passing</label>
-                        <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
                         <select class="form-select" id="yearOFpassing">
                             <option selected>Select</option>
                             <option value="1">Board 1</option>
@@ -402,6 +400,172 @@
 
                 </div>
 
+                //Add the rest of the form fields here 
+                <div class="mb-4">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-secondary"
+                        id="cancelEducationBtn">Cancel</button>
+                </div>
+            </form> -->
+            <form id="educationForm"  
+                style="display: none;" method="POST" 
+                enctype="multipart/form-data"
+                action="{{ route('submit.test') }}">
+                @csrf
+                @method('POST')
+                <div class="p-2 ">
+                    <h6 class="fw-bolder">Academic </h6>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="levelOfEducation" class="form-label">Level of Education</label>
+                        <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
+                        <select name="education_level" 
+                                {{-- data-control="select2"  --}}
+                                data-placeholder="Degree Level.." 
+                                class="form-select border border-secondary" 
+                                id="education_level" required>
+                            <option value="" selected>Select a Level</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="examTitle" class="form-label">Exam/Degree Title</label>
+                        <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
+                        <select name="education_title" aria-label="Select post office" data-control="select2" data-placeholder="Select your post office.." 
+                            class="form-select border border-secondary" id="education_title">
+                            <option value="">Exam/Degree Title</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="concentration"
+                            class="form-label">Concentration/Major/Group</label>
+                        <input type="text" class="form-control" id="concentration">
+                    </div>
+                    <div class="col-md-6" id="boardDiv">
+                        <label for="board" class="form-label">Board</label>
+                        <select name="board" aria-label="Select a Country Codde" data-control="select2" data-placeholder="Select your Board.." 
+                            class="form-select border border-secondary" id="board">
+                            <option value="" selected="selected">Select Your Board</option>
+                            <option value="Dhaka">Dhaka</option>
+                            <option value="Rajshahi">Rajshahi</option>
+                            <option value="Dinajpur">Dinajpur</option>
+                            <option value="Cumilla">Cumilla</option>
+                            <option value="Chattogram">Chattogram</option>
+                            <option value="Jashore">Jashore</option>
+                            <option value="Barishal">Barishal</option>
+                            <option value="Sylhel">Sylhel</option>
+                            <option value="Madrasa">Madrasa</option>
+                            <option value="BTEB">BTEB</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="instituteName" class="form-label">Institute Name</label>
+                        <input type="text" class="form-control" id="instituteName">
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" id="foreignInstitute" name="foreigninstitute">
+                            <label class="form-check-label" for="foreignInstitute">This is a foreign
+                                institute</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <h4 class="form-label">Educational Periood</h4>
+                    <div class="col-sm">
+                        <label for="education_start" class="form-label">Start Date</label>
+                        <input type="date" placeholder="Educational Start" 
+                            name="education_start" 
+                            autocomplete="off" id="edustart"
+                            class="form-control bg-transparent"/>
+                        <span id="error-edustart" class="text-danger"></span> 
+                    </div>  
+                    <div class="col-sm edDiv" id="educationEnd" style="display: block">
+                        <label for="education_end" class="form-label">Start Date</label>
+                        <input type="date" 
+                            placeholder="Educational End" 
+                            id="edEnd" name="education_end" 
+                            autocomplete="off" 
+                            class="form-control bg-transparent"  />
+                    </div>                       
+                    <div class="form-group form-check ms-5 mt-5">
+                        <input type="checkbox" class="form-check-input" 
+                            id="continueCheck" name="educationCK">
+                        <label class="form-check-label" for="exampleCheck1">Still Studying Here</label>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="result" class="form-label">Result</label>
+                        <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
+                        <select class="form-select" id="resulttype" name="resulttype">
+                            <option value="">Select</option>
+                            <option value="Grade">Grade</option>
+                            <option value="FirstDiv">First Division</option>
+                            <option value="Appeared">Appeared</option>
+                            <option value="Enrolled">Enrolled</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Awarded">Awarded</option>
+                            <option value="Do not mention">Do not mention</option>
+                        </select>
+
+                        
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="yearOFpassing" class="form-label">Year of Passing</label>
+                        <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
+                        <select class="form-select" id="yearOFpassing" data-control="select2">
+                            <option selected>Select</option>
+                        </select>
+                    </div>                    
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-sm">
+                        <div id="marksDiv" style="display: none;">
+                            <label for="result" class="form-label">Marks %</label>
+                            <input type="text" class="form-control" id="marks" name="marks" placeholder="Marks %">
+                        </div>
+                        <div id="cgpaDiv">
+                            <label for="result" class="form-label">CGPA</label>
+                            <input type="text" class="form-control" id="cgpa" name="cgpa" placeholder="CGPA">
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm" id="resscale" aria-disabled="true">
+                        <label for="scale" class="form-label">Scale</label>
+                        <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
+                        <select class="form-select" id="scale" name="scale">
+                            <option selected>Select</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>                    
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="duration" class="form-label">Duration (Years)</label>
+                        <input type="text" class="form-control" id="duration">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="achivement" class="form-label">Achievement</label>
+                        <input type="text" class="form-control" id="achivement">
+
+                    </div>
+
+                </div>
+
                 <!-- Add the rest of the form fields here -->
                 <div class="mb-4">
                     <button type="submit" class="btn btn-success">Save</button>
@@ -417,62 +581,3 @@
         </div>
     </div>
 </div>
-
-<select id="grades" onchange="showHideDiv()">
-    <option value="none">None</option>
-    <option value="block">Grade</option>
-    <!-- Add more options if needed -->
-</select>
-
-<div id="myDiv" style="display: none;">
-    <h2>Grade Selected</h2>
-    <!-- Content of the div -->
-</div>
-
-<script>
-    var subjectObject = {
-        "PSC/5 Pass": ["PSC","Ebtadaye", "5 Pass", "Others"],
-        "JSC/JDC/8 Pass": ["JSC", "JDC", "8 Pass", "Others"],
-        "Secondary": ["SSC", "O-Level", "Dakhil(Madrasa)", "SSC (Vocational)", "Others"],
-        "Higher Secondary": ["HSC", "A-Level", "Alim(Madrasa)", "HSC (Vocational)", "HSC (BMT)", "Others"],
-        "Diploma": ["Diploma in Engineering", "PGT", "Diploma in Automation", "Others"],
-        "Bacchelor/Honours": ["Bachellor of Science (BSc)", "Bachelor of Arts (BA)", "Others"],
-        "Masters": ["MSc", "MA", "MBA", "Others"],
-        "PhD (Doctor of Philosophy)": ["HTML", "CSS", "JavaScript"],
-    }
-    window.onload = function() {
-        var subjectSel = document.getElementById("education_level");
-        var techSel = document.getElementById("education_title");
-        var resultType = document.getElementById("resulttype");
-        var marksField = document.getElementById("marksfield");
-        
-        // Populate subjects dropdown
-        for (var x in subjectObject) {
-            subjectSel.options[subjectSel.options.length] = new Option(x, x);
-        }
-        
-        // On subject change, update techs dropdown
-        subjectSel.onchange = function() {
-            // Empty techs dropdown
-            techSel.length = 1;
-            // Get selected subject
-            var techs = subjectObject[this.value];
-            // Populate techs dropdown
-            for (var i = 0; i < techs.length; i++) {
-                techSel.options[techSel.options.length] = new Option(techs[i], techs[i]);
-            }
-        }
-
-        // Add event listener for resulttype dropdown
-        function showHideDiv() {
-            // Get the selected value from the dropdown
-            var selectedValue = document.getElementById("grades").value;
-            
-            // Get the div element
-            var divElement = document.getElementById("myDiv");
-            
-            // Update the display style based on the selected value
-            divElement.style.display = selectedValue;
-        }
-    }
-</script>

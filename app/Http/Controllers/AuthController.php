@@ -105,7 +105,7 @@ class AuthController extends Controller
     }
 
     public function profileDetails(){
-        addJavascriptFile('JS/eduform.js');
+        addJavascriptFile('JS/eduForm.js');
         return view('pages.details.user-info');
     }
 
@@ -322,10 +322,15 @@ class AuthController extends Controller
         dd($request->all());
     }
 
+    public function education_create(Request $request){
+
+        dd($request->all());
+    }
+
     public function formSubmit1(Request $request){
-        $this->validate($request,[
-            'email'=> 'email',
-        ]);
+        // $this->validate($request,[
+        //     'email'=> 'email',
+        // ]);
         dd($request->all());
     }
 }

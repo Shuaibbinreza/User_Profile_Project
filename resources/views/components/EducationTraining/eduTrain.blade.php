@@ -5,18 +5,18 @@
 
         <!-- Academic -->
 
-        @include('components.EducationTraining.ETSummary.academic1')
+        @include('components.EducationTraining.ETSummary.academic')
 
         <!-- Training -->
         
 
-        {{-- @include('components.EducationTraining.ETSummary.training') --}}
+        @include('components.EducationTraining.ETSummary.training')
 
 
         <!-- Professional Certificate -->
         
 
-        {{-- @include('components.EducationTraining.ETSummary.professionalCertificate') --}}
+        @include('components.EducationTraining.ETSummary.professionalCertificate')
         
     </div>
 </div>
