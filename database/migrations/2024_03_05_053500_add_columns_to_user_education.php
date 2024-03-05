@@ -17,9 +17,10 @@ return new class extends Migration
             $table->string('board')->nullable()->after('major');
             $table->boolean('foreign_institute')->default(false)->after('education_institute');
             $table->double('year_of_passing')->nullable()->after('education_end');
-            $table->double('result')->nullable()->after('year_of_passing');
-            $table->double('scale')->nullable()->after('result');
-            $table->double('duration')->nullable()->after('result');
+            $table->string('resulttype')->nullable()->after('year_of_passing');
+            $table->double('cgpa')->nullable()->after('resulttype');
+            $table->double('marks')->nullable()->after('cgpa');
+            $table->double('duration')->nullable()->after('marks');
             $table->text('achievement')->nullable()->after('duration');
         });
     }
@@ -30,7 +31,16 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('user_education', function (Blueprint $table) {
-            //
+            $table->dropColumn('major');
+            $table->dropColumn('education_level');
+            $table->dropColumn('board');
+            $table->dropColumn('foreign_institute');
+            $table->dropColumn('year_of_passing');
+            $table->dropColumn('resulttype');
+            $table->dropColumn('cgpa');
+            $table->dropColumn('marks');
+            $table->dropColumn('duration');
+            $table->dropColumn('achievement');
         });
     }
 };

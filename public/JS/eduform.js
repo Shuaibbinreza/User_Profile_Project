@@ -58,6 +58,20 @@ window.onload = function() {
             document.getElementById("resscale").style.display = 'none';
         }
     });
+
+    // Checkbox checked
+    document.getElementById('continueCheck').addEventListener('change', function() {
+        if (this.checked) {
+            // educationEndInput.value = 'checked';
+            $("#edEnd").val("");
+            document.getElementById('educationEnd').style.display = 'none';
+            // educationEndInput.disabled = true;
+        } else {
+            // educationEndInput.value = '';
+            document.getElementById('educationEnd').style.display = 'block';
+            // educationEndInput.disabled = false;
+        }
+    });
     
     // Degree Relation
     document.getElementById("education_level").addEventListener("change", function() {

@@ -17,113 +17,126 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-$abc='';
+
+$abc = '';
 class AuthController extends Controller
 {
-    
-    public function index($name = null){
+
+    public function index($name = null)
+    {
         global $abc;
         $data = compact('name');
         $abc = $data;
         return view("pages.auth.login")->with($data);
     }
 
-    public function login(Request $request, $name = null){
+    public function login(Request $request, $name = null)
+    {
         global $abc;
         // dd($request->all());
-        $this->validate($request,[
-            "email"=> "required",
-            "password"=> "required",
+        $this->validate($request, [
+            "email" => "required",
+            "password" => "required",
         ]);
 
-        if(\Auth::attempt($request->only('email','password'))){
+        if (\Auth::attempt($request->only('email', 'password'))) {
             return redirect('dashboard');
         }
-        
+
         return redirect('login-failed')->withError('Login details are not valid');
         // return redirect('/'.$abc)->withError('Login details are not valid');
     }
 
-    public function register_view($name = null){
+    public function register_view($name = null)
+    {
         $data = compact('name');
         return view("pages.auth.register")->with($data);
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $request->validate([
-            'name'=>'required',
-            'profile_photo_path'=> 'nullable|mimes:png,jpg,jpeg,gif',
+            'name' => 'required',
+            'profile_photo_path' => 'nullable|mimes:png,jpg,jpeg,gif',
             'email' => 'required|unique:users|email',
-            'password'=>'required|confirmed'
+            'password' => 'required|confirmed'
         ]);
 
         // save in users table 
-        if($request->has('image')){
+        if ($request->has('image')) {
             $image = $request->file('image');
-            $extention = $image->getClientOriginalExtension();  
+            $extention = $image->getClientOriginalExtension();
 
-            $filename = time().'.'.$extention;
+            $filename = time() . '.' . $extention;
 
             $path = 'uploads/user/';
             $image->move($path, $filename);
         }
 
         User::create([
-            'name'=>$request->name,
-            'phone'=>$request->phone,
-            'address'=> $request->address,
-            'image'=>$path.$filename,
-            'email'=>$request->email,
-            'password'=> \Hash::make($request->password)
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'image' => $path . $filename,
+            'email' => $request->email,
+            'password' => \Hash::make($request->password)
         ]);
 
         // login user here 
-        
-        if(\Auth::attempt($request->only('email','password'))){
+
+        if (\Auth::attempt($request->only('email', 'password'))) {
             return redirect('dashboard');
         }
         return redirect('register')->withError('Error');
     }
 
-    public function home(){
+    public function home()
+    {
         return view('pages.auth.login1');
     }
 
-    public function editprofile(){
+    public function editprofile()
+    {
         // $profile = User::find($id);
         // dd($profile);
         return view('edit');
     }
-    public function logout(){
+    public function logout()
+    {
         \Session::flush();
         \Auth::logout();
         return redirect('/');
     }
 
-    public function profileEdit(){
+    public function profileEdit()
+    {
         return view('pages.dashboards.profileEdit');
     }
 
-    public function profileDetails(){
+    public function profileDetails()
+    {
         addJavascriptFile('JS/eduForm.js');
-        return view('pages.details.user-info');
+        $posts = UserEducation::where('user_id', \Auth::id())->get();
+        return view('pages.details.user-info')->with(['posts' => $posts]);
     }
 
-    public function registerP2(){
+    public function registerP2()
+    {
         addJavascriptFile('JS/multi.js');
         return view('pages.auth.register_phase2');
     }
-    
-    public function formSubmit(Request $request){
-        
-        $this->validate($request,[
-            'district'=>'required',
-            'thana'=> 'required',
-            'post_office'=> 'required',
-            'alt_mobile'=> 'required',
-            'houseno'=> 'required',
+
+    public function formSubmit(Request $request)
+    {
+
+        $this->validate($request, [
+            'district' => 'required',
+            'thana' => 'required',
+            'post_office' => 'required',
+            'alt_mobile' => 'required',
+            'houseno' => 'required',
         ]);
-        
+
         $address = new Addresses();
         $address->thana = $request->thana;
         $address->alt_mobile = $request->alt_mobile;
@@ -131,22 +144,22 @@ class AuthController extends Controller
         $address->post_office = $request->post_office;
         $address->houseno = $request->houseno;
         $address->user_id = \Auth::user()->id;
-        
-        $image = '';
-        if($request->has('profile_image')){
-            $image = $request->file('profile_image');
-            $extention = $image->getClientOriginalExtension();  
 
-            $filename = time().'.'.$extention;
+        $image = '';
+        if ($request->has('profile_image')) {
+            $image = $request->file('profile_image');
+            $extention = $image->getClientOriginalExtension();
+
+            $filename = time() . '.' . $extention;
 
             $path = 'uploads/user/';
             $image->move($path, $filename);
         }
-        
+
         $pimage = new ProfileImg();
-        $pimage->profile_image = $path.$filename;
+        $pimage->profile_image = $path . $filename;
         $pimage->user_id = \Auth::user()->id;
-        
+
         $pimage->save();
         $address->save();
 
@@ -155,32 +168,32 @@ class AuthController extends Controller
         $point->save();
 
         //User Experience
-        if($request->exp == 'yes'){
-            $this->validate($request,[
-                'company_name'=> 'required',
-                'designation'=> 'required',
-                'job_start'=> 'required',
+        if ($request->exp == 'yes') {
+            $this->validate($request, [
+                'company_name' => 'required',
+                'designation' => 'required',
+                'job_start' => 'required',
             ]);
-    
+
             $experience = new UserExperience();
             $experience->user_id = \Auth::user()->id;
             $experience->company_name = $request->company_name;
             $experience->designation = $request->designation;
             $experience->job_start = $request->job_start;
             $experience->job_end = $request->job_end;
-            
-            if( $request->experienceCK == "on"){
+
+            if ($request->experienceCK == "on") {
                 $experience->continue = "Continue";
                 // return view("home")->with("data",$request);
             }
             $experience->save();
         }
-        
+
         // Date of Birth Field
-        $this->validate($request,[
-            'day'=> ['required', 'string'],
-            'month'=> 'required',
-            'year'=> 'required',
+        $this->validate($request, [
+            'day' => ['required', 'string'],
+            'month' => 'required',
+            'year' => 'required',
         ]);
 
         $day = $request->input('day');
@@ -190,7 +203,7 @@ class AuthController extends Controller
         $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
         // Convert the string into a DateTime object
         $date = date_create_from_format('Y-m-d', $dateString);
-        
+
         $udob = new UserDobs();
         $udob->user_id = \Auth::user()->id;
         $udob->day = $request->input('day');
@@ -200,27 +213,27 @@ class AuthController extends Controller
         $udob->save();
 
         // Select Job Type Input in registration phase-2
-        $jobCat = $request->input('prefered_job_type') ;
+        $jobCat = $request->input('prefered_job_type');
         $jobType = User::where('id', \Auth::user()->id)->first();
         $jobType->prefered_job_type = $jobCat;
         $jobType->save();
-        
+
         // User Education field in registration phase 2
-        if($request->edu == 'yes'){
-            $this->validate($request,[
-                'education_title'=> 'required',
-                'education_institute'=> 'required',
-                'education_start'=> 'required',
+        if ($request->edu == 'yes') {
+            $this->validate($request, [
+                'education_title' => 'required',
+                'education_institute' => 'required',
+                'education_start' => 'required',
             ]);
-    
+
             $education = new UserEducation();
             $education->user_id = \Auth::user()->id;
             $education->education_title = $request->education_title;
             $education->education_institute = $request->education_institute;
             $education->education_start = $request->education_start;
             $education->education_end = $request->education_end;
-            
-            if( $request->educationCK == 'on' ){
+
+            if ($request->educationCK == 'on') {
                 $education->continue = "Continue";
                 // return view("home")->with("data",$request);
             }
@@ -230,7 +243,7 @@ class AuthController extends Controller
             $education->save();
         }
 
-        
+
         // Work Type List upload
         $user_id = \Auth::user()->id;
         $workTypes = json_decode($request->input('selected_options'));
@@ -256,8 +269,7 @@ class AuthController extends Controller
                     $selectedOption->training = $option->training;
                     $selectedOption->life_death = $option->lifeDeath;
                     $selectedOption->save();
-                }
-                else{
+                } else {
                     return view('pages.auth.register_phase2');
                 }
             }
@@ -290,7 +302,8 @@ class AuthController extends Controller
         return view('home');
     }
 
-    public function personal_update(Request $request, $id){
+    public function personal_update(Request $request, $id)
+    {
         $pi = PersonalDetails::where('id', $id)->first();
         $pi->first_name = $request->first_name;
         $pi->last_name = $request->last_name;
@@ -322,12 +335,52 @@ class AuthController extends Controller
         dd($request->all());
     }
 
-    public function education_create(Request $request){
+    public function education_create(Request $request)
+    {
+        $this->validate($request, [
+            'education_title' => 'required',
+            'education_institute' => 'required',
+            'education_start' => 'required',
+        ]);
+
+        $education = new UserEducation();
+        $education->user_id = \Auth::user()->id;
+        $education->education_level = $request->education_level;
+        $education->education_title = $request->education_title;
+        $education->education_institute = $request->education_institute;
+        // $education->foreign_institute = $request->foreigninstitute;
+        $education->education_start = $request->education_start;
+        $education->education_end = $request->education_end;
+        $education->year_of_passing = $request->year_of_passing;
+        $education->resulttype = $request->resulttype;
+        $education->cgpa = $request->cgpa;
+        $education->marks = $request->marks;
+        $education->major = $request->major;
+        $education->board = $request->board;
+        $education->scale = $request->scale;
+        $education->duration = $request->duration;
+        $education->achievement = $request->achievement;
+
+        if ($request->educationCK == 'on') {
+            $education->continue = "Continue";
+            // return view("home")->with("data",$request);
+        }
+
+        if ($request->foreigninstitute == 'on') {
+            $education->foreign_institute = true;
+            // return view("home")->with("data",$request);
+        }
+        // else{
+        //     dd($request->all());
+        // }
+        $education->save();
+
 
         dd($request->all());
     }
 
-    public function formSubmit1(Request $request){
+    public function formSubmit1(Request $request)
+    {
         // $this->validate($request,[
         //     'email'=> 'email',
         // ]);

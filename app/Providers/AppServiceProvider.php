@@ -61,6 +61,13 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
+        // view()->composer('*', function ($view) {
+        //     if (\Auth::check()){
+        //         $educationAll = UserEducation::where('user_id', \Auth::user()->id);
+        //         $view->with('educationAll', $educationAll);
+        //     }
+        // });
+
         view()->composer('*', function ($view) {
             if (\Auth::check()){
                 $dob = UserDobs::where('user_id', \Auth::user()->id)->first();

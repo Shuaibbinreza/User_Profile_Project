@@ -410,7 +410,7 @@
             <form id="educationForm"  
                 style="display: none;" method="POST" 
                 enctype="multipart/form-data"
-                action="{{ route('submit.test') }}">
+                action="{{ route('education.create') }}">
                 @csrf
                 @method('POST')
                 <div class="p-2 ">
@@ -444,7 +444,7 @@
                     <div class="col-md-6">
                         <label for="concentration"
                             class="form-label">Concentration/Major/Group</label>
-                        <input type="text" class="form-control" id="concentration">
+                        <input type="text" class="form-control" id="concentration" name="major">
                     </div>
                     <div class="col-md-6" id="boardDiv">
                         <label for="board" class="form-label">Board</label>
@@ -468,7 +468,7 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <label for="instituteName" class="form-label">Institute Name</label>
-                        <input type="text" class="form-control" id="instituteName">
+                        <input type="text" class="form-control" id="instituteName" name="education_institute">
                         <div class="form-check mt-2">
                             <input class="form-check-input" type="checkbox" id="foreignInstitute" name="foreigninstitute">
                             <label class="form-check-label" for="foreignInstitute">This is a foreign
@@ -488,7 +488,7 @@
                         <span id="error-edustart" class="text-danger"></span> 
                     </div>  
                     <div class="col-sm edDiv" id="educationEnd" style="display: block">
-                        <label for="education_end" class="form-label">Start Date</label>
+                        <label for="education_end" class="form-label">End Date</label>
                         <input type="date" 
                             placeholder="Educational End" 
                             id="edEnd" name="education_end" 
@@ -516,14 +516,11 @@
                             <option value="Awarded">Awarded</option>
                             <option value="Do not mention">Do not mention</option>
                         </select>
-
-                        
-
                     </div>
                     <div class="col-md-6">
                         <label for="yearOFpassing" class="form-label">Year of Passing</label>
                         <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
-                        <select class="form-select" id="yearOFpassing" data-control="select2">
+                        <select class="form-select" id="yearOFpassing" data-control="select2" name="year_of_passing">
                             <option selected>Select</option>
                         </select>
                     </div>                    
@@ -556,11 +553,11 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="duration" class="form-label">Duration (Years)</label>
-                        <input type="text" class="form-control" id="duration">
+                        <input type="text" class="form-control" id="duration" name="duration">
                     </div>
                     <div class="col-md-6">
                         <label for="achivement" class="form-label">Achievement</label>
-                        <input type="text" class="form-control" id="achivement">
+                        <input type="text" class="form-control" id="achivement" name="achievement">
 
                     </div>
 
@@ -581,3 +578,13 @@
         </div>
     </div>
 </div>
+
+@if ($posts->isEmpty())
+    <p>No posts found.</p>
+@else
+    <ul>
+        @foreach ($posts as $post)
+            <li>{{ $post->education_title }}</li>
+        @endforeach
+    </ul>
+@endif
