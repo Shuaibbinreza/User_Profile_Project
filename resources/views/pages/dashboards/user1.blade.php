@@ -4,7 +4,8 @@
         Details
     @endsection
 
-    <x-user-details/>
+    
+    <x-user-details :vv="$vv"/>
 
     {{-- <label for="grades">Select grade:</label>
     <select id="grades" onchange="showHideDiv()">
@@ -17,5 +18,7 @@
         <h2>Grade Selected</h2>
         <!-- Content of the div -->
     </div> --}}
+
+    
     
 </x-default-layout>

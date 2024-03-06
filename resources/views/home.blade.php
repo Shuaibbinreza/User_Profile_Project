@@ -10,6 +10,7 @@
     <h1 class="bg-success">Operation successfull</h1>
     {{-- <h1> {{$data->educationend}} </h1> --}}
     <h1>Selected Options</h1>
+    
     <ul>
         {{-- @foreach($data as $option)
         <div>

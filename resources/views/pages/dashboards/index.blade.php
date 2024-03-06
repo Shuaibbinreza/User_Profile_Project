@@ -26,10 +26,6 @@
     <!--end::Row-->
     {{-- <x-multiform/> --}}
     {{-- <x-test/>    --}}
-    @if ($pi2)    
-        @foreach ($pi2 as $post)
-            {{-- <div>{{ $post->company_name }}</div> --}}
-            <p>{{ $post->education_title }}</p>
-        @endforeach
-    @endif
+    <div>{{ $vv->education_title }}</div>
+    
 </x-default-layout>

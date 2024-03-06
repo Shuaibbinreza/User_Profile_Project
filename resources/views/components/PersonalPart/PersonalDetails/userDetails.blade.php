@@ -1,8 +1,6 @@
 @php
 $nationalities = ['American', 'British' , 'Bangladeshi' , 'Canadian', 'French', 'German']; // Add as many as needed
 @endphp
-
-
 <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
         <button class="accordion-button" type="button" data-bs-toggle="collapse"

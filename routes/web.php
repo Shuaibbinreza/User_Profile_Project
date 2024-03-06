@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\PasswordProviderCustom;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FormController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MailController;
@@ -35,6 +36,7 @@ Route::get('profile-edit', [AuthController::class,'profileEdit'])->name('profile
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/test', [FormController::class, 'index']);
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/register-p2', [AuthController::class, 'registerP2'])->name('register-p2');
@@ -42,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/submit-multi-form', [AuthController::class, 'formSubmit'])->name('submit-multi-form');
     Route::post('/submit-form', [AuthController::class, 'formSubmit1'])->name('submit.test');
     Route::put('/submit-form/{id}/update', [AuthController::class, 'personal_update'])->name('submit.update');
+    Route::delete('/education/{id}/delete', [AuthController::class, 'educationDelete'])->name('education.delete');
     Route::get('/profile-details', [AuthController::class,'profileDetails'])->name('profile.details');
     Route::post('/education-added', [AuthController::class,'education_create'])->name('education.create');
 

@@ -19,7 +19,8 @@ class DashboardController extends Controller
         $pi = ProfileImg::where('user_id', \Auth::user()->id)->first();
         // $pi2 = UserWorkType::where('user_id', \Auth::user()->id);
         $posts = UserEducation::all();
+        $vv = UserEducation::findOrFail(16);
         // dd($posts);
-        return view('pages.dashboards.index', ['eee'=> $uid, 'pi2'=> $posts]);
+        return view('pages.dashboards.index', ['eee'=> $uid, 'vv'=> $vv]);
     }
 }

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
+
 use App\Models\Addresses;
 use App\Models\PersonalDetails;
 use App\Models\ProfileImg;
-use App\Models\UserAddress;
-use App\Models\UserDOB;
 use App\Models\UserDobs;
 use App\Models\UserEducation;
 use App\Models\UserExperience;
@@ -117,10 +115,9 @@ class AuthController extends Controller
     public function profileDetails()
     {
         addJavascriptFile('JS/eduForm.js');
-        $posts = UserEducation::all();
-        $educationAll = auth()->user()->user_education()->get();
-        // dd($posts);
-        // return view('pages.details.user-info', ['pi2'=> $posts]);
+        // $educationAll = UserEducation::all();
+        // $educationAll = auth()->user()->user_education()->get();
+        // dd($educationAll);
         return view('pages.details.user-info');
     }
 
@@ -361,12 +358,17 @@ class AuthController extends Controller
         $education->marks = $request->marks;
         $education->major = $request->major;
         $education->board = $request->board;
-        $education->scale = $request->scale;
+        // $education->scale = $request->scale;
         $education->duration = $request->duration;
         $education->achievement = $request->achievement;
 
         if ($request->educationCK == 'on') {
             $education->continue = "Continue";
+            // return view("home")->with("data",$request);
+        }
+
+        if ($request->resulttype == 'First Division') {
+            $education->scale = 100;
             // return view("home")->with("data",$request);
         }
 
@@ -378,9 +380,13 @@ class AuthController extends Controller
         //     dd($request->all());
         // }
         $education->save();
-
-
         dd($request->all());
+    }
+
+    public function educationDelete(Request $request, $id){
+        $product = UserEducation::where('id', $id)->first();
+        $product->delete();
+        return back()->with('danger','Deleted Successfully');
     }
 
     public function formSubmit1(Request $request)

@@ -309,4 +309,8 @@
             });
         });
     </script>
+    {{-- <h1>Hello World</h1>
+    <h1>
+        {{$vv->education_title}}
+    </h1> --}}
 </x-default-layout>
