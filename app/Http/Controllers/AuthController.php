@@ -115,6 +115,7 @@ class AuthController extends Controller
     public function profileDetails()
     {
         addJavascriptFile('JS/eduForm.js');
+        addJavascriptFile('JS/profile.js');
         // $educationAll = UserEducation::all();
         // $educationAll = auth()->user()->user_education()->get();
         // dd($educationAll);
