@@ -26,6 +26,6 @@
     <!--end::Row-->
     {{-- <x-multiform/> --}}
     {{-- <x-test/>    --}}
-    <div>{{ $vv->education_title }}</div>
+    {{-- <div>{{ $vv->education_title }}</div> --}}
     
 </x-default-layout>

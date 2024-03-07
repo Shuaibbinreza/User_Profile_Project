@@ -15,12 +15,7 @@ class DashboardController extends Controller
     {
         addVendors(['amcharts', 'amcharts-maps', 'amcharts-stock']);
         addJavascriptFile('JS/multi.js');
-        $uid = Addresses::where('user_id', \Auth::user()->id)->first();
-        $pi = ProfileImg::where('user_id', \Auth::user()->id)->first();
-        // $pi2 = UserWorkType::where('user_id', \Auth::user()->id);
-        $posts = UserEducation::all();
-        $vv = UserEducation::findOrFail(16);
-        // dd($posts);
-        return view('pages.dashboards.index', ['eee'=> $uid, 'vv'=> $vv]);
+        
+        return view('pages.dashboards.index');
     }
 }
