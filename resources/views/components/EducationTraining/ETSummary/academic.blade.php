@@ -1,5 +1,4 @@
 @php
-    // $educaionAll = \App\Models\UserEducation::all();
     $user = Auth::user();
     $educationAll = $user->user_education()->orderBy('year_of_passing', 'asc')->get();
     $ac_id = 0;
@@ -108,408 +107,36 @@
                         </div>
                         <div class="col-2 ">
                             <div class="d-flex">
-                                <button type="button" class="border-0 bg-white text-primary" data-bs-toggle="modal"
+                                {{-- <button type="button" class="border-0 bg-white text-primary" data-bs-toggle="modal"
                                     data-bs-target="#educationEdit" data-bs-whatever="@mdo"> <i
                                         class="fa-solid fa-pen-to-square" style="color: #376ac3;"></i> <span
                                         class="fw-bolder">Edit</span>
+                                </button> --}}
+
+                                <button type="button" class="border-0 bg-white text-primary" data-bs-toggle="modal"
+                                    data-id="{{ $edu->id }}" data-title="{{ $edu->education_title }}" data-bs-target="#educationEdit"> 
+                                    <i class="fa-solid fa-pen-to-square" style="color: #376ac3;"></i> <span
+                                    class="fw-bolder">Edit</span>
                                 </button>
 
                                 {{-- Edit Modal --}}
 
-                                {{-- Edit Modal --}}
-                            <div class="modal fade " id="educationEdit" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog ">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit
-                                        </h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="{{ route('submit.test') }}" method="POST" enctype="multipart/form-data">
-                                                @csrf
-                                                @method('POST')
-                                            <div class="p-2 ">
-                                                <h6 class="fw-bolder">Add Academic Record {{$edu->id}} </h6>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label for="levelOfEducation" class="form-label">Level of Education</label>
-                                                    <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
-                                                    <select name="education_level" {{-- data-control="select2"  --}}
-                                                        data-placeholder="Degree Level.."
-                                                        class="form-select border border-secondary"
-                                                        id="education_level1" required>
-                                                        <option value="{{$edu->education_level}}" selected>{{$edu->education_level}}</option>
-                                                    </select>
-
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="examTitle" class="form-label">Exam/Degree
-                                                        Title</label>
-                                                    <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
-                                                    <select name="education_title" aria-label="Select post office"
-                                                        data-control="select2"
-                                                        data-placeholder="Select your post office.."
-                                                        class="form-select border border-secondary"
-                                                        id="education_title1">
-                                                        <option value="{{$edu->education_title}}">{{$edu->education_title}}</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label for="concentration"
-                                                        class="form-label">Concentration/Major/Group</label>
-                                                    <input type="text" class="form-control" id="concentration1"
-                                                        name="major" value="{{old('major', $edu->major)}}">
-                                                </div>
-                                                <div class="col-md-6" id="boardDiv1">
-                                                    <label for="board" class="form-label">Board</label>
-                                                    <select name="board" aria-label="Select a Country Codde"
-                                                        data-control="select2"
-                                                        data-placeholder="Select your Board.."
-                                                        class="form-select border border-secondary"
-                                                        id="board1">
-                                                        <option value="{{$edu->board}}" selected="selected">{{$edu->board}}</option>
-                                                        <option value="Dhaka">Dhaka</option>
-                                                        <option value="Rajshahi">Rajshahi</option>
-                                                        <option value="Dinajpur">Dinajpur</option>
-                                                        <option value="Cumilla">Cumilla</option>
-                                                        <option value="Chattogram">Chattogram</option>
-                                                        <option value="Jashore">Jashore</option>
-                                                        <option value="Barishal">Barishal</option>
-                                                        <option value="Sylhel">Sylhel</option>
-                                                        <option value="Madrasa">Madrasa</option>
-                                                        <option value="BTEB">BTEB</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <div class="col-md-12">
-                                                    <label for="instituteName" class="form-label">Institute Name</label>
-                                                    <input type="text" class="form-control" id="instituteName1"
-                                                        name="education_institute"
-                                                        value="{{old('education_institute', $edu->education_institute)}}">
-                                                    <div class="form-check mt-2">
-                                                        @if ($edu->foreigninstitute)                                                                
-                                                            <input class="form-check-input" type="checkbox"
-                                                                id="foreignInstitute1" name="foreigninstitute"
-                                                                checked>
-                                                            <label class="form-check-label"
-                                                                for="foreignInstitute">This is a foreign institute</label>
-                                                        @else
-                                                            <input class="form-check-input" type="checkbox"
-                                                                id="foreignInstitute1" name="foreigninstitute"
-                                                                checked>
-                                                            <label class="form-check-label"
-                                                                for="foreignInstitute">This is a foreign institute</label>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <h4 class="form-label">Educational Periood</h4>
-                                                <div class="col-sm">
-                                                    <label for="education_start" class="form-label">Start Date</label>
-                                                    <input type="date" placeholder="Educational Start"
-                                                        name="education_start" autocomplete="off" id="edustart1"
-                                                        class="form-control bg-transparent" 
-                                                        value="{{old('education_start', $edu->education_start)}}"/>
-                                                    <span id="error-edustart" class="text-danger"></span>
-                                                </div>
-                                                <div class="col-sm edDiv" id="educationEnd1"
-                                                    style="display: block">
-                                                    <label for="education_end" class="form-label">End Date</label>
-                                                    <input type="date" placeholder="Educational End"
-                                                        id="edEnd1" name="education_end" autocomplete="off"
-                                                        class="form-control bg-transparent" 
-                                                        value="{{old('education_end', $edu->education_end)}}"/>
-                                                </div>
-                                                <div class="form-group form-check ms-5 mt-5">
-                                                    @if ($edu->educationCK)    
-                                                        <input type="checkbox" class="form-check-input"
-                                                            id="continueCheck1" name="educationCK"
-                                                            checked>
-                                                        <label class="form-check-label" for="exampleCheck1">Still Studying Here</label>
-                                                    @else
-                                                        <input type="checkbox" class="form-check-input"
-                                                            id="continueCheck1" name="educationCK">
-                                                        <label class="form-check-label" for="exampleCheck1">Still Studying Here</label>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label for="result" class="form-label">Result</label>
-                                                    <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
-                                                    <select class="form-select" id="resulttype1"
-                                                        name="resulttype">
-                                                        <option value="{{$edu->resulttype}}">{{$edu->resulttype}}</option>
-                                                        <option value="Grade">Grade</option>
-                                                        <option value="FirstDiv">First Division</option>
-                                                        <option value="Appeared">Appeared</option>
-                                                        <option value="Enrolled">Enrolled</option>
-                                                        <option value="Pass">Pass</option>
-                                                        <option value="Awarded">Awarded</option>
-                                                        <option value="Do not mention">Do not mention</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="yearOFpassing" class="form-label">Year of
-                                                        Passing</label>
-                                                    <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
-                                                    <select class="form-select" id="yearOFpassing1"
-                                                        data-control="select2" name="year_of_passing">
-                                                        <option value="{{$edu->year_of_passing}}" selected>{{$edu->year_of_passing}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <div class="col-sm">
-                                                    <div id="marksDiv1" style="display: none;">
-                                                        <label for="result" class="form-label">Marks %</label>
-                                                        <input type="text" class="form-control" id="marks1"
-                                                            name="marks" placeholder="Marks %"
-                                                            value="{{old('marks', $edu->marks)}}">
-                                                    </div>
-                                                    <div id="cgpaDiv1">
-                                                        <label for="result" class="form-label">CGPA</label>
-                                                        <input type="text" class="form-control" id="cgpa1"
-                                                            name="cgpa" placeholder="CGPA">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm" id="resscale1" aria-disabled="true">
-                                                    <label for="scale" class="form-label">Scale</label>
-                                                    <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
-                                                    <select class="form-select" id="scale1" name="scale">
-                                                        <option value="{{$edu->scale}}" selected>{{$edu->scale}}</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="10">10</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label for="duration" class="form-label">Duration (Years)</label>
-                                                    <input type="text" class="form-control" id="duration1"
-                                                        name="duration" value="{{old('dduration', $edu->duration)}}">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="achivement" class="form-label">Achievement</label>
-                                                    <input type="text" class="form-control" id="achivement1"
-                                                        name="achievement" value="{{old('achievement', $edu->achievement)}}">
-                                                </div>
-
-                                            </div>
-
-                                            <!-- Add the rest of the form fields here -->
-                                            <div class="mb-4">
-                                                <button type="submit" class="btn btn-success">Save</button>
-                                                <button type="button" 
-                                                    class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                            </div>
-                                            {{-- </form> --}}
-                                        </form>
-                                    </div>
-                                    {{-- <div class="modal-footer d-flex justify-content-start gap-3">
-                                        <button type="button" class="btn btn-success"
-                                            data-bs-dismiss="modal">Save</button>
-                                        <button type="button" class="btn btn-secondary">Close</button>
-                                    </div> --}}
-                                </div>
-                            </div>
-                        </div>
-
                                 <!-- Button trigger modal -->
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModel"
-                                    class="border-0 bg-white">
-                                    <i class="fa-solid fa-trash-can" style="color: #cb1111;"></i> <span
-                                        class="text-danger fw-bolder">Delete</span>
+                                <button type="button" class="border-0 bg-white text-danger" data-bs-toggle="modal"
+                                    data-id="{{ $edu->id }}" data-bs-target="#deleteModel">
+                                    <i class="fa-solid fa-trash-can" style="color: #cb1111;"></i>
+                                    <span class="fw-bolder">Delete</span>
                                 </button>
                             </div>
 
                             <!--Delete Modal -->
-                            <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel"><i
-                                                    class="fa-solid fa-trash-can fa-xl" style="color: #cb1111;"></i>
-                                                Delete!
-                                            </h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Are you sure, you want to delete this record? {{$edu->id}}
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancle</button>
-                                            <form action="education/{{ $edu->id }}/delete" class="d-inline"
-                                                method="POST">
-                                                @csrf
-                                                @method('POST')
-                                                <button type="submit" data-bs-toggle="modal" {{-- data-bs-target="#deleteModel"  --}}
-                                                    class="border-0 bg-white">
-                                                    <i class="fa-solid fa-trash-can" style="color: #cb1111;"></i> <span
-                                                        class="text-danger fw-bolder">Delete</span>
-                                                </button>
-                                            </form>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
                         </div>
                     </div>
                 </div>
             @endforeach
             
-            {{-- Testing Loop here --}}
-            @foreach ($educationAll as $product)               
-                <p>{{$loop->index+1}}</p>
-                <p>
-                    <a href="product/{{$product->id}}/view" class="text-white">
-                        {{$product->education_title}}
-                    </a>
-                </p>
-                <p>{{$product->education_level}}</p>
-                
-                <a href="product/{{$product->id}}/edit" class="btn btn-primary">Edit</a>
-                <form 
-                    {{-- action="product/{{$product->id}}/delete"  --}}
-                    action="education/{{ $product->id }}/delete"
-                    class="d-inline" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger" type="submit">Delete</button>
-                </form>
-            @endforeach
-
-            <!-- Academic 2 -->
-
-            <!-- Academic 3 -->
-
-
-            <!-- <form id="educationForm" style="display: none;">
-                <div class="p-2 ">
-                    <h6 class="fw-bolder">Academic </h6>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="levelOfEducation" class="form-label">Level of Education</label>
-                        
-                        <select class="form-select" id="levelOfEducation">
-                            <option selected>Select</option>
-                            <option value="1">Board 1</option>
-                            <option value="2">Board 2</option>
-                            <option value="3">Board 3</option>
-                        </select>
-
-                    </div>
-                    <div class="col-md-6">
-                        <label for="examTitle" class="form-label">Exam/Degree Title</label>
-                        
-                        <select class="form-select" id="examTitle">
-                            <option selected>Select</option>
-                            <option value="1">Board 1</option>
-                            <option value="2">Board 2</option>
-                            <option value="3">Board 3</option>
-                        </select>
-                    </div>
-
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="concentration"
-                            class="form-label">Concentration/Major/Group</label>
-                        <input type="text" class="form-control" id="concentration">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="board" class="form-label">Board</label>
-                        <select class="form-select" id="board">
-                            <option selected>Select</option>
-                            <option value="1">Board 1</option>
-                            <option value="2">Board 2</option>
-                            <option value="3">Board 3</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-12">
-                        <label for="instituteName" class="form-label">Institute Name</label>
-                        <input type="text" class="form-control" id="instituteName">
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" id="foreignInstitute">
-                            <label class="form-check-label" for="foreignInstitute">This is a foreign
-                                institute</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="result" class="form-label">Result</label>
-                        <select class="form-select" id="result">
-                            <option selected>Select</option>
-                            <option value="1">Board 1</option>
-                            <option value="2">Board 2</option>
-                            <option value="3">Board 3</option>
-                        </select>
-
-                    </div>
-                    <div class="col-md-6">
-                        <label for="yearOFpassing" class="form-label">Year of Passing</label>
-                        <select class="form-select" id="yearOFpassing">
-                            <option selected>Select</option>
-                            <option value="1">Board 1</option>
-                            <option value="2">Board 2</option>
-                            <option value="3">Board 3</option>
-                        </select>
-                    </div>
-
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="duration" class="form-label">Duration (Years)</label>
-                        <input type="text" class="form-control" id="duration">
-
-
-                    </div>
-                    <div class="col-md-6">
-                        <label for="achivement" class="form-label">Achievement</label>
-                        <input type="text" class="form-control" id="achivement">
-
-                    </div>
-
-                </div>
-
-                //Add the rest of the form fields here
-                <div class="mb-4">
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <button type="button" class="btn btn-secondary"
-                        id="cancelEducationBtn">Cancel</button>
-                </div>
-            </form> -->
+            {{-- Add New Form --}}
             <form id="educationForm" style="display: none;" method="POST" enctype="multipart/form-data"
                 action="{{ route('education.create') }}">
                 @csrf
@@ -685,5 +312,288 @@
 </div>
 
 
-        
+{{-- From Test file  --}}
+<!-- Edit Modal with Submit Button -->
+<div class="modal fade" id="educationEdit" tabindex="-1" aria-labelledby="educationEditLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{-- <form id="editForm" method="POST" action="{{ route('submit.test') }}">
+                    @csrf <!-- Assuming Laravel Blade -->
+                    <input type="hidden" name="id" id="editModalIdInput">
+                    <p> Education ID: <span id="editModalId"></span></p>
+                    <!-- Add any other form inputs needed for editing here -->
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form> --}}
 
+                <form action="{{ route('submit.test') }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                @method('POST')
+                <input type="hidden" name="id" id="editModalIdInput">
+                <div class="p-2 ">
+                    <h6 class="fw-bolder" id="editID">Add Academic Record {{ $edu->id }}
+                    </h6>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="levelOfEducation" class="form-label">Level of
+                            Education</label>
+                        <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
+                        <select name="education_level" {{-- data-control="select2"  --}}
+                            data-placeholder="Degree Level.."
+                            class="form-select border border-secondary"
+                            id="education_level1" required>
+                            <option value="{{ $edu->education_level }}" selected>
+                                {{ $edu->education_level }}</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="examTitle" class="form-label">Exam/Degree
+                            Title</label>
+                        <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
+                        <select name="education_title"
+                            aria-label="Select post office" data-control="select2"
+                            data-placeholder="Select your post office.."
+                            class="form-select border border-secondary"
+                            id="education_title1">
+                            <option value="{{ $edu->education_title }}">
+                                {{ $edu->education_title }}</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="concentration"
+                            class="form-label">Concentration/Major/Group</label>
+                        <input type="text" class="form-control"
+                            id="concentration1" name="major"
+                            value="{{ old('major', $edu->major) }}">
+                    </div>
+                    <div class="col-md-6" id="boardDiv1">
+                        <label for="board" class="form-label">Board</label>
+                        <select name="board" aria-label="Select a Country Codde"
+                            data-control="select2"
+                            data-placeholder="Select your Board.."
+                            class="form-select border border-secondary"
+                            id="board1">
+                            <option value="{{ $edu->board }}"
+                                selected="selected">{{ $edu->board }}</option>
+                            <option value="Dhaka">Dhaka</option>
+                            <option value="Rajshahi">Rajshahi</option>
+                            <option value="Dinajpur">Dinajpur</option>
+                            <option value="Cumilla">Cumilla</option>
+                            <option value="Chattogram">Chattogram</option>
+                            <option value="Jashore">Jashore</option>
+                            <option value="Barishal">Barishal</option>
+                            <option value="Sylhel">Sylhel</option>
+                            <option value="Madrasa">Madrasa</option>
+                            <option value="BTEB">BTEB</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="instituteName" class="form-label">Institute
+                            Name</label>
+                        <input type="text" class="form-control"
+                            id="instituteName1" name="education_institute"
+                            value="{{ old('education_institute', $edu->education_institute) }}">
+                        <div class="form-check mt-2">
+                            @if ($edu->foreigninstitute)
+                                <input class="form-check-input" type="checkbox"
+                                    id="foreignInstitute1" name="foreigninstitute"
+                                    checked>
+                                <label class="form-check-label"
+                                    for="foreignInstitute">This is a foreign
+                                    institute</label>
+                            @else
+                                <input class="form-check-input" type="checkbox"
+                                    id="foreignInstitute1" name="foreigninstitute"
+                                    checked>
+                                <label class="form-check-label"
+                                    for="foreignInstitute">This is a foreign
+                                    institute</label>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <h4 class="form-label">Educational Periood</h4>
+                    <div class="col-sm">
+                        <label for="education_start" class="form-label">Start
+                            Date</label>
+                        <input type="date" placeholder="Educational Start"
+                            name="education_start" autocomplete="off"
+                            id="edustart1" class="form-control bg-transparent"
+                            value="{{ old('education_start', $edu->education_start) }}" />
+                        <span id="error-edustart" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm edDiv" id="educationEnd1"
+                        style="display: block">
+                        <label for="education_end" class="form-label">End
+                            Date</label>
+                        <input type="date" placeholder="Educational End"
+                            id="edEnd1" name="education_end"
+                            autocomplete="off" class="form-control bg-transparent"
+                            value="{{ old('education_end', $edu->education_end) }}" />
+                    </div>
+                    <div class="form-group form-check ms-5 mt-5">
+                        @if ($edu->educationCK)
+                            <input type="checkbox" class="form-check-input"
+                                id="continueCheck1" name="educationCK" checked>
+                            <label class="form-check-label"
+                                for="exampleCheck1">Still Studying Here</label>
+                        @else
+                            <input type="checkbox" class="form-check-input"
+                                id="continueCheck1" name="educationCK">
+                            <label class="form-check-label"
+                                for="exampleCheck1">Still Studying Here</label>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="result" class="form-label">Result</label>
+                        <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
+                        <select class="form-select" id="resulttype1"
+                            name="resulttype">
+                            <option value="{{ $edu->resulttype }}">
+                                {{ $edu->resulttype }}</option>
+                            <option value="Grade">Grade</option>
+                            <option value="FirstDiv">First Division</option>
+                            <option value="Appeared">Appeared</option>
+                            <option value="Enrolled">Enrolled</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Awarded">Awarded</option>
+                            <option value="Do not mention">Do not mention</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="yearOFpassing" class="form-label">Year of
+                            Passing</label>
+                        <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
+                        <select class="form-select" id="yearOFpassing1"
+                            data-control="select2" name="year_of_passing">
+                            <option value="{{ $edu->year_of_passing }}" selected>
+                                {{ $edu->year_of_passing }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-sm">
+                        <div id="marksDiv1" style="display: none;">
+                            <label for="result" class="form-label">Marks
+                                %</label>
+                            <input type="text" class="form-control"
+                                id="marks1" name="marks"
+                                placeholder="Marks %"
+                                value="{{ old('marks', $edu->marks) }}">
+                        </div>
+                        <div id="cgpaDiv1">
+                            <label for="result" class="form-label">CGPA</label>
+                            <input type="text" class="form-control"
+                                id="cgpa1" name="cgpa" placeholder="CGPA">
+                        </div>
+                    </div>
+
+                    <div class="col-sm" id="resscale1" aria-disabled="true">
+                        <label for="scale" class="form-label">Scale</label>
+                        <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
+                        <select class="form-select" id="scale1"
+                            name="scale">
+                            <option value="{{ $edu->scale }}" selected>
+                                {{ $edu->scale }}</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="duration" class="form-label">Duration
+                            (Years)</label>
+                        <input type="text" class="form-control" id="duration1"
+                            name="duration"
+                            value="{{ old('dduration', $edu->duration) }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="achivement"
+                            class="form-label">Achievement</label>
+                        <input type="text" class="form-control"
+                            id="achivement1" name="achievement"
+                            value="{{ old('achievement', $edu->achievement) }}">
+                    </div>
+
+                </div>
+
+                <!-- Add the rest of the form fields here -->
+                <div class="mb-4">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+                {{-- </form> --}}
+            </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal with Submit Button -->
+<div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModelLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="deleteForm" method="POST" action="{{ route('education.delete') }}">
+                    @csrf <!-- Assuming Laravel Blade -->
+                    {{-- @method('DELETE') --}}
+                    <input type="hidden" name="id" id="deleteModalIdInput">
+                    <h3>Are you sure you want to delete this record? ID: <h3 id="deleteModalId"></h3></h3>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
+            button.addEventListener('click', function () {
+                const itemId = this.getAttribute('data-id');
+                const itemTitle = this.getAttribute('data-title');
+                const targetModalId = this.getAttribute('data-bs-target');
+                const isDeleteModal = targetModalId === '#deleteModel';
+    
+                if (isDeleteModal) {
+                    document.getElementById('deleteModalId').textContent = itemId;
+                    document.getElementById('deleteModalIdInput').value = itemId;
+                } else {
+                    document.getElementById('editModalTitle').textContent = itemTitle;
+                    document.getElementById('editID').textContent = itemId;
+                    document.getElementById('editModalIdInput').value = itemId;
+                }
+            });
+        });
+    });
+</script>

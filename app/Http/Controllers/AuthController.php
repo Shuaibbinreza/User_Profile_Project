@@ -383,9 +383,9 @@ class AuthController extends Controller
         dd($request->all());
     }
 
-    public function educationDelete(Request $request, $id){
-        $product = UserEducation::where('id', $id)->first();
-        dd($id);
+    public function educationDelete(Request $request){
+        $product = UserEducation::where('id', $request->id)->first();
+        // dd($request->id);
         $product->delete();
         return back()->with('danger','Deleted Successfully');
     }
