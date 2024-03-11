@@ -6,7 +6,7 @@
         </button>
     </h2>
     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-        data-bs-parent="#accordionExample">
+        data-bs-parent="#accordionFlushInfo">
         <div class="accordion-body">
             <div class="row justify-content-lg-between mb-5">
                 <div class="col-12">
