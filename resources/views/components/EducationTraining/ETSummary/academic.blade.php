@@ -368,7 +368,7 @@
                             <input type="text" class="form-control" id="majorSubject" name="major" placeholder="Enter Your Board"
                                 value="{{ old('major', $edu->major) }}">
                         </div>
-                        <div class="col-md-6" id="boardDiv1">
+                        <div class="col-md-6" id="boardDiv1" style="display: none;">
                             <label for="board" class="form-label">Board</label>
                             <select name="board" aria-label="Select a Country Codde" 
                                 data-placeholder="Select your Board.." class="form-select border border-secondary"
@@ -473,14 +473,14 @@
                                 <input type="text" class="form-control" id="marks1" name="marks"
                                     placeholder="Marks %" value="{{ old('marks', $edu->marks) }}">
                             </div>
-                            <div id="cgpaDiv1">
+                            <div id="cgpaDiv1" style="display: none;">
                                 <label for="result" class="form-label">CGPA</label>
                                 <input type="text" class="form-control" id="cgpa1" name="cgpa"
                                     placeholder="CGPA">
                             </div>
                         </div>
 
-                        <div class="col-sm" id="resscale1" aria-disabled="true">
+                        <div class="col-sm" id="resscale1" aria-disabled="true" style="display: none;">
                             <label for="scale" class="form-label">Scale</label>
                             <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
                             <select class="form-select" id="scale1" name="scale">
@@ -615,6 +615,39 @@
             }
             else{
                 document.getElementById('foreignInstitute1').checked = false;
+            }
+
+            var selectedValue = this.value; // Get the selected value from the dropdown
+            var marks = document.getElementById("marksDiv1"); // Get the div element
+            var cgpa = document.getElementById("cgpaDiv1"); // Get the div element
+            if(userData.resulttype === 'Grade'){
+                marks.style.display = 'none';
+                cgpa.style.display = 'block';
+                document.getElementById("resscale1").style.display = 'block';
+                // document.getElementById("boardDiv1").style.display = 'block';
+            }
+            else if(userData.resulttype === 'FirstDiv'){
+                marks.style.display = 'block';
+                cgpa.style.display = 'none';
+                document.getElementById("resscale1").style.display = 'none';
+                // document.getElementById("boardDiv1").style.display = 'none';
+            }
+            else{
+                marks.style.display = 'none';
+                cgpa.style.display = 'none';
+                document.getElementById("resscale1").style.display = 'none';
+            }
+
+            var board1 = document.getElementById("boardDiv1"); // Get the div element
+        
+            // Update the display style based on the selected value
+            if(selectedValue === 'PhD (Doctor of Philosophy)' ||
+                selectedValue === 'Masters' ||
+                selectedValue === 'Bacchelor/Honours'){
+                board1.style.display = 'none';
+            }
+            else{
+                board1.style.display = 'block';
             }
 
             console.log(userData.education_level);
