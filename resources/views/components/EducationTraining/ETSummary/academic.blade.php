@@ -328,9 +328,9 @@
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form> --}}
 
-                <form action="{{ route('submit.test') }}" method="POST" enctype="multipart/form-data" id="eduEdit">
+                <form action="{{ route('education.update') }}" method="POST" enctype="multipart/form-data" id="eduEdit">
                     @csrf
-                    @method('POST')
+                    @method('PUT')
                     <input type="hidden" name="id" id="editModalIdInput">
                     <div class="p-2 ">
                         <h6 class="fw-bolder" id="editID">
@@ -356,7 +356,7 @@
                                 data-control="select2"
                                 data-placeholder="Select Exam/Degree Title.."
                                 class="form-select border border-secondary" id="education_title1">
-                                <option value="" id="educationTitleDefault"> {{ $edu->education_title }} </option>
+                                <option value="" id="educationTitleDefault"></option>
                             </select>
                         </div>
 

@@ -47,6 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/education/{id}/delete', [AuthController::class, 'educationDelete'])->name('education.delete');
     Route::get('/profile-details', [AuthController::class,'profileDetails'])->name('profile.details');
     Route::post('/education-added', [AuthController::class,'education_create'])->name('education.create');
+    Route::put('/education-updated', [AuthController::class, 'education_update'])->name('education.update');
     Route::post('/education-deleted', [AuthController::class,'educationDelete'])->name('education.delete');
 
     // Route::name('user-management.')->group(function () {

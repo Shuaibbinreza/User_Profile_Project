@@ -337,6 +337,55 @@ class AuthController extends Controller
         dd($request->all());
     }
 
+    public function education_update(Request $request)
+    {
+        $this->validate($request, [
+            'education_title' => 'required',
+            'education_institute' => 'required',
+            'education_start' => 'required',
+        ]);
+
+        $id = $request->id;
+        // $pi = PersonalDetails::where('id', $id)->first();
+        $education = UserEducation::where('id', $id)->first();
+        $education->user_id = \Auth::user()->id;
+        $education->education_level = $request->education_level;
+        $education->education_title = $request->education_title;
+        $education->education_institute = $request->education_institute;
+        // $education->foreign_institute = $request->foreigninstitute;
+        $education->education_start = $request->education_start;
+        $education->education_end = $request->education_end;
+        $education->year_of_passing = $request->year_of_passing;
+        $education->resulttype = $request->resulttype;
+        $education->cgpa = $request->cgpa;
+        $education->marks = $request->marks;
+        $education->major = $request->major;
+        $education->board = $request->board;
+        // $education->scale = $request->scale;
+        $education->duration = $request->duration;
+        $education->achievement = $request->achievement;
+
+        if ($request->educationCK == 'on') {
+            $education->continue = "Continue";
+            // return view("home")->with("data",$request);
+        }
+
+        if ($request->resulttype == 'First Division') {
+            $education->scale = 100;
+            // return view("home")->with("data",$request);
+        }
+
+        if ($request->foreigninstitute == 'on') {
+            $education->foreign_institute = true;
+            // return view("home")->with("data",$request);
+        }
+        // else{
+        //     dd($request->all());
+        // }
+        $education->save();
+        dd($request->all());
+    }
+
     public function education_create(Request $request)
     {
         $this->validate($request, [
