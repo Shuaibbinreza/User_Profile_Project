@@ -142,7 +142,7 @@ window.onload = function() {
 
     document.getElementById("education_level1").addEventListener("change", function() {
         var selectedValue = this.value; // Get the selected value from the dropdown
-        var marks1 = document.getElementById("boardDiv"); // Get the div element
+        var marks1 = document.getElementById("boardDiv1"); // Get the div element
         
         // Update the display style based on the selected value
         if(selectedValue === 'PhD (Doctor of Philosophy)' ||

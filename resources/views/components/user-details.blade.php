@@ -1,5 +1,4 @@
 <x-default-layout>
-
     <header class="container-body">
         <ul class="nav nav-pills my-3 justify-content-between col-auto bg-light mx-auto" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">

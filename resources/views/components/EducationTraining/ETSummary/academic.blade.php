@@ -20,10 +20,9 @@
                 {{-- <h1>start</h1> --}}
                 <div class="mb-5">
                     <div class="row justify-content-lg-between">
-
                         <div class="col-4">
                             <div>
-                                <h6>Academic {{ $loop->index + 1 }}</h6>
+                                <h3>Academic {{ $loop->index + 1 }}</h3>
                                 <br>
                             </div>
                             <div>
@@ -67,8 +66,10 @@
                             <div>
                                 <h6>Exam/Degree Title</h6>
                                 <p>{{ $edu->education_title }}</p>
-                                <br>
-                                <br>
+                            </div>
+                            <div>
+                                <h6>Board</h6>
+                                <p>{{ $edu->board }}</p>
                             </div>
                             <div>
                                 <h6></h6>
@@ -108,13 +109,14 @@
                                         class="fw-bolder">Edit</span>
                                 </button> --}}
 
-                                <button type="button" class="border-0 bg-white text-primary" data-bs-toggle="modal"
+                                <button type="button" class="border-0 bg-white text-primary add-user-btn" data-bs-toggle="modal"
                                     data-id="{{ $edu->id }}" data-title="{{ $edu->education_title }}"
+                                    data-user="{{ json_encode($edu) }}"
                                     data-bs-target="#educationEdit">
                                     <i class="fa-solid fa-pen-to-square" style="color: #376ac3;"></i> <span
                                         class="fw-bolder">Edit</span>
                                 </button>
-
+                                {{-- <button class="add-user-btn" data-user="{{ json_encode($edu) }}">Add to Array</button> --}}
                                 {{-- Edit Modal --}}
 
                                 <!-- Button trigger modal -->
@@ -326,12 +328,12 @@
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form> --}}
 
-                <form action="{{ route('submit.test') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('submit.test') }}" method="POST" enctype="multipart/form-data" id="eduEdit">
                     @csrf
                     @method('POST')
                     <input type="hidden" name="id" id="editModalIdInput">
                     <div class="p-2 ">
-                        <h6 class="fw-bolder" id="editID">Add Academic Record {{ $edu->id }}
+                        <h6 class="fw-bolder" id="editID">
                         </h6>
                     </div>
                     <div class="row mb-3">
@@ -341,7 +343,7 @@
                             <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
                             <select name="education_level" {{-- data-control="select2"  --}} data-placeholder="Degree Level.."
                                 class="form-select border border-secondary" id="education_level1" required>
-                                <option value="{{ $edu->education_level }}" selected>
+                                <option value="{{ $edu->education_level }}" id="educationLevelDefault" selected>
                                     {{ $edu->education_level }}</option>
                             </select>
 
@@ -349,12 +351,12 @@
                         <div class="col-md-6">
                             <label for="examTitle" class="form-label">Exam/Degree
                                 Title</label>
-                            <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
-                            <select name="education_title" aria-label="Select post office" data-control="select2"
-                                data-placeholder="Select your post office.."
+                            
+                            <select name="education_title" aria-label="Select post office" 
+                                data-control="select2"
+                                data-placeholder="Select Exam/Degree Title.."
                                 class="form-select border border-secondary" id="education_title1">
-                                <option value="{{ $edu->education_title }}">
-                                    {{ $edu->education_title }}</option>
+                                <option value="" id="educationTitleDefault"> {{ $edu->education_title }} </option>
                             </select>
                         </div>
 
@@ -363,15 +365,15 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="concentration" class="form-label">Concentration/Major/Group</label>
-                            <input type="text" class="form-control" id="concentration1" name="major"
+                            <input type="text" class="form-control" id="majorSubject" name="major" placeholder="Enter Your Board"
                                 value="{{ old('major', $edu->major) }}">
                         </div>
                         <div class="col-md-6" id="boardDiv1">
                             <label for="board" class="form-label">Board</label>
-                            <select name="board" aria-label="Select a Country Codde" data-control="select2"
+                            <select name="board" aria-label="Select a Country Codde" 
                                 data-placeholder="Select your Board.." class="form-select border border-secondary"
                                 id="board1">
-                                <option value="{{ $edu->board }}" selected="selected">{{ $edu->board }}</option>
+                                <option value="{{ $edu->board }}" id="boadDefault" selected="selected">{{ $edu->board }}</option>
                                 <option value="Dhaka">Dhaka</option>
                                 <option value="Rajshahi">Rajshahi</option>
                                 <option value="Dinajpur">Dinajpur</option>
@@ -388,20 +390,19 @@
 
                     <div class="row mb-3">
                         <div class="col-md-12">
-                            <label for="instituteName" class="form-label">Institute
-                                Name</label>
-                            <input type="text" class="form-control" id="instituteName1"
+                            <label for="instituteName" class="form-label">Institute Name</label>
+                            <input type="text" class="form-control" id="instituteNameDef"
                                 name="education_institute"
                                 value="{{ old('education_institute', $edu->education_institute) }}">
                             <div class="form-check mt-2">
                                 @if ($edu->foreigninstitute)
                                     <input class="form-check-input" type="checkbox" id="foreignInstitute1"
-                                        name="foreigninstitute" checked>
+                                        name="foreigninstitute" checked >
                                     <label class="form-check-label" for="foreignInstitute">This is a foreign
                                         institute</label>
                                 @else
                                     <input class="form-check-input" type="checkbox" id="foreignInstitute1"
-                                        name="foreigninstitute" checked>
+                                        name="foreigninstitute" >
                                     <label class="form-check-label" for="foreignInstitute">This is a foreign
                                         institute</label>
                                 @endif
@@ -412,8 +413,7 @@
                     <div class="row mb-3">
                         <h4 class="form-label">Educational Periood</h4>
                         <div class="col-sm">
-                            <label for="education_start" class="form-label">Start
-                                Date</label>
+                            <label for="education_start" class="form-label">Start Date</label>
                             <input type="date" placeholder="Educational Start" name="education_start"
                                 autocomplete="off" id="edustart1" class="form-control bg-transparent"
                                 value="{{ old('education_start', $edu->education_start) }}" />
@@ -444,7 +444,7 @@
                             <label for="result" class="form-label">Result</label>
                             <!-- <input type="text" class="form-control" id="levelOfEducation" value="Secondary" disabled> -->
                             <select class="form-select" id="resulttype1" name="resulttype">
-                                <option value="{{ $edu->resulttype }}">
+                                <option value="{{ $edu->resulttype }}" id="rtDef">
                                     {{ $edu->resulttype }}</option>
                                 <option value="Grade">Grade</option>
                                 <option value="FirstDiv">First Division</option>
@@ -456,8 +456,7 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="yearOFpassing" class="form-label">Year of
-                                Passing</label>
+                            <label for="yearOFpassing" class="form-label">Year of Passing</label>
                             <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
                             <select class="form-select" id="yearOFpassing1" data-control="select2"
                                 name="year_of_passing">
@@ -470,8 +469,7 @@
                     <div class="row mb-3">
                         <div class="col-sm">
                             <div id="marksDiv1" style="display: none;">
-                                <label for="result" class="form-label">Marks
-                                    %</label>
+                                <label for="result" class="form-label">Marks %</label>
                                 <input type="text" class="form-control" id="marks1" name="marks"
                                     placeholder="Marks %" value="{{ old('marks', $edu->marks) }}">
                             </div>
@@ -486,8 +484,7 @@
                             <label for="scale" class="form-label">Scale</label>
                             <!-- <input type="text" class="form-control" id="examTitle" value="SSC" disabled> -->
                             <select class="form-select" id="scale1" name="scale">
-                                <option value="{{ $edu->scale }}" selected>
-                                    {{ $edu->scale }}</option>
+                                <option value="{{ $edu->scale }}" id="scaleDef" selected> {{ $edu->scale }} </option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                                 <option value="10">10</option>
@@ -507,7 +504,8 @@
                             <input type="text" class="form-control" id="achivement1" name="achievement"
                                 value="{{ old('achievement', $edu->achievement) }}">
                         </div>
-
+                        {{-- <h1 id="userEmail"> hello world: </h1> --}}
+                        {{-- <input type="text" id="inputTest"> --}}
                     </div>
 
                     <!-- Add the rest of the form fields here -->
@@ -566,4 +564,68 @@
             });
         });
     });
+
+    // Getting the user data 
+    document.querySelectorAll('.add-user-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var userData = JSON.parse(button.getAttribute('data-user'));
+            // selectedUsers.push(userData);
+            document.getElementById('educationLevelDefault').value = userData.education_level;
+            document.getElementById('educationLevelDefault').innerText = "Your Current Value" + userData.education_level;
+
+            document.getElementById('educationTitleDefault').value = userData.education_title;
+            document.getElementById('educationTitleDefault').innerText = "Your Current Value" + userData.education_title;
+
+            document.getElementById('majorSubject').value = userData.major;
+            document.getElementById('majorSubject').innerText = userData.major;
+
+            document.getElementById('boadDefault').value = userData.board;
+            document.getElementById('boadDefault').innerText = userData.board;
+
+            document.getElementById('rtDef').value = userData.resulttype;
+            document.getElementById('rtDef').innerText = userData.resulttype;
+
+            document.getElementById('scaleDef').value = userData.scale;
+            document.getElementById('scaleDef').innerText = userData.scale;
+
+            document.getElementById('edustart1').value = userData.education_start;
+            document.getElementById('yearOFpassing1').value = userData.year_of_passing;
+            document.getElementById('marks1').value = userData.marks;
+            document.getElementById('cgpa1').value = userData.cgpa;
+            document.getElementById('duration1').value = userData.duration;
+            document.getElementById('achivement1').value = userData.achievement;
+
+
+            document.getElementById('editModalIdInput').value = userData.id;
+
+            document.getElementById('instituteNameDef').value = userData.education_institute;
+
+            // Education Continue Check 
+            if(userData.continue === 'Continue'){
+                document.getElementById('continueCheck1').checked = true;
+                document.getElementById('edEnd1').value = "";
+            }
+            else{
+                document.getElementById('edEnd1').value = userData.education_end;
+            }
+
+            // Foreign Institute checked 
+            if(userData.foreign_institute){
+                document.getElementById('foreignInstitute1').checked = true;
+            }
+            else{
+                document.getElementById('foreignInstitute1').checked = false;
+            }
+
+            console.log(userData.education_level);
+        });
+    });
+
+    var myModal = document.getElementById('educationEdit');
+    myModal.addEventListener('hidden.bs.modal', function () {
+        document.getElementById('eduEdit').reset();
+    });
 </script>
+
+
+
