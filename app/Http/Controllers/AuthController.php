@@ -110,15 +110,8 @@ class AuthController extends Controller
     public function profileEdit(Request $request)
     {
         // return view('pages.dashboards.profileEdit');
-        // $items = UserDobs::all();
-        // return view('items');
-        $query = $request->input('search');
-
-        $entities = UserDobs::when($query, function ($q) use ($query) {
-            return $q->where('user_birthday', 'like', '%' . $query . '%');
-        })->get();
-
-        $items = $entities;
+        $items = UserDobs::all();
+        
         return view('list-test', compact('items'));
     }
 
@@ -126,7 +119,7 @@ class AuthController extends Controller
     {
         $query = $request->input('search');
 
-        $entities = UserDobs::where('day', 'like', '%' . $query . '%')->get();
+        $entities = UserDobs::where('year', 'like', '%' . $query . '%')->get();
 
         return response()->json($entities);
     }
