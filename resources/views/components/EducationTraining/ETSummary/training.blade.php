@@ -28,26 +28,23 @@
                                 <div class="col-md-12">
                                     <div class="row mb-3">
                                         <div class="col-md-6 mb-3">
-                                            <label for="trainingTitle" class="form-label">Training
-                                                Title</label>
-                                            <input type="text" class="form-control" id="trainingTitle">
+                                            <label for="trainingTitle" class="form-label required"> Training Title </label>
+                                            <input type="text" class="form-control" id="trainingTitle" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="country" class="form-label">Country</label>
-                                            <input type="text" class="form-control" id="country">
+                                            <label for="country" class="form-label required"> Country </label>
+                                            <input type="text" class="form-control" id="country" required>
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <div class="col-md-6 mb-3">
-                                            <label for="topicsCovered" class="form-label">Topics
-                                                Covered</label>
+                                            <label for="topicsCovered" class="form-label">Topics Covered</label>
                                             <input type="text" class="form-control" id="topicsCovered">
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="trainingYear" class="form-label">Training
-                                                Year</label>
-                                            <select class="form-select" id="trainingYear">
+                                            <label for="trainingYear" class="form-label required">Training Year</label>
+                                            <select class="form-select" id="trainingYear" required>
                                                 <option selected>Select</option>
                                                 <!-- Add options for years -->
                                             </select>
@@ -56,12 +53,12 @@
 
                                     <div class="row mb-3">
                                         <div class="col-md-6 mb-3">
-                                            <label for="institute" class="form-label">Institute</label>
-                                            <input type="text" class="form-control" id="institute">
+                                            <label for="institute" class="form-label required">Institute</label>
+                                            <input type="text" class="form-control " id="institute" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="duration" class="form-label">Duration</label>
-                                            <input type="text" class="form-control" id="duration">
+                                            <label for="duration" class="form-label required"> Duration </label>
+                                            <input type="text" class="form-control " id="duration" required>
                                         </div>
                                     </div>
 
