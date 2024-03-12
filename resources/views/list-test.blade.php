@@ -6372,15 +6372,59 @@
     </div>
     
     <h1>Entities</h1>
-    
+    <!-- entities.blade.php -->
 
     <input type="text" id="searchInput" placeholder="Search entities...">
-    <ul id="entitiesList">
+    <div id="entitiesList" class="bg-primary">
         @foreach ($items as $entity)
-            <li>{{ $entity->user_birthday }} - {{ $entity->year }}</li>
+            {{-- <div class="entity">
+                <h3>{{ $entity->user_birthday }}</h3>
+                <p>{{ $entity->year }}</p>
+            </div> --}}
+            <h1> {{ $entity->user_birthday }} </h1> 
         @endforeach
-    </ul>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function updateEntities(query = '') {
+                $.ajax({
+                    url: "{{ route('search.entities') }}",
+                    type: "GET",
+                    data: {'search': query},
+                    success:function(data){
+                        var entitiesList = $('#entitiesList');
+                        entitiesList.empty();
+
+                        if (data.length === 0) {
+                            entitiesList.append('<div id="noResults">No results found.</div>');
+                        } else {
+                            $.each(data, function(index, entity) {
+                                entitiesList.append(
+                                    '<div class="entity"><h3>' + entity.user_birthday + '</h3><p>' + entity.year + '</p></div>'
+                                );
+                            });
+                        }
+                    }
+                });
+            }
+
+            $('#searchInput').on('keyup', function() {
+                var query = $(this).val();
+                updateEntities(query);
+            });
+
+            // Load entities on initial page load
+            updateEntities();
+        });
+    </script>
+
+
+    
+
+
+    {{-- Table Search  --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
