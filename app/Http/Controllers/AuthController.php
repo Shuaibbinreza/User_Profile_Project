@@ -107,12 +107,28 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function profileEdit()
+    public function profileEdit(Request $request)
     {
         // return view('pages.dashboards.profileEdit');
-        $items = UserDobs::all();
+        // $items = UserDobs::all();
         // return view('items');
+        $query = $request->input('search');
+
+        $entities = UserDobs::when($query, function ($q) use ($query) {
+            return $q->where('user_birthday', 'like', '%' . $query . '%');
+        })->get();
+
+        $items = $entities;
         return view('list-test', compact('items'));
+    }
+
+    public function searchEntities(Request $request)
+    {
+        $query = $request->input('search');
+
+        $entities = UserDobs::where('day', 'like', '%' . $query . '%')->get();
+
+        return response()->json($entities);
     }
 
     public function profileDetails()
@@ -201,9 +217,9 @@ class AuthController extends Controller
             'year' => 'required',
         ]);
 
-        $day = $request->input('day');
-        $month = $request->input('month');
-        $year = $request->input('year');
+        $day = $request->day;
+        $month = $request->month;
+        $year = $request->year;
         // Construct a date string in the format "Y-m-d"
         $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
         // Convert the string into a DateTime object
