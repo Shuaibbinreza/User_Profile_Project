@@ -109,7 +109,10 @@ class AuthController extends Controller
 
     public function profileEdit()
     {
-        return view('pages.dashboards.profileEdit');
+        // return view('pages.dashboards.profileEdit');
+        $items = UserDobs::all();
+        // return view('items');
+        return view('list-test', compact('items'));
     }
 
     public function profileDetails()
