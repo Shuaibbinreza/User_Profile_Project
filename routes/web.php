@@ -30,6 +30,8 @@ Route::get('sendmail', [MailController ::class,'index'])->name('sendmail');
 Route::get('forgot-controller', [PasswordResetLinkController::class,'create'])->name('forgot-password');
 Route::get('profile-details', [AuthController::class,'profileDetails'])->name('profile-details');
 Route::get('profile-edit', [AuthController::class,'profileEdit'])->name('profile-edit');
+Route::get('/search-entities', [AuthController::class, 'searchEntities'])->name('search.entities');
+
 
 // Route::post('/submit-form1', [AuthController::class, 'formSubmit1'])->name('submit-form1');
 

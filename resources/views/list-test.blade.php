@@ -6345,6 +6345,7 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <h1 id="noResultsMessage" style="display: none;"> No matching entities found. </h1>
                                                     <!--end::Table-->
                                                 </div>
                                                 <!--end::Table container-->
@@ -6370,19 +6371,75 @@
         <!--end::Page-->
     </div>
     
-    {{-- @for ($i = 0; $i < 5; $i++)
-        @for ($j = 0; $j < 2; $j++)    
-            <div class="row">
-                <div class="col-sm">
-                    <h1>hello</h1>
-                </div>
-                <div class="col-sm">
-                    <h1>hello</h1>
-                </div>
-            </div>       
-        @endfor
-        <h1>break</h1>
-    @endfor --}}
+    <h1>Entities</h1>
+    
+
+    <input type="text" id="searchInput" placeholder="Search entities...">
+    <ul id="entitiesList">
+        @foreach ($items as $entity)
+            <li>{{ $entity->user_birthday }} - {{ $entity->year }}</li>
+        @endforeach
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#kt_filter_search').on('keyup', function() {
+                var query = $(this).val().toLowerCase().split(' ');
+                var noResultsMessage = $('#noResultsMessage');
+
+                $('#kt_project_users_table tr:gt(0)').each(function() {
+                    var entityName = $(this).find('td:first').text().toLowerCase();
+                    var match = true;
+
+                    query.forEach(function(word) {
+                        if (!entityName.includes(word)) {
+                            match = false;
+                        }
+                    });
+
+                    if (match) {
+                        $(this).show();
+                        noResultsMessage.hide();
+                    } else {
+                        $(this).hide();
+                        noResultsMessage.show();
+                    }
+                });
+            });
+        });
+    </script>       
+
+    {{-- Realtime without full list  --}}
+    <!-- entities.blade.php -->
+
+    {{-- <input type="text" id="searchInput" placeholder="Search entities...">
+    <ul id="entitiesList"></ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#searchInput').on('keyup', function() {
+            var query = $(this).val();
+
+            $.ajax({
+                url: "{{ route('search.entities') }}",
+                type: "GET",
+                data: {'search': query},
+                success:function(data){
+                    var entitiesList = $('#entitiesList');
+                    entitiesList.empty();
+
+                    $.each(data, function(index, entity) {
+                        entitiesList.append('<li>' + entity.name + ' - ' + entity.description + '</li>');
+                    });
+                }
+            });
+        });
+    });
+    </script> --}}
+
+    
 
     {{-- <div class="container">
         <div class="row">
