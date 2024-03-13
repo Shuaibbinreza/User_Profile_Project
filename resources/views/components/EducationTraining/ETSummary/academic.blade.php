@@ -532,7 +532,7 @@
             <div class="modal-body">
                 <form id="deleteForm" method="POST" action="{{ route('education.delete') }}">
                     @csrf <!-- Assuming Laravel Blade -->
-                    {{-- @method('DELETE') --}}
+                    @method('DELETE')
                     <input type="hidden" name="id" id="deleteModalIdInput">
                     <h3>Are you sure you want to delete this record? ID: <h3 id="deleteModalId"></h3>
                     </h3>

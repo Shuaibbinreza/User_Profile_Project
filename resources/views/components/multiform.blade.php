@@ -16,7 +16,7 @@
 	<script src= 
         'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'> 
 	</script> 
-    {{-- <link rel="stylesheet" href="{{ asset('CSS/style.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
 
 </head> 
 
@@ -228,11 +228,11 @@
                         <div class="col-sm">
                             <h4 for="field1" class="form-label">Do you have any experience?</h4><br><br>
                             <input class="form-check-input" onclick="showInputField()" 
-                                type="radio" name="exp" id="expradio1" checked>
+                                type="radio" name="exp" value="yes" id="expradio1" checked>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Yes
                             </label>
-                            <input class="form-check-input" onclick="hideInputField()" 
+                            <input class="form-check-input" onclick="hideInputField()" value="no"
                                 type="radio" name="exp" id="expradio2" >
                             <label class="form-check-label" for="flexRadioDefault2">
                                 No
@@ -306,12 +306,12 @@
                             <label for="field1" class="form-label">Do you have any Academic Education?</label><br><br>
                             <input class="form-check-input" 
                                 onclick="showInputFieldEdu()" 
-                                type="radio" name="edu" id="yesEdu" checked>
+                                type="radio" name="edu" id="yesEdu" value="yes" checked>
                             <label class="form-check-label" for="flexRadioDefaultEdu1">
                                 Yes
                             </label>
     
-                            <input class="form-check-input" onclick="hideInputFieldEdu()" type="radio" name="edu" id="noEdu" >
+                            <input class="form-check-input" onclick="hideInputFieldEdu()" type="radio" value="no" name="edu" id="noEdu" >
                             <label class="form-check-label" for="flexRadioDefaultEdu2">
                                 No
                             </label>
