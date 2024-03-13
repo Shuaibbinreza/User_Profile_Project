@@ -96,13 +96,18 @@ class AuthController extends Controller
             ->select(
                 'users.id',
                 'users.name',
+                'users.email',
                 'pi.profile_image as profile_image_path',
                 DB::raw("(SELECT GROUP_CONCAT(user_w_t_s.title SEPARATOR ', ' ) FROM user_w_t_s WHERE user_w_t_s.user_id = users.id) AS skills"),
                 DB::raw('(SELECT education_title FROM user_education WHERE user_id = users.id order by year_of_passing DESC LIMIT 1) AS education'),
+                DB::raw('(SELECT CONCAT_WS(" at ", designation, company_name) FROM user_experiences WHERE user_id = users.id order by job_start DESC LIMIT 1) AS experience'),
+                // DB::raw('(SELECT designation FROM user_experiences WHERE user_id = users.id order by job_start DESC LIMIT 1) AS designation'),
             )->get();
-            dd($user_details);
-        
-        return view('list-test');
+            
+        // dd($user_details);
+        $items = UserDobs::all();
+        $count = $user_details->count();
+        return view('list-test', compact('user_details', 'items', 'count'));
     }
 
     public function searchEntities(Request $request)
