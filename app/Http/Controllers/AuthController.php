@@ -29,23 +29,6 @@ class AuthController extends Controller
         return view("pages.auth.login")->with($data);
     }
 
-    public function login(Request $request, $name = null)
-    {
-        global $abc;
-        // dd($request->all());
-        $this->validate($request, [
-            "email" => "required",
-            "password" => "required",
-        ]);
-
-        if (\Auth::attempt($request->only('email', 'password'))) {
-            return redirect('dashboard');
-        }
-
-        return redirect('login-failed')->withError('Login details are not valid');
-        // return redirect('/'.$abc)->withError('Login details are not valid');
-    }
-
     public function register_view($name = null)
     {
         $data = compact('name');
@@ -109,10 +92,17 @@ class AuthController extends Controller
 
     public function profileEdit(Request $request)
     {
-        // return view('pages.dashboards.profileEdit');
-        $items = UserDobs::all();
+        $user_details = User::join('profile_imgs as pi', 'pi.user_id', '=', 'users.id')
+            ->select(
+                'users.id',
+                'users.name',
+                'pi.profile_image as profile_image_path',
+                DB::raw("(SELECT GROUP_CONCAT(user_w_t_s.title SEPARATOR ', ' ) FROM user_w_t_s WHERE user_w_t_s.user_id = users.id) AS skills"),
+                DB::raw('(SELECT education_title FROM user_education WHERE user_id = users.id order by year_of_passing DESC LIMIT 1) AS education'),
+            )->get();
+            dd($user_details);
         
-        return view('list-test', compact('items'));
+        return view('list-test');
     }
 
     public function searchEntities(Request $request)
@@ -143,6 +133,7 @@ class AuthController extends Controller
     public function formSubmit(Request $request)
     {
 
+        // dd($request->all());
         $this->validate($request, [
             'district' => 'required',
             'thana' => 'required',
