@@ -66,18 +66,19 @@
                                 <span class="menu-title">Layouts</span>
                                 <span class="menu-arrow d-lg-none"></span>
                             </span>
-                            <div class="app-navbar flex-shrink-0 float-end">
-                                @if (\Auth::user())
-                                    @include(config('settings.KT_THEME_LAYOUT_DIR').'/partials/sidebar-layout/header/_navbar')
-                                @else
-                                    <div class="symbol-label fs-3 {{ app(\App\Actions\GetThemeType::class)->handle('bg-light-? text-?', 'Login') }}">
-                                        Login
-                                    </div>
-                                @endif
-                            </div>
                         </div>
                     </div>
                     <!--end::Menu-->
+                </div>
+                <div class="cursor-pointer symbol symbol-35px mt-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                    @if (\Auth::user())
+                        @include(config('settings.KT_THEME_LAYOUT_DIR').'/partials/sidebar-layout/header/_navbar')
+                    @else
+                        <div class="symbol-label fs-3 {{ app(\App\Actions\GetThemeType::class)->handle('bg-light-? text-?', 'Login') }}">
+                            Login
+                        </div>
+                        {{-- <img src="https://banner2.cleanpng.com/20180426/lwq/kisspng-computer-icons-login-management-user-5ae155f3386149.6695613615247170432309.jpg" class="rounded-3" alt="user" /> --}}
+                    @endif
                 </div>
                 <!--end::Menu wrapper-->
                 <!--begin::Navbar-->
